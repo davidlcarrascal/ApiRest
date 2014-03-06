@@ -15,15 +15,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
-	<servlet>
-		<servlet-name>Jenny</servlet-name>
-		<servlet-class>sos.us.es.Jenny</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Jenny</servlet-name>
-		<url-pattern>/jn/*</url-pattern>
-	</servlet-mapping>
 	<servlet>
 		<servlet-name>David</servlet-name>
 		<servlet-class>sos.us.es.David</servlet-class>
@@ -32,6 +23,21 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>David</servlet-name>
 		<url-pattern>/dv/*</url-pattern>
 	</servlet-mapping>
-				
+	<servlet>
+		<servlet-name>Jenny</servlet-name>
+		<servlet-class>sos.us.es.Jenny</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jenny</servlet-name>
+		<url-pattern>/jn/*</url-pattern>
+	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Rocio</servlet-name>
+		<servlet-class>sos.us.es.RocioServelt</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Rocio</servlet-name>
+		<url-pattern>/rc/*</url-pattern>
+	</servlet-mapping>
 </web-app>
