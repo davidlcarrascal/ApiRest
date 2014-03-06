@@ -15,4 +15,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	<servlet>
+		<servlet-name>David</servlet-name>
+		<servlet-class>sos.us.es.David</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>David</servlet-name>
+		<url-pattern>/dv/*</url-pattern>
+	</servlet-mapping>
 </web-app>
