@@ -1,7 +1,27 @@
 body {
 	background:url("http://s3.imatv.es.s3-website-eu-west-1.amazonaws.com/pictures/8271/8271/bpe-canal-universitario-2-665.jpg") no-repeat center top;
+
 }
 
 div{
-	align=center;
+	align:center;
+}
+h1{
+	margin-left:1%;
+}
+h2{
+	margin-left:5%;
+}
+h3{
+	margin-left:10%;
+}
+a{
+	margin-left:10%;
+}
+
+
+img{
+	margin-left:25%;
+	width:700px ;
+	height: 500px;
 }
