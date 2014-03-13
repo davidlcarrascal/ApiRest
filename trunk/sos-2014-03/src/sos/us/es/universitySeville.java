@@ -3,24 +3,18 @@ package sos.us.es;
 public class universitySeville {
 	Integer year;
 	Integer enrolled;
-	Integer budget;
 	
-	public universitySeville(Integer year, Integer enrolled, Integer budget) {
+	
+	public universitySeville(Integer year, Integer enrolled) {
 		super();
 		this.year = year;
 		this.enrolled = enrolled;
-		this.budget = budget;
+
 	}
 	public universitySeville(){
 		super();
 	}
-	public Integer getBudget() {
-		return budget;
-	}
 
-	public void setBudget(Integer budget) {
-		this.budget = budget;
-	}
 
 	public Integer getEnrolled() {
 		return enrolled;
