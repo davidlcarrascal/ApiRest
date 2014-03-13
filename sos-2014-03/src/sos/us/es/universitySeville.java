@@ -1,16 +1,24 @@
 package sos.us.es;
 
 public class universitySeville {
-	Integer years;
-	
+	Integer year;
 	Integer enrolled;
-	double budget;
+	Integer budget;
 	
-	public double getBudget() {
+	public universitySeville(Integer year, Integer enrolled, Integer budget) {
+		super();
+		this.year = year;
+		this.enrolled = enrolled;
+		this.budget = budget;
+	}
+	public universitySeville(){
+		super();
+	}
+	public Integer getBudget() {
 		return budget;
 	}
 
-	public void setBudget(double budget) {
+	public void setBudget(Integer budget) {
 		this.budget = budget;
 	}
 
@@ -22,12 +30,12 @@ public class universitySeville {
 		this.enrolled = enrolled;
 	}
 
-	public Integer getYears() {
-		return years;
+	public Integer getYear() {
+		return year;
 	}
 
-	public void setYears(Integer years) {
-		this.years = years;
+	public void setYears(Integer year) {
+		this.year = year;
 	}
 	
 }
