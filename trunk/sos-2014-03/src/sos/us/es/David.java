@@ -12,11 +12,11 @@ public class David extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String json;
 
-		// Crear datos de prueba- Crear lista de 2 anios
+		// Crear datos de prueba- Crear lista de 2 años
 		Gson gson = new Gson();
 		
-		SpainStd stad1 = new SpainStd("PresupuestoEduc",20000000);
-		SpainStd stad2 = new SpainStd("Poblacion",3000000);
+		SpainStd stad1 = new SpainStd(1999,20000000);
+		SpainStd stad2 = new SpainStd(2000,3000000);
 		
 		List<SpainStd> l =new ArrayList<SpainStd>();
 		l.add(stad1);
