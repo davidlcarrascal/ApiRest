@@ -2,13 +2,13 @@ package sos.us.es;
 
 public class Seville {
 
-	Integer population;
 	Integer year;
+	Integer population;
 	
-	public Seville(Integer population, Integer year) {
+	public Seville(Integer year, Integer population) {
 		super();
-		this.population = population;
 		this.year = year;
+		this.population = population;
 	}
 	public Integer getPopulation() {
 		return population;
@@ -22,7 +22,5 @@ public class Seville {
 	public void setYear(Integer year) {
 		this.year = year;
 	}
-	
-	
 	
 }

@@ -16,8 +16,8 @@ public class Jenny extends HttpServlet {
 		
 		//Crear datos de prueba : Crear lista de 2 poblaciones
 		
-		Seville s1 = new Seville(20000000, 2008);
-		Seville s2 = new Seville(5000000, 2010);
+		Seville s1 = new Seville(2008, 20000000);
+		Seville s2 = new Seville(2010, 5000000);
 		
 		List<Seville> sev = new LinkedList<Seville>();
 		
