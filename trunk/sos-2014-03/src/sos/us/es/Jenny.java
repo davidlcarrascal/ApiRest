@@ -10,39 +10,56 @@ import com.google.gson.Gson;
 @SuppressWarnings("serial")
 public class Jenny extends HttpServlet {
 	
+	public static List<Seville> sev = new LinkedList<Seville>();
+	public static Gson gson = new Gson();
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) 
+			throws IOException {
 		
-		List<Seville> sev = new LinkedList<>();
 		String json;
-		Gson gson = new Gson();
+		//Gson json = new Gson();
 		
 		//Crear datos de prueba : Crear lista de 2 poblaciones
-		public void init(){
-			Seville s1 = new Seville(2008, 20000000);
-			Seville s2 = new Seville(2010, 5000000);
 		
-		//List<Seville> sev = new LinkedList<Seville>();
-			sev.add(s1);
-			sev.add(s2);
-		}
+		Seville s1 = new Seville(2008, 20000000);
+		Seville s2 = new Seville(2010, 5000000);
+		
+		sev.add(s1);
+		sev.add(s2);
+		
 		//Serializar
-		//json = gson.toJson(sev);
+		json = gson.toJson(sev);
 		
-		public void doGet(HttpServletRequest req, HttpServletResponse resp) 
-				throws IOException {
-			String json = gson.toJson(sev);
-			
 		//responder
-			resp.setContentType("text/json");
-			resp.getWriter().println(json);
+		resp.setContentType("text/json");
+		resp.getWriter().println(json);
 	}
-		
+	
+	//Método doPut
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
 		
 		resp.setContentType("text/json");
-		resp.getWriter().println(json);
+		resp.getWriter().println(gson);
 		
-		sev.clear();
 		//String json = gson.toJson(sev);
 	}
+	
+	//Método doPost
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) 
+			throws IOException {
+		
+		resp.setContentType("text/json");
+		resp.getWriter().println(gson);
+	}
+	
+	//Método doDelete
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) 
+			throws IOException {
+		
+		resp.setContentType("text/json");
+		resp.getWriter().println(gson);
+		
+		sev.remove(0);
+	}	
 }
