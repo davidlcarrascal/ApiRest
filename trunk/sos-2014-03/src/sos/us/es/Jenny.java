@@ -1,4 +1,5 @@
 package sos.us.es;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class Jenny extends HttpServlet {
 		
 		//responder
 		resp.setContentType("text/json");
-		resp.getWriter().println(json);
+		resp.getWriter().println("Obteniendo datos");
 	}
 	
 	//Método doPut
@@ -40,7 +41,7 @@ public class Jenny extends HttpServlet {
 			throws IOException {
 		
 		resp.setContentType("text/json");
-		resp.getWriter().println(gson);
+		resp.getWriter().println("Actualizando");
 		
 		//String json = gson.toJson(sev);
 	}
@@ -49,8 +50,26 @@ public class Jenny extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
 		
+		Seville s = null;
+		Gson gson = new Gson();
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br =req.getReader();
+		
+		String jsonString;
+		
+		while( (jsonString = br.readLine()) != null ){
+			sb.append(jsonString);
+		}
+		
+		jsonString = sb.toString();
+		
+		try{
+			s = gson.fromJson(jsonString, Seville.class);
+		}catch(Exception e){
+			System.out.println("ERROR parsing Seville: "+e.getMessage());
+		}
 		resp.setContentType("text/json");
-		resp.getWriter().println(gson);
+		resp.getWriter().println("Creando");
 	}
 	
 	//Método doDelete
@@ -58,8 +77,8 @@ public class Jenny extends HttpServlet {
 			throws IOException {
 		
 		resp.setContentType("text/json");
-		resp.getWriter().println(gson);
+		resp.getWriter().println("Borrando");
 		
-		sev.remove(sev.size()-1);
+		sev.clear();
 	}	
 }
