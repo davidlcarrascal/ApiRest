@@ -10,6 +10,9 @@ import com.google.gson.Gson;
 
 @SuppressWarnings("serial")
 public class David extends HttpServlet {
+	
+	static List<SpainStd> l =new ArrayList<SpainStd>();
+
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String json;
 
@@ -19,7 +22,6 @@ public class David extends HttpServlet {
 		SpainStd stad1 = new SpainStd(1999,30000021,1500000,2,234234,55555);
 		SpainStd stad2 = new SpainStd(2000,30000002,1231240,1,212100,66666);
 		
-		List<SpainStd> l =new ArrayList<SpainStd>();
 		l.add(stad1);
 		l.add(stad2);
 		
@@ -59,23 +61,77 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
+		l.add(spStad);
+		
+		/*
+		
+		Para PRUEBA
+		1)
+		Con un log, que se ejecuta solo en consola. No responde datos.
+		System.out.println("El json es: "+"jsonString");
+		
+		2)
 		String json;
 		json=gson.toJson(spStad);
 
 		resp.setContentType("text/json");
 		resp.getWriter().println(json);
 		
+		*/
 		
 	}
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//put sobre la lista--> da error
 		//put sobre un objeto de la lista--> Actualiza
-		resp.setContentType("text/plain");
-		resp.getWriter().println("Estoy haciendo un PUT");
+		
+		SpainStd spStad =null;
+		Gson gson = new Gson();
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = req.getReader();
+		
+		String jsonString;
+		
+		while((jsonString = br.readLine()) != null){
+			sb.append(jsonString);
+		}
+		
+		jsonString= sb.toString();
+		
+		try{
+			
+			spStad= gson.fromJson(jsonString, SpainStd.class);
+			
+		}catch(Exception e){
+			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
+		}
+		
+		Boolean contiene =false;
+		SpainStd objeto_a_borrar =new SpainStd();
+		
+		for (SpainStd o : l){
+			
+			if (o.getYear().equals(spStad.getYear())){
+				objeto_a_borrar=o;
+				contiene = true;
+			}
+			
+		}
+		
+		if(contiene){	
+			l.remove(objeto_a_borrar);
+			l.add(spStad);
+			
+		}else{
+			//Da error
+			System.out.println("ERROR parsing SpainStd");
+		}
+		
+		
 	}
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//delete la lista
 		//delete un objeto
+		
 		resp.setContentType("text/plain");
 		resp.getWriter().println("Estoy haciendo un DELETE");
 	}
