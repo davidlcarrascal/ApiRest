@@ -12,7 +12,7 @@ public class Jenny extends HttpServlet {
 	
 		
 		List<Seville> sev = new LinkedList<>();
-		//String json;
+		String json;
 		Gson gson = new Gson();
 		
 		//Crear datos de prueba : Crear lista de 2 poblaciones
@@ -34,5 +34,15 @@ public class Jenny extends HttpServlet {
 		//responder
 			resp.setContentType("text/json");
 			resp.getWriter().println(json);
+	}
+		
+	public void doPut(HttpServletRequest req, HttpServletResponse resp) 
+			throws IOException {
+		
+		resp.setContentType("text/json");
+		resp.getWriter().println(json);
+		
+		sev.clear();
+		//String json = gson.toJson(sev);
 	}
 }
