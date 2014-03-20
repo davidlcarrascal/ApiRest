@@ -60,6 +60,6 @@ public class Jenny extends HttpServlet {
 		resp.setContentType("text/json");
 		resp.getWriter().println(gson);
 		
-		sev.remove(0);
+		sev.remove(sev.size()-1);
 	}	
 }
