@@ -21,7 +21,7 @@ public class Jenny extends HttpServlet {
 		Gson gson = new Gson();
 		
 		//Crear datos de prueba : Crear lista de 2 poblaciones
-		List<Seville> sev = new LinkedList<>();
+		List<Seville> sev = new LinkedList<Seville>();
 		Seville s1 = new Seville(2008, 20000000);
 		Seville s2 = new Seville(2010, 5000000);
 		
@@ -33,7 +33,7 @@ public class Jenny extends HttpServlet {
 		
 		//responder
 		resp.setContentType("text/json");
-		resp.getWriter().println("Obteniendo datos");
+		resp.getWriter().println(json);
 	}
 	
 	//Método doPut
@@ -41,7 +41,7 @@ public class Jenny extends HttpServlet {
 			throws IOException {
 		
 		resp.setContentType("text/json");
-		resp.getWriter().println("Actualizando");
+		//                           resp.getWriter().println(json);
 		
 		//String json = gson.toJson(sev);
 	}
