@@ -58,13 +58,16 @@ public class RocioServelt extends HttpServlet {
 		}catch(Exception e){
 			System.out.println("ERROR universitySeville: "+e.getMessage());
 		}
+		System.out.println("el json procesado es"+json+"");
+		json = gson.toJson(uni);
 		
-		//json = gson.toJson(uni);
+		resp.setContentType("text/json");
+		resp.getWriter().print(json);
 		
-		//resp.setContentType("text/json");
-		//resp.getWriter().print(json);
 	}
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		
+		
 		
 		
 		
