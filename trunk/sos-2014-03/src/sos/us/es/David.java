@@ -15,8 +15,8 @@ public class David extends HttpServlet {
 		// Crear datos de prueba- Crear lista de 2 años
 		Gson gson = new Gson();
 		
-		SpainStd stad1 = new SpainStd(1999,20000000);
-		SpainStd stad2 = new SpainStd(2000,3000000);
+		SpainStd stad1 = new SpainStd(1999,30000021,1500000,2,234234,55555);
+		SpainStd stad2 = new SpainStd(2000,30000002,1231240,1,212100,66666);
 		
 		List<SpainStd> l =new ArrayList<SpainStd>();
 		l.add(stad1);
@@ -28,6 +28,19 @@ public class David extends HttpServlet {
 		
 		resp.setContentType("text/json");
 		resp.getWriter().println(json);
+	}
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		
+		resp.setContentType("text/plain");
+		resp.getWriter().println("Estoy haciendo un POST");
+	}
+	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		resp.setContentType("text/plain");
+		resp.getWriter().println("Estoy haciendo un PUT");
+	}
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		resp.setContentType("text/plain");
+		resp.getWriter().println("Estoy haciendo un DELETE");
 	}
 	
 }
