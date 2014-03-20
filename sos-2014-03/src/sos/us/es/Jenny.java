@@ -11,17 +11,17 @@ import com.google.gson.Gson;
 @SuppressWarnings("serial")
 public class Jenny extends HttpServlet {
 	
-	public static List<Seville> sev = new LinkedList<Seville>();
-	public static Gson gson = new Gson();
+	//public static List<Seville> sev = new LinkedList<Seville>();
+	//public static Gson gson = new Gson();
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) 
 			throws IOException {
 		
 		String json;
-		//Gson json = new Gson();
+		Gson gson = new Gson();
 		
 		//Crear datos de prueba : Crear lista de 2 poblaciones
-		
+		List<Seville> sev = new LinkedList<>();
 		Seville s1 = new Seville(2008, 20000000);
 		Seville s2 = new Seville(2010, 5000000);
 		
@@ -68,8 +68,12 @@ public class Jenny extends HttpServlet {
 		}catch(Exception e){
 			System.out.println("ERROR parsing Seville: "+e.getMessage());
 		}
+		
+		String json;
+		json=gson.toJson(s);
+		
 		resp.setContentType("text/json");
-		resp.getWriter().println("Creando");
+		resp.getWriter().println(json);
 	}
 	
 	//Método doDelete
@@ -79,6 +83,6 @@ public class Jenny extends HttpServlet {
 		resp.setContentType("text/json");
 		resp.getWriter().println("Borrando");
 		
-		sev.clear();
+		//sev.clear();
 	}	
 }
