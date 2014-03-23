@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.servlet.http.*;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 
 
@@ -21,11 +24,18 @@ public class RocioServelt extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		
+		
+//		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+//		Entity entity = new Entity("Year");
+//		entity.setProperty("year",u.year);
+//		entity.setProperty("enrolled",u.enrolled);
+//		datastore.put(entity);
+		
 		String json;
 		Gson gson= new Gson();
 		
 		//crear datos de prueba: Crear lista 2 
-		//List<universitySeville> uni = new LinkedList<>();
+		
 		universitySeville u1 = new universitySeville (2010, 10000);
 		universitySeville u2 = new universitySeville (2011, 200000);
 		
@@ -48,35 +58,15 @@ public class RocioServelt extends HttpServlet {
         while (en.hasMoreElements()) {
             uni = gson.fromJson((String) en.nextElement(), universitySeville.class);
         }
-        luni.add(uni);
+        String ruta[]=req.getRequestURI().split("/");
+        if(ruta.length == 4){
+        	luni.add(uni);
+        }else{
+        	resp.sendError(400);
+        }
 }
 		
-/*		universitySeville uni = null;
-		Gson gson = new Gson();
-		
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-		
-		String json;
-		
-		while((json = br.readLine())  != null){
-			sb.append(json);
-		}
-		json = sb.toString();
-		
-		try{
-			uni = gson.fromJson(json, universitySeville.class);
-		}catch(Exception e){
-			System.out.println("ERROR universitySeville: "+e.getMessage());
-		}
-		System.out.println("el json procesado es"+json+"");
-		luni.add(uni);
-*/		
-		//json = gson.toJson(uni);
-		//resp.setContentType("text/json");
-		//resp.getWriter().print(json);
-		
-//	}
+
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		
 		
@@ -86,85 +76,39 @@ public class RocioServelt extends HttpServlet {
         while (en.hasMoreElements()) {
             uni = gson.fromJson((String) en.nextElement(), universitySeville.class);
         }
-        
-   //    if(req.getPathInfo() != null){}
+        String ruta[]=req.getRequestURI().split("/");
+        if(ruta.length == 5){
+        	universitySeville del = new universitySeville();
+    		for(universitySeville i:luni){
+    			if(i.getYear().equals(uni.getYear())){
+    				del = i;
+    			}
+    		}
+    		luni.remove(del);
+    		luni.add(uni);
+        }else{
+        	resp.sendError(400);	
+        }
         
        
-        universitySeville del = new universitySeville();
-		for(universitySeville i:luni){
-			if(i.getYear().equals(uni.getYear())){
-				del = i;
-			}
-		}
-		luni.remove(del);
-		luni.add(uni);
-/*		universitySeville uni = null;
-		Gson gson = new Gson();
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-		
-		String json;
-		
-		while((json = br.readLine())  != null){
-			sb.append(json);
-		}
-		json = sb.toString();
-		
-		try{
-			uni = gson.fromJson(json, universitySeville.class);
-		}catch(Exception e){
-			System.out.println("ERROR universitySeville: "+e.getMessage());
-		}
-		System.out.println("el json procesado es"+json+"");
-		
-		universitySeville del = new universitySeville();
-		for(universitySeville i:luni){
-			if(i.getYear().equals(uni.getYear())){
-				del = i;
-			}
-		}
-		luni.remove(del);
-		luni.add(uni);
-*/		
+	
 }	
 		
 		
 	
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
-/*		universitySeville uni = null;
-		Gson gson = new Gson();
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-		
-		String json;
-		
-		while((json = br.readLine())  != null){
-			sb.append(json);
-		}
-		json = sb.toString();
-		
-		try{
-			uni = gson.fromJson(json, universitySeville.class);
-		}catch(Exception e){
-			System.out.println("ERROR universitySeville: "+e.getMessage());
-		}
-*/		
-		Gson gson = new Gson();
-        Enumeration en = req.getParameterNames();
-        universitySeville uni = null;
-        while (en.hasMoreElements()) {
-            uni = gson.fromJson((String) en.nextElement(), universitySeville.class);
+
+        String ruta[]=req.getRequestURI().split("/");
+        if(ruta.length == 4){
+        	luni.clear();
+        }else{
+        	for(universitySeville i :luni){
+        		if(i.getYear().equals(Integer.valueOf(ruta[ruta.length-1]))){
+        			luni.remove(i);
+        		}
+        	}
         }
-		
-		universitySeville del= new universitySeville();
-		for(universitySeville i: luni){
-			if(i.getYear().equals(uni.getYear())){
-					del = i;
-			}else{
-				System.out.println("LOS DATOS A BORRAR NO SE ENCUENTRAN EN LA API");
-			}
-		}
-		luni.remove(del);
-		
+        
 	}
 }
+	
