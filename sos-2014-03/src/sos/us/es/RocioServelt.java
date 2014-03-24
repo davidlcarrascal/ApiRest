@@ -1,6 +1,7 @@
 package sos.us.es;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -16,38 +17,45 @@ import com.google.gson.Gson;
 
 @SuppressWarnings("serial")
 public class RocioServelt extends HttpServlet {
-	
+	//static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	static List<universitySeville> luni = new LinkedList<>();
 //	public static Gson gson = new Gson();
 	
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
 		
-		
-		
-//		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-//		Entity entity = new Entity("Year");
-//		entity.setProperty("year",u.year);
-//		entity.setProperty("enrolled",u.enrolled);
-//		datastore.put(entity);
-		
-		String json;
+		PrintWriter out=resp.getWriter();
+		String json="";
 		Gson gson= new Gson();
 		
-		//crear datos de prueba: Crear lista 2 
 		
-		universitySeville u1 = new universitySeville (2010, 10000);
-		universitySeville u2 = new universitySeville (2011, 200000);
+		String ruta[]=req.getRequestURI().split("/");
+		if(ruta.length==4){
+			if(luni.size()==0){
+				resp.sendError(404);
+				
+			}else{
+			json=gson.toJson(luni);
+			resp.setContentType("text/json");
+			resp.getWriter().println(json);	
+			}
+		}else{
+			List<universitySeville> prov=new LinkedList<universitySeville>();
+			for(universitySeville uni:luni){
+				if(uni.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
+					prov.add(uni);
+				}
+			}
+			json=gson.toJson(prov);
+			resp.setContentType("text/json");
+			resp.getWriter().println(json);	
+		}
 		
-		luni.add(u1);
-		luni.add(u2);
 		
-		//Serializar a JSON
-		json = gson.toJson(luni);
 		
 		//responder
-		resp.setContentType("text/json");
-		resp.getWriter().println(json);		
+	
 	}
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
@@ -55,12 +63,17 @@ public class RocioServelt extends HttpServlet {
 		Gson gson = new Gson();
         Enumeration en = req.getParameterNames();
         universitySeville uni = null;
-        while (en.hasMoreElements()) {
+        /*while (en.hasMoreElements()) {
             uni = gson.fromJson((String) en.nextElement(), universitySeville.class);
-        }
+        }*/
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 4){
+        	Integer year=Integer.parseInt(req.getParameter("year"));
+        	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
+        	uni=new universitySeville(year,enrolled);
+        	
         	luni.add(uni);
+        	resp.setStatus(201);
         }else{
         	resp.sendError(400);
         }
