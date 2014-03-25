@@ -20,10 +20,11 @@ public class David extends HttpServlet {
 		Gson gson = new Gson();
 		
 		SpainStd stad1 = new SpainStd(1999,30000021,1500000,2,234234,55555);
-		SpainStd stad2 = new SpainStd(2000,30000002,1231240,1,212100,66666);
-		
 		l.add(stad1);
-		l.add(stad2);
+		
+		//SpainStd stad2 = new SpainStd(2000,30000002,1231240,1,212100,66666);
+		//l.add(stad2);
+		
 		
 		// Serializar a JSON
 		json=gson.toJson(l);
@@ -61,7 +62,13 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
+		
 		l.add(spStad);
+			
+		}
+		
+			
+		
 		
 		/*
 		
@@ -78,8 +85,8 @@ public class David extends HttpServlet {
 		resp.getWriter().println(json);
 		
 		*/
-		
-	}
+	
+	
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//put sobre la lista--> da error
 		//put sobre un objeto de la lista--> Actualiza
@@ -123,7 +130,8 @@ public class David extends HttpServlet {
 			
 		}else{
 			//Da error
-			System.out.println("ERROR parsing SpainStd");
+			System.out.println("El objeto no se encuentra en la lista");
+			resp.sendError(400);
 		}
 		
 		
@@ -132,8 +140,49 @@ public class David extends HttpServlet {
 		//delete la lista
 		//delete un objeto
 		
-		resp.setContentType("text/plain");
-		resp.getWriter().println("Estoy haciendo un DELETE");
+		SpainStd spStad =null;
+		Gson gson = new Gson();
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = req.getReader();
+		
+		String jsonString;
+		
+		while((jsonString = br.readLine()) != null){
+			sb.append(jsonString);
+		}
+		
+		jsonString= sb.toString();
+		
+		try{
+			
+			spStad= gson.fromJson(jsonString, SpainStd.class);
+			
+		}catch(Exception e){
+			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
+		}
+		
+		Boolean contiene =false;
+		SpainStd objeto_a_borrar =new SpainStd();
+		
+		for (SpainStd o : l){
+			
+			if (o.getYear().equals(spStad.getYear())){
+				objeto_a_borrar=o;
+				contiene = true;
+			}
+			
+		}
+		
+		if(contiene){	
+			l.remove(objeto_a_borrar);
+			
+		}else{
+			//Da error
+			System.out.println("El objeto no está en la lista");
+			resp.sendError(400);
+		}
+		
+		
 	}
 	
 }
