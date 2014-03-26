@@ -65,9 +65,9 @@ public class RocioServelt extends HttpServlet {
 
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 4){
-//        	
-//        	Map mapa=req.getParameterMap();
-//        	
+       	
+        	Map mapa=req.getParameterMap();
+        	System.out.println(mapa);
 //        	
 //        	mapa.get("enrolled");
 //        	mapa.get("budget");
@@ -83,13 +83,13 @@ public class RocioServelt extends HttpServlet {
 //        	System.out.println(uni);
         	
         	
-    		Integer year=Integer.parseInt(req.getParameter("year"));
+        	Integer year=Integer.parseInt(req.getParameter("year"));
         	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
         	Integer budget = Integer.parseInt(req.getParameter("budget"));
         	Integer employability = Integer.getInteger(req.getParameter("employability"));
         	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
         	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
-
+        	System.out.println(uni);
     	luni.add(uni);
      	resp.setStatus(201);
         }else{
@@ -153,3 +153,4 @@ public class RocioServelt extends HttpServlet {
 	}
 }
 	
+
