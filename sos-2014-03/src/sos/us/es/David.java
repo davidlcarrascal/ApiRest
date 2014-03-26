@@ -2,6 +2,7 @@ package sos.us.es;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.*;
@@ -14,11 +15,9 @@ public class David extends HttpServlet {
 	static List<SpainStd> l =new ArrayList<SpainStd>();
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String json;
+		
 
 		// Crear datos de prueba- Crear lista de 2 años
-		Gson gson = new Gson();
-		
 		SpainStd stad1 = new SpainStd(1999,30000021,1500000,2,234234,55555);
 		l.add(stad1);
 		
@@ -27,11 +26,43 @@ public class David extends HttpServlet {
 		
 		
 		// Serializar a JSON
-		json=gson.toJson(l);
+		
+		String json="";
+		Gson gson = new Gson();
+		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
+		
+		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
+		
+			json=gson.toJson(l);
+			resp.setContentType("text/json");
+			resp.getWriter().println(json);
+			
+		}else if(rute.size()==4 && rute.get(2).equals("SpainStd") ){ 
+			
+			Boolean contiene=false;
+			SpainStd objeto=null;
+			
+			for(SpainStd o : l){
+				if (o.getYear().equals(Integer.parseInt(rute.get(3)))){
+					contiene = true;
+					objeto =o;
+				}
+			}
+				
+			if (contiene){
+				json=gson.toJson(objeto);
+				resp.setContentType("text/json");
+				resp.getWriter().println(json);
+			}else{
+				resp.sendError(404);
+			}
+			
+		}else{
+			resp.sendError(404);
+		}
 		
 		
-		resp.setContentType("text/json");
-		resp.getWriter().println(json);
+		
 	}
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//Crear un objeto estadistica( un objeto pueblo)
@@ -62,10 +93,17 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
+				
+		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		l.add(spStad);
+		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
+			l.add(spStad);
 			
+		}else{
+			resp.sendError(400);
 		}
+			
+	}
 		
 			
 		
@@ -112,6 +150,9 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
+		//List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
+		//if(rute.size()==3 && rute.get(2).equals("SpainStd")){
+			
 		Boolean contiene =false;
 		SpainStd objeto_a_borrar =new SpainStd();
 		
@@ -121,21 +162,27 @@ public class David extends HttpServlet {
 				objeto_a_borrar=o;
 				contiene = true;
 			}
-			
+				
 		}
-		
+			
 		if(contiene){	
 			l.remove(objeto_a_borrar);
 			l.add(spStad);
-			
+				
 		}else{
 			//Da error
 			System.out.println("El objeto no se encuentra en la lista");
 			resp.sendError(400);
 		}
+			
+		/*}else{
+			
+			resp.sendError(400);
+		}*/
 		
 		
 	}
+	
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//delete la lista
 		//delete un objeto
@@ -161,6 +208,8 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
+		//List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
+		//if(rute.size()==3 && rute.get(2).equals("SpainStd")){
 		Boolean contiene =false;
 		SpainStd objeto_a_borrar =new SpainStd();
 		
@@ -170,9 +219,9 @@ public class David extends HttpServlet {
 				objeto_a_borrar=o;
 				contiene = true;
 			}
-			
+				
 		}
-		
+			
 		if(contiene){	
 			l.remove(objeto_a_borrar);
 			
@@ -181,6 +230,7 @@ public class David extends HttpServlet {
 			System.out.println("El objeto no está en la lista");
 			resp.sendError(400);
 		}
+		//}
 		
 		
 	}
