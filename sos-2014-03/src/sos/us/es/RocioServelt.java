@@ -45,9 +45,7 @@ public class RocioServelt extends HttpServlet {
 				if(uni.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
 					System.out.println(uni);
 					prov.add(uni);
-				}else{
-					resp.sendError(404);
-				}
+				}//error si no esta en la lista
 			}
 			json=gson.toJson(prov);
 			resp.setContentType("text/json");
@@ -67,23 +65,30 @@ public class RocioServelt extends HttpServlet {
 
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 4){
+//        	
+//        	Map mapa=req.getParameterMap();
+//        	
+//        	
+//        	mapa.get("enrolled");
+//        	mapa.get("budget");
+//        	mapa.get("employability");
+//        	mapa.get("studentMigrants");
+//        	
+//        	Integer year=Integer.parseInt(mapa.get("year").toString());
+//        	Integer enrolled=Integer.parseInt((String)mapa.get("enrolled").toString());
+//        	Integer budget = Integer.parseInt((String)mapa.get("budget").toString());
+//        	Integer employability = Integer.getInteger((String)mapa.get("employability").toString());
+//        	Integer studentMigrants = Integer.getInteger((String)mapa.get("studentMigrants").toString());
+//        	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
+//        	System.out.println(uni);
         	
-        	Map mapa=req.getParameterMap();
         	
-        	
-        	mapa.get("enrolled");
-        	mapa.get("budget");
-        	mapa.get("employability");
-        	mapa.get("studentMigrants");
-        	
-        	Integer year=Integer.parseInt(mapa.get("year").toString());
-        	Integer enrolled=Integer.parseInt((String)mapa.get("enrolled").toString());
-        	Integer budget = Integer.parseInt((String)mapa.get("budget").toString());
-        	Integer employability = Integer.getInteger((String)mapa.get("employability").toString());
-        	Integer studentMigrants = Integer.getInteger((String)mapa.get("studentMigrants").toString());
+    		Integer year=Integer.parseInt(req.getParameter("year"));
+        	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
+        	Integer budget = Integer.parseInt(req.getParameter("budget"));
+        	Integer employability = Integer.getInteger(req.getParameter("employability"));
+        	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
         	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
-        	System.out.println(uni);
-
 
     	luni.add(uni);
      	resp.setStatus(201);
