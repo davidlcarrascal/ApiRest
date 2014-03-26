@@ -39,6 +39,8 @@ public class RocioServelt extends HttpServlet {
 			for(universitySeville uni:luni){
 				if(uni.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
 					prov.add(uni);
+				}else{
+					resp.sendError(404);
 				}
 			}
 			json=gson.toJson(prov);
@@ -65,9 +67,16 @@ public class RocioServelt extends HttpServlet {
         	Integer employability = Integer.getInteger(req.getParameter("employability"));
         	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
         	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
-        	
-        	luni.add(uni);
-        	resp.setStatus(201);
+//        	for(universitySeville i: luni){
+//        		if(i.getYear().equals(year)){
+//        			resp.sendError(400);
+//        		}else{
+//        			luni.add(uni);
+//                	resp.setStatus(201);
+//        		}
+//        	}
+    	luni.add(uni);
+     	resp.setStatus(201);
         }else{
         	resp.sendError(400);
         }
@@ -119,6 +128,8 @@ public class RocioServelt extends HttpServlet {
         	for(universitySeville i :luni){
         		if(i.getYear().equals(Integer.valueOf(ruta[ruta.length-1]))){
         			luni.remove(i);
+        		}else{
+        			resp.sendError(400);
         		}
         	}
         }
