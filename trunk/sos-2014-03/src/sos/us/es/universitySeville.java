@@ -8,7 +8,7 @@ public class universitySeville {
 	Integer studentMigrants;
 	
 	public universitySeville(Integer year, Integer enrolled,Integer budget, Integer employability, Integer studentMigrants) {
-		super();
+		System.out.println(year+" "+enrolled+" "+budget+" "+employability+" "+studentMigrants);
 		this.year = year;
 		this.enrolled = enrolled;
 		this.budget = budget;
@@ -17,9 +17,6 @@ public class universitySeville {
 
 	}
 
-	public universitySeville(){
-		super();
-	}
 
 
 	public Integer getEnrolled() {
@@ -54,5 +51,8 @@ public class universitySeville {
 	}
 	public void setStudentMigrants(Integer studentMigrants) {
 		this.studentMigrants = studentMigrants;
+	}
+	public String toString(){
+		return "{ year :"+year+", employability : "+this.employability+", enrolled : "+this.enrolled+", budget : "+this.budget+", studentsMigrants : "+this.studentMigrants+"}";
 	}
 }

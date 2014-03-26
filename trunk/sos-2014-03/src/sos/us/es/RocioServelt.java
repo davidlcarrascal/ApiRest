@@ -2,6 +2,7 @@ package sos.us.es;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.*;
 
@@ -30,6 +31,10 @@ public class RocioServelt extends HttpServlet {
 				resp.sendError(404);
 				
 			}else{
+				for(universitySeville uni: luni){
+					System.out.println(uni);
+
+				}
 			json=gson.toJson(luni);
 			resp.setContentType("text/json");
 			resp.getWriter().println(json);	
@@ -38,6 +43,7 @@ public class RocioServelt extends HttpServlet {
 			List<universitySeville> prov=new LinkedList<universitySeville>();
 			for(universitySeville uni:luni){
 				if(uni.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
+					System.out.println(uni);
 					prov.add(uni);
 				}else{
 					resp.sendError(404);
@@ -61,25 +67,30 @@ public class RocioServelt extends HttpServlet {
 
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 4){
-        	Integer year=Integer.parseInt(req.getParameter("year"));
-        	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
-        	Integer budget = Integer.parseInt(req.getParameter("budget"));
-        	Integer employability = Integer.getInteger(req.getParameter("employability"));
-        	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
+        	
+        	Map mapa=req.getParameterMap();
+        	
+        	
+        	mapa.get("enrolled");
+        	mapa.get("budget");
+        	mapa.get("employability");
+        	mapa.get("studentMigrants");
+        	
+        	Integer year=Integer.parseInt(mapa.get("year").toString());
+        	Integer enrolled=Integer.parseInt((String)mapa.get("enrolled").toString());
+        	Integer budget = Integer.parseInt((String)mapa.get("budget").toString());
+        	Integer employability = Integer.getInteger((String)mapa.get("employability").toString());
+        	Integer studentMigrants = Integer.getInteger((String)mapa.get("studentMigrants").toString());
         	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
-//        	for(universitySeville i: luni){
-//        		if(i.getYear().equals(year)){
-//        			resp.sendError(400);
-//        		}else{
-//        			luni.add(uni);
-//                	resp.setStatus(201);
-//        		}
-//        	}
+        	System.out.println(uni);
+
+
     	luni.add(uni);
      	resp.setStatus(201);
         }else{
         	resp.sendError(400);
         }
+        
 }
 		
 
