@@ -1,11 +1,11 @@
 package sos.us.es;
 import java.io.IOException;
-
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.*;
 
+import sun.awt.RepaintArea;
 
 import com.google.gson.Gson;
 
@@ -54,14 +54,17 @@ public class RocioServelt extends HttpServlet {
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		
-
+		
         universitySeville uni = null;
 
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 4){
         	Integer year=Integer.parseInt(req.getParameter("year"));
         	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
-        	uni=new universitySeville(year,enrolled);
+        	Integer budget = Integer.parseInt(req.getParameter("budget"));
+        	Integer employability = Integer.getInteger(req.getParameter("employability"));
+        	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
+        	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
         	
         	luni.add(uni);
         	resp.setStatus(201);
@@ -78,17 +81,25 @@ public class RocioServelt extends HttpServlet {
 		universitySeville uni = null;
 		Integer year=Integer.parseInt(req.getParameter("year"));
     	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
-    	uni=new universitySeville(year,enrolled);
+    	Integer budget = Integer.parseInt(req.getParameter("budget"));
+    	Integer employability = Integer.getInteger(req.getParameter("employability"));
+    	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
+    	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
+    	
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 5){
-        	universitySeville del = new universitySeville();
+        	
         	for(universitySeville i:luni){
 				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
-    				del = i;
+					i.setEnrolled(enrolled);
+					i.setBudget(budget);
+					i.setEmployability(employability);
+					i.setStudentMigrants(studentMigrants);
+    			}else{
+    				resp.sendError(400);
     			}
     		}
-    		luni.remove(del);
-    		luni.add(uni);
+    		
         }else{
         	resp.sendError(400);	
         }
