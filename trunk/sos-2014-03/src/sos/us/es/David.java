@@ -104,27 +104,6 @@ public class David extends HttpServlet {
 		}
 			
 	}
-		
-			
-		
-		
-		/*
-		
-		Para PRUEBA
-		1)
-		Con un log, que se ejecuta solo en consola. No responde datos.
-		System.out.println("El json es: "+"jsonString");
-		
-		2)
-		String json;
-		json=gson.toJson(spStad);
-
-		resp.setContentType("text/json");
-		resp.getWriter().println(json);
-		
-		*/
-	
-	
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//put sobre la lista--> da error
 		//put sobre un objeto de la lista--> Actualiza
@@ -150,39 +129,42 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
-		//List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
-		//if(rute.size()==3 && rute.get(2).equals("SpainStd")){
-			
-		Boolean contiene =false;
-		SpainStd objeto_a_borrar =new SpainStd();
+		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		for (SpainStd o : l){
+		if(rute.size()==4 && rute.get(2).equals("SpainStd")){
 			
-			if (o.getYear().equals(spStad.getYear())){
-				objeto_a_borrar=o;
-				contiene = true;
+			Boolean contiene =false;
+			SpainStd objeto_a_actualizar =new SpainStd();
+			
+			for (SpainStd o : l){
+				
+				if (o.getYear().equals(spStad.getYear())){
+					objeto_a_actualizar=o;
+					contiene = true;
+				}
+					
 			}
 				
-		}
-			
-		if(contiene){	
-			l.remove(objeto_a_borrar);
-			l.add(spStad);
+			if(contiene){	
 				
+				objeto_a_actualizar.setEducationBudget(spStad.getEducationBudget());
+				objeto_a_actualizar.setEmigrants(spStad.getEmigrants());
+				objeto_a_actualizar.setPib(spStad.getPib());
+				objeto_a_actualizar.setPopulation(spStad.getPopulation());
+				objeto_a_actualizar.setUnemployed(spStad.getUnemployed());
+					
+			}else{
+				
+				resp.sendError(400);
+			}
+			
 		}else{
-			//Da error
-			System.out.println("El objeto no se encuentra en la lista");
+			
 			resp.sendError(400);
 		}
-			
-		/*}else{
-			
-			resp.sendError(400);
-		}*/
 		
 		
 	}
-	
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		//delete la lista
 		//delete un objeto
@@ -208,31 +190,36 @@ public class David extends HttpServlet {
 			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
 		}
 		
-		//List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
-		//if(rute.size()==3 && rute.get(2).equals("SpainStd")){
-		Boolean contiene =false;
-		SpainStd objeto_a_borrar =new SpainStd();
+		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		for (SpainStd o : l){
+		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
 			
-			if (o.getYear().equals(spStad.getYear())){
-				objeto_a_borrar=o;
-				contiene = true;
+			l.clear();
+			
+		}else if(rute.size()==4 && rute.get(2).equals("SpainStd")){
+		
+			Boolean contiene =false;
+			SpainStd objeto_a_borrar =new SpainStd();
+			
+			for (SpainStd o : l){
+				
+				if (o.getYear().equals(spStad.getYear())){
+					objeto_a_borrar=o;
+					contiene = true;
+				}
+					
 			}
 				
-		}
-			
-		if(contiene){	
-			l.remove(objeto_a_borrar);
+			if(contiene){	
+				l.remove(objeto_a_borrar);
+				
+			}else{
+				resp.sendError(400);
+			}
 			
 		}else{
-			//Da error
-			System.out.println("El objeto no está en la lista");
+			
 			resp.sendError(400);
-		}
-		//}
-		
-		
+		}	
 	}
-	
 }
