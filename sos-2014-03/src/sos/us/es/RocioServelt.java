@@ -37,25 +37,21 @@ public class RocioServelt extends HttpServlet {
 			
 		}else{
 			List<universitySeville> prov=new LinkedList<universitySeville>();
-			Integer noEsta = null;
+			Integer contiene = null;
 			for(universitySeville i :luni){
-				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
-					System.out.println(i);
+				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){			
 					prov.add(i);
 				}else{
-					noEsta = 1;
+					contiene = 1;
 				}
 			}
-			if(noEsta == 1){
+			if(contiene == 1){
 				resp.setStatus(400);
 			}
 			json=gson.toJson(prov);
 			resp.setContentType("text/json");
 			resp.getWriter().println(json);	
 		}
-		
-		
-		
 	
 	
 	}
@@ -99,59 +95,44 @@ public class RocioServelt extends HttpServlet {
 		
 		
 		
-//        universitySeville uni = null;
-//
-//        Gson gson = new Gson();
-//		StringBuilder sb = new StringBuilder();
-//		BufferedReader br = req.getReader();
-//		
-//		String jsonString;
-//		
-//		while((jsonString = br.readLine()) != null){
-//			sb.append(jsonString);
-//		}
-//		
-//		jsonString= sb.toString();
-//		
-//		try{
-//			
-//			uni= gson.fromJson(jsonString, universitySeville.class);
-//			
-//		}catch(Exception e){
-//			System.out.println("ERROR parsing universitySeville:" + e.getMessage());
-//		}
-//        String ruta[]=req.getRequestURI().split("/");
-//        if(ruta.length == 4){
-//        	luni.add(uni);
-//        	resp.setStatus(201);
-//        }else{
-//        	resp.setStatus(400);
-//        }
-//        
+
 }
 		
 
 	public void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException{
 		
+		universitySeville uni=null;
+		Gson gson = new Gson();
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = req.getReader();
 		
+		String jsonString;
 		
-		universitySeville uni = null;
-		Integer year=Integer.parseInt(req.getParameter("year"));
-    	Integer enrolled=Integer.parseInt(req.getParameter("enrolled"));
-    	Integer budget = Integer.parseInt(req.getParameter("budget"));
-    	Integer employability = Integer.getInteger(req.getParameter("employability"));
-    	Integer studentMigrants = Integer.getInteger(req.getParameter("studentMigrants"));
-    	uni=new universitySeville(year,enrolled,budget,employability,studentMigrants);
-    	
+		while((jsonString = br.readLine()) != null){
+			sb.append(jsonString);
+		}
+		
+		jsonString= sb.toString();
+		
+		try{
+			
+			uni= gson.fromJson(jsonString, universitySeville.class);
+			
+		}catch(Exception e){
+			System.out.println("ERROR parsing universitySeville:" + e.getMessage());
+		}
+
         String ruta[]=req.getRequestURI().split("/");
         if(ruta.length == 5){
         	
         	for(universitySeville i:luni){
 				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){
-					i.setEnrolled(enrolled);
-					i.setBudget(budget);
-					i.setEmployability(employability);
-					i.setStudentMigrants(studentMigrants);
+					i.setBudget(uni.getBudget());
+					i.setEmployability(uni.getEmployability());
+					i.setEnrolled(uni.getEnrolled());
+					i.setStudentMigrants(uni.getStudentMigrants());
+					
+					
     			}else{
     				resp.setStatus(400);
     			}
