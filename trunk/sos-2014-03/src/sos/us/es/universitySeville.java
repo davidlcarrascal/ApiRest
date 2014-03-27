@@ -17,7 +17,9 @@ public class universitySeville {
 
 	}
 
-
+	public universitySeville(){
+		super();
+	}
 
 	public Integer getEnrolled() {
 		return enrolled;
