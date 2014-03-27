@@ -54,11 +54,11 @@ public class David extends HttpServlet {
 				resp.setContentType("text/json");
 				resp.getWriter().println(json);
 			}else{
-				resp.sendError(404);
+				resp.setStatus(404);
 			}
 			
 		}else{
-			resp.sendError(404);
+			resp.setStatus(400);
 		}
 		
 		
@@ -100,7 +100,7 @@ public class David extends HttpServlet {
 			l.add(spStad);
 			
 		}else{
-			resp.sendError(400);
+			resp.setStatus(404);
 		}
 			
 	}
@@ -155,12 +155,12 @@ public class David extends HttpServlet {
 					
 			}else{
 				
-				resp.sendError(400);
+				resp.setStatus(404);
 			}
 			
 		}else{
 			
-			resp.sendError(400);
+			resp.setStatus(400);
 		}
 		
 		
@@ -214,12 +214,12 @@ public class David extends HttpServlet {
 				l.remove(objeto_a_borrar);
 				
 			}else{
-				resp.sendError(400);
+				resp.setStatus(404);
 			}
 			
 		}else{
 			
-			resp.sendError(400);
+			resp.setStatus(400);
 		}	
 	}
 }
