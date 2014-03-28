@@ -37,16 +37,16 @@ public class RocioServelt extends HttpServlet {
 			
 		}else{
 			List<universitySeville> prov=new LinkedList<universitySeville>();
-			Integer contiene = null;
+			Boolean contiene = false;
 			for(universitySeville i :luni){
 				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){			
 					prov.add(i);
 				}else{
-					contiene = 1;
+					contiene = true;
 				}
 			}
-			if(contiene == 1){
-				resp.setStatus(400);
+			if(contiene){
+				resp.setStatus(404);
 			}
 			json=gson.toJson(prov);
 			resp.setContentType("text/json");
@@ -81,19 +81,21 @@ public class RocioServelt extends HttpServlet {
 			System.out.println("ERROR parsing universitySeville:" + e.getMessage());
 		}
 		
-		 String ruta[]=req.getRequestURI().split("/");
-		if(ruta.length == 4){
+		String ruta[]=req.getRequestURI().split("/");
+		Boolean contiene = false;
+		for(universitySeville i :luni){
+			if(i.getYear().equals(uni.getYear())){			
+				contiene = true;
+			}
+		}
+		if(contiene){
+			resp.setStatus(400);
+		}else if(ruta.length == 4){
 			 luni.add(uni);
 			 resp.setStatus(201);
 		}else{
 			resp.setStatus(400);
        }
-		
-			
-		
-		
-		
-		
 		
 
 }
@@ -134,7 +136,7 @@ public class RocioServelt extends HttpServlet {
 					
 					
     			}else{
-    				resp.setStatus(400);
+    				resp.setStatus(404);
     			}
     		}
     		
@@ -158,7 +160,7 @@ public class RocioServelt extends HttpServlet {
         		if(i.getYear().equals(Integer.valueOf(ruta[ruta.length-1]))){
         			luni.remove(i);
         		}else{
-        			resp.setStatus(400);
+        			resp.setStatus(404);
         		}
         	}
         }
