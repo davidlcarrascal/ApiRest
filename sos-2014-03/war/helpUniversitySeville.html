@@ -9,7 +9,7 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  
+  	<link rel="stylesheet" type="text/css" href="./css/helpRocio.css"/>
     <title>SOS GRUPO 3</title>
   </head>
 
@@ -19,16 +19,44 @@
 	    <h2 style="color:black">Servelt univerisitySeville</h2>
 	    <table>
 	      <tr>
-	        <td colspan="2"><h2 style="color:black">DoPost</h2></td>        
+	        <p class = "principio">DoGet: </p>
+	        
+	        <p class= "cuerpo">/api/v1/universitySeville</p>      
+	        <p class="contenido"> Devuelve la lista con todos los años y datos que tenga.</p>
+	        <p class= "cuerpo">/api/v1/universitySeville/2011</p>      
+	        <p class="contenido"> Devuelve los datos que tenga universitySeville en el año 2011</p>
+	        <p class = "contenido">Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – No encontrado</p>
 	      </tr>      
 	      <tr>
-	      	<td colspan="2"><h2 style="color:black">DoGet</h2></td>
+	      	<p class = "principio">DoPost: </p>
+	        
+	        <p class= "cuerpo">/api/v1/universitySeville</p>      
+	        <p class="contenido"> Añade un nuevo dato a universitySeville: </p>
+		 	<p class="contenido"> {"year":2011,"enrolled":100000,"budget":98000998,"employability":89045,"studentMigrants":200900}</p>
+		 	<p class="contenido"> Devuelve 201 - Creado</p>
+			<p class="contenido">Si se quiere hacer un DoPost con un año que ya existe devuelve un error 400 - Solicitud incorrecta</p>
+	        
+	        <p class= "cuerpo">/api/v1/universitySeville/year</p>      
+	        <p class="contenido"> Devuelve un error 400 - Solicitud incorrecta</p>
+	        
 	      </tr>
 	      <tr>
-	      	<td colspan="2"><h2 style="color:black">DoPut</h2></td>
+	      	<p class = "principio">DoPut: </p>
+	        <p class= "cuerpo">/api/v1/universitySeville</p>      
+	        <p class="contenido">Devuelve un error 400 - Solicitud incorrecta</p>
+			<p class= "cuerpo">/api/v1/universitySeville/2010</p> 
+			<p class="contenido">Modifica los datos de universitySeville con identificador year : 2011, si no contiene ese identificador devuelve un error 404 – No encontrado</p>
+	        <p class="contenido"> {"year":2011,"enrolled":9999990,"budget":98000998,"employability":89045,"studentMigrants":200900}</p>     
+	        
 	      </tr>
 	      <tr>
-	      	<td colspan="2"><h2 style="color:black">DoDelete</h2></td>
+	      	
+			<p class = "principio">DoDelete: </p>
+	        <p class= "cuerpo">/api/v1/universitySeville</p>      
+	        <p class="contenido">Borra la lista completa universitySeville</p>
+			<p class= "cuerpo">/api/v1/universitySeville/2010</p> 
+			<p class="contenido">Borra de universitySevilla todos los datos relacionados con year: 2011, si el año a borrar no existe devuelve un error 404 - No encontrado</p>
+	           
 	      </tr>
 	      
 	     

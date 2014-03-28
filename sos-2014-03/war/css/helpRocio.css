@@ -1,0 +1,17 @@
+@CHARSET "US-ASCII";
+
+.principio{
+	margin-left: 3em;
+	color: black;
+	font-weight:bold 
+}
+
+.cuerpo{
+	text-decoration: underline;
+	margin-left: 5em;
+}
+
+
+.contenido{
+	margin-left: 10em;
+}
