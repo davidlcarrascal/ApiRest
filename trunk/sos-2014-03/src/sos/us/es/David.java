@@ -169,27 +169,6 @@ public class David extends HttpServlet {
 		//delete la lista
 		//delete un objeto
 		
-		SpainStd spStad =null;
-		Gson gson = new Gson();
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-		
-		String jsonString;
-		
-		while((jsonString = br.readLine()) != null){
-			sb.append(jsonString);
-		}
-		
-		jsonString= sb.toString();
-		
-		try{
-			
-			spStad= gson.fromJson(jsonString, SpainStd.class);
-			
-		}catch(Exception e){
-			System.out.println("ERROR parsing SpainStd:" + e.getMessage());
-		}
-		
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
 		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
@@ -203,7 +182,7 @@ public class David extends HttpServlet {
 			
 			for (SpainStd o : l){
 				
-				if (o.getYear().equals(spStad.getYear())){
+				if (o.getYear().equals(Integer.parseInt(rute.get(3)))){
 					objeto_a_borrar=o;
 					contiene = true;
 				}
