@@ -83,7 +83,7 @@ public class Jenny extends HttpServlet {
 			Double educationBudget = (Double) en.getProperty("educationBudget");
 			Long migrants = (Long) en.getProperty("migrants");
 			Double pib = (Double) en.getProperty("pib");
-			Seville sev = new Seville(year, population, unemployed,
+			Seville sev = new Seville(year1, population, unemployed,
 					educationBudget, migrants, pib);
 			return gson.toJson(sev);
 		}
