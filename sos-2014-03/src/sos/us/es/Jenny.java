@@ -14,9 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gson.Gson;
 
@@ -41,12 +42,12 @@ public class Jenny extends HttpServlet {
 
 		while (e.hasNext()) {// Me recorro mi iterador y me creo el tipo json
 			entity = e.next();
-			Integer year = (Integer) entity.getProperty("year");
-			Integer population = (Integer) entity.getProperty("population");
-			Integer unemployed = (Integer) entity.getProperty("unemployed");
+			Long year = (Long) entity.getProperty("year");
+			Long population = (Long) entity.getProperty("population");
+			Long unemployed = (Long) entity.getProperty("unemployed");
 			Double educationBudget = (Double) entity
 					.getProperty("educationBudget");
-			Integer migrants = (Integer) entity.getProperty("migrants");
+			Long migrants = (Long) entity.getProperty("migrants");
 			Double pib = (Double) entity.getProperty("pib");
 			sev = new Seville(year, population, unemployed, educationBudget,
 					migrants, pib);// Tengo un objeto creado con todos los
@@ -59,9 +60,9 @@ public class Jenny extends HttpServlet {
 
 	// para un objeto con los seis atributos
 	private String getCity(String url) {
-		Integer year = new Integer(url.split("/")[1]);// Aqui tengo el año, como
-														// me lo da en string,
-														// ,e lo paso a integer
+		Long year = new Long(url.split("/")[1]);// Aqui tengo el año, como
+												// me lo da en string,
+												// ,e lo paso a Long
 		FilterPredicate predicate = new FilterPredicate("year",
 				Query.FilterOperator.EQUAL, year);// apunta al año que yo le
 													// ponga
@@ -76,11 +77,11 @@ public class Jenny extends HttpServlet {
 			return null;
 		} else {
 			Gson gson = new Gson();
-			Integer year1 = (Integer) en.getProperty("year");
-			Integer population = (Integer) en.getProperty("population");
-			Integer unemployed = (Integer) en.getProperty("unemployed");
+			Long year1 = (Long) en.getProperty("year");
+			Long population = (Long) en.getProperty("population");
+			Long unemployed = (Long) en.getProperty("unemployed");
 			Double educationBudget = (Double) en.getProperty("educationBudget");
-			Integer migrants = (Integer) en.getProperty("migrants");
+			Long migrants = (Long) en.getProperty("migrants");
 			Double pib = (Double) en.getProperty("pib");
 			Seville sev = new Seville(year, population, unemployed,
 					educationBudget, migrants, pib);
@@ -95,8 +96,8 @@ public class Jenny extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 
 		String url = req.getPathInfo();
-		System.out.println(url);
-		System.out.println(url.split("/").length);
+		// System.out.println(url);
+		// System.out.println(url.split("/").length);
 		// Si la longitud es 0 es porque despues de Seville, en mi caso, he
 		// puesto una barra
 		// System.out.println(url.split("/").length == 0);
@@ -106,48 +107,31 @@ public class Jenny extends HttpServlet {
 		if (url == null || url.split("/").length == 0) {// Si pongo Seville o
 														// Seville/
 			sev = getSeville();
-			out.println(sev);
+			
 			if (sev.isEmpty()) {
 				resp.setStatus(601);
-				out.write("{\"error\"); \"Empty database\"}");
+				out.write("{\"error\": \"Empty database\"}");
+			}else{
+				out.println(sev);
 			}
+			
 		} else if (url.split("/").length == 2) {
 			String en = getCity(url);
 
 			if (en == null) {
 				resp.setStatus(404);
-				out.write("{\"error\"); \"Not found\"}");
+				out.write("{\"error\": \"Not found\"}");
 			} else {
 				sev.add(en);
 				out.println(sev);
 			}
 		} else {// pedir en la url más de un atributo
 			resp.setStatus(400);
-			out.write("{\"error\"); \"Wrong request\"}");
+			out.write("{\"error\": \"Bad request\"}");
 		}
 		out.close();
 
 	}
-
-	/*
-	 * String json = ""; Gson gson = new Gson();
-	 * 
-	 * String url = req.getRequestURI(); if(url.split("/").length == 2){
-	 * resp.setStatus(404); out.write("{\"error\"); \"Not found\"}"); }else{
-	 * json = gson.toJson(sev); resp.setContentType("text/json");
-	 * resp.getWriter().println(json); } // sev = new ArrayList<Seville>(); //
-	 * sev.add(getYear()); // out.println(sev); //} //Crear datos de prueba :
-	 * Crear lista de 2 poblaciones //List<Seville> sev = new
-	 * LinkedList<Seville>(); //Seville s1 = new Seville(2008, 20000000);
-	 * //Seville s2 = new Seville(2010, 5000000);
-	 * 
-	 * //sev.add(s1); //sev.add(s2);
-	 * 
-	 * //Serializar json = gson.toJson(sev);
-	 * 
-	 * //responder resp.setContentType("text/json");
-	 * resp.getWriter().println(json); }
-	 */
 
 	// Método doPost
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -157,49 +141,178 @@ public class Jenny extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		PrintWriter out = resp.getWriter();
 
-		Seville s = null;
+		Seville sev = null;
+		Entity en = new Entity("Seville");
 		Gson gson = new Gson();
 		StringBuilder sb = new StringBuilder();
 		BufferedReader br = req.getReader();
-
+		String url = req.getPathInfo();
 		String jsonString;
 		if (url == null || url.split("/").length == 0) {
-			//Me lee el json
+			// Me lee el json
 			while ((jsonString = br.readLine()) != null) {
 				sb.append(jsonString);
 			}
 
 			jsonString = sb.toString();
-			out.println(jsonString);
 			try {
-				s = gson.fromJson(jsonString, Seville.class);
-				
+				sev = gson.fromJson(jsonString, Seville.class);
+				FilterPredicate predicate = new FilterPredicate("year",
+						FilterOperator.EQUAL, sev.getYear());
+				Query query = new Query("Seville").setFilter(predicate);
+				PreparedQuery pQuery = bd.prepare(query);
+				Entity ent = pQuery.asSingleEntity();
+				if (ent == null) {// Si el entity es nulo, me crea un objeto
+					en.setProperty("year", sev.getYear());
+					en.setProperty("population", sev.getPopulation());
+					en.setProperty("unemployed", sev.getUnemployed());
+					en.setProperty("educationBudget", sev.getEducationBudget());
+					en.setProperty("migrants", sev.getMigrants());
+					en.setProperty("pib", sev.getPib());
+					bd.put(en);// Meto en la base de datos el objeto de tipo
+								// entity
+					resp.setStatus(201);
+					out.write("{\"error\": \"Created\"}");
+				} else {
+					resp.setStatus(603);
+					out.write("{\"error\": \"Year already exists\"}");
+				}
 			} catch (Exception e) {
-				System.out.println("ERROR parsing Seville: " + e.getMessage());
+				resp.setStatus(300);
+				out.write("{\"error\": \"Not created\"}");
+				// System.out.println("ERROR parsing Seville: " +
+				// e.getMessage());
+				// porque el json no está bien puesto, hay mas o menos
+				// parametros o no están puestos en el orden correcto
 			}
+		} else {
+			resp.setStatus(400);
+			out.write("{\"error\": \"Bad request\"}");
 		}
-
-		String json;
-		json = gson.toJson(s);
 	}
 
 	// Método doPut
 	public void doPut(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-		resp.setContentType("text/json");
-		resp.getWriter().println(json);
+		resp.setHeader("Content-Type", "application/json");
+		resp.setCharacterEncoding("UTF-8");
+		PrintWriter out = resp.getWriter();
 
-		// String json = gson.toJson(sev);
+		Gson gson = new Gson();
+		StringBuilder sb = new StringBuilder();
+		BufferedReader br = req.getReader();
+		String url = req.getPathInfo();
+		String jsonString;
+
+		if (url == null || url.split("/").length != 2) {// Si pongo Seville o
+														// Seville/ o que no
+														// haya puesto el año
+														// sólo, sino que mas
+														// atributos como
+														// poblacion...
+			resp.setStatus(400);
+			out.write("{\"error\": \"Bad request\"}");
+		} else {
+			// Me lee el json
+			while ((jsonString = br.readLine()) != null) {
+				sb.append(jsonString);
+			}
+			jsonString = sb.toString();
+			Seville sev = gson.fromJson(jsonString, Seville.class);
+			Long yearJson = sev.getYear();
+			Long yearUrl = new Long(url.split("/")[1]);
+			if (!yearUrl.equals(yearJson)) {
+				resp.setStatus(401);
+				out.write("{\"error\": \"Not authorized\"}");
+			} else {
+				FilterPredicate predicate = new FilterPredicate("year",
+						Query.FilterOperator.EQUAL, yearUrl);// apunta al año
+																// que yo le
+																// ponga
+				Query query = new Query("Seville").setFilter(predicate);// consulta
+																		// del
+																		// año
+																		// que
+																		// yo
+																		// kiero
+				PreparedQuery pQuery = bd.prepare(query);// conecto con la base
+															// de
+															// datos, kiero esto
+				Entity en = pQuery.asSingleEntity();// tengo el objeto Sevilla
+													// del año
+													// especificado
+				if (en == null) {
+					resp.setStatus(404);
+					out.write("{\"error\": \"Not found\"}");
+				} else {
+					try {
+						bd.delete(en.getKey());
+						en.setProperty("year", sev.getYear());
+						en.setProperty("population", sev.getPopulation());
+						en.setProperty("unemployed", sev.getUnemployed());
+						en.setProperty("educationBudget",
+								sev.getEducationBudget());
+						en.setProperty("migrants", sev.getMigrants());
+						en.setProperty("pib", sev.getPib());
+						bd.put(en);// Meto en la base de datos el objeto de tipo
+									// entity
+						resp.setStatus(200);
+						out.write("{\"error\": \"OK\"}");// Objeto actualizado
+					} catch (Exception e) {
+						resp.setStatus(304);
+						out.write("{\"error\": \"Not modified\"}");
+					}
+				}
+			}
+		}
 	}
 
-	// Método doDelete
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
-		resp.setContentType("text/json");
-		resp.getWriter().println("Borrando");
+		resp.setHeader("Content-Type", "application/json");
+		resp.setCharacterEncoding("UTF-8");
+		PrintWriter out = resp.getWriter();
 
-		// sev.clear();
+		String url = req.getPathInfo();
+		//Para la todo lo ke tega en la base de datos, la lista
+		if (url == null || url.split("/").length == 0) {
+			List<Key> lk = new ArrayList<Key>();
+			Query query = new Query("Seville");
+			PreparedQuery pQuery = bd.prepare(query);
+			Iterator<Entity> ite = pQuery.asIterator();
+			Entity en = null;
+			while(ite.hasNext()){
+				en = ite.next();
+				lk.add(en.getKey());
+			}
+			if(lk.isEmpty()){
+				resp.setStatus(601);
+				out.write("{\"error\": \"Empty database\"}");
+			}else{
+				bd.delete(lk);
+				resp.setStatus(200);
+				out.write("{\"error\": \"OK\"}");// Objetos borrados
+			}
+			//para un objeto nada mas de la base de datos
+		} else if (url.split("/").length == 2) {
+			Long yearUrl = new Long(url.split("/")[1]);// Tengo el año de la url
+			FilterPredicate predicate = new FilterPredicate("year",
+					FilterOperator.EQUAL, yearUrl);
+			Query query = new Query("Seville").setFilter(predicate);
+			PreparedQuery pQuery = bd.prepare(query);
+			Entity en = pQuery.asSingleEntity();
+			if (en == null) {
+				resp.setStatus(404);
+				out.write("{\"error\": \"Not found\"}");
+			}else{
+				Key k = en.getKey();
+				bd.delete(k);
+			}
+		}else{
+			resp.setStatus(400);
+			out.write("{\"error\": \"Bad request\"}");
+		}
 	}
 }

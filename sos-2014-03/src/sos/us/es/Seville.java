@@ -2,15 +2,18 @@ package sos.us.es;
 
 public class Seville {
 
-	private Integer year;
-	private Integer population;
-	private Integer unemployed;
+	private Long year;
+	private Long population;
+	private Long unemployed;
 	private Double educationBudget;
-	private Integer migrants;
+	private Long migrants;
 	private Double pib;
 
-	public Seville(Integer year, Integer population, Integer unemployed,
-			Double educationBudget, Integer migrants, Double pib) {
+	public Seville(){
+		super();
+	}
+	public Seville(Long year, Long population, Long unemployed,
+			Double educationBudget, Long migrants, Double pib) {
 		super();
 		this.year = year;
 		this.population = population;
@@ -20,19 +23,19 @@ public class Seville {
 		this.pib = pib;
 	}
 
-	public Integer getPopulation() {
+	public Long getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(Integer population) {
+	public void setPopulation(Long population) {
 		this.population = population;
 	}
 
-	public Integer getUnemployed() {
+	public Long getUnemployed() {
 		return unemployed;
 	}
 
-	public void setUnemployed(Integer unemployed) {
+	public void setUnemployed(Long unemployed) {
 		this.unemployed = unemployed;
 	}
 
@@ -44,11 +47,11 @@ public class Seville {
 		this.educationBudget = educationBudget;
 	}
 
-	public Integer getMigrants() {
+	public Long getMigrants() {
 		return migrants;
 	}
 
-	public void setMigrants(Integer migrants) {
+	public void setMigrants(Long migrants) {
 		this.migrants = migrants;
 	}
 
@@ -60,7 +63,7 @@ public class Seville {
 		this.pib = pib;
 	}
 
-	public Integer getYear() {
+	public Long getYear() {
 		return year;
 	}
 
