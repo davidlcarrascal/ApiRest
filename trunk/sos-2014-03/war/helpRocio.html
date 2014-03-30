@@ -65,7 +65,66 @@
 
             <section>
                 <h1>Ayuda de API UniversitySeville</h1><br>
-                <p>Escribir Aquí</p>
+                <h3>Método GET</h3><hr><br>
+
+				<p>/api/v1/universitySeville <br><br>
+				Devuelve la lista con todos los datos que tenga.</p><br>
+
+
+				<p>/api/v1/universitySeville/XXXX<br><br>
+
+				Devuelve los datos que tenga universitySeville en el año "XXXX".<br><br>
+				
+				Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – No encontrado<br><br>
+
+
+
+				<h3>Método POST</h3><hr><br>
+
+
+				/api/v1/universitySeville<br><br>
+				
+				Añade un nuevo dato a universitySeville.<br><br>
+
+				Por ejemplo: 
+				
+				{"year":2010,"enrolled":189089,"budget":19990000,"employability":2097,"studentMigrants":8900} <br><br>
+				
+				Si todo ha ido bien, devolverá 201 CREATED.<br>
+
+				Si ya existiera ese año , devolverá 400 BAD REQUEST.<br>
+
+				/api/v1/universitySeville/XXXX<br><br>
+
+				No se permite hacer un DoPost sobre ningun dato en concreto, se devolverá 400 BAD REQUEST.<br><br><br>
+
+				<h3>Método PUT</h3><hr><br>
+				
+				/api/v1/universitySeville<br><br>
+
+				No esta permitido hacer un DoPut sobre la lista, devolverá 400 BAD REQUEST.<br><br>
+				
+				/api/v1/universitySeville/XXXX<br><br>
+				
+				Modifica los datos de universitySeville con identificador year : XXXX , si no contiene ese identificador devuelve un error 404 - NOT FOUND <br><br>
+
+				
+				Ejemplo:<br><br>
+
+				PUT /api/v1/universitySeville/2010<br><br>
+
+				{"year":2010,"enrolled":000000,"budget":19990000,"employability":2097,"studentMigrants":8900}<br><br><br>
+
+				<h3>Método DELETE</h3><hr><br>
+				
+				/api/v1/universitySeville<br><br>
+
+				Borra la lista completa universitySeville<br><br>
+
+
+				/api/v1/universitySeville/XXXX<br><br>
+
+				Borra de universitySeville todos los datos relacionados con year: XXXX, si el año a borrar no existe devuelve un error 404 - NOT FOUND</p>
             
             </section><br>
             
