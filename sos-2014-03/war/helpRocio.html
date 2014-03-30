@@ -75,7 +75,7 @@
 
 				Devuelve los datos que tenga universitySeville en el año "XXXX".<br><br>
 				
-				Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – No encontrado<br><br>
+				Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – NOT FOUND<br><br>
 
 
 
@@ -90,19 +90,19 @@
 				
 				{"year":2010,"enrolled":189089,"budget":19990000,"employability":2097,"studentMigrants":8900} <br><br>
 				
-				Si todo ha ido bien, devolverá 201 CREATED.<br>
+				Si todo ha ido bien, devolverá 201 - CREATED.<br><br>
 
-				Si ya existiera ese año , devolverá 400 BAD REQUEST.<br>
+				Si ya existiera ese año , devolverá 400 - BAD REQUEST.<br><br>
 
 				/api/v1/universitySeville/XXXX<br><br>
 
-				No se permite hacer un DoPost sobre ningun dato en concreto, se devolverá 400 BAD REQUEST.<br><br><br>
+				No se permite hacer Post sobre ningun dato en concreto, se devolverá 400 BAD REQUEST.<br><br><br>
 
 				<h3>Método PUT</h3><hr><br>
 				
 				/api/v1/universitySeville<br><br>
 
-				No esta permitido hacer un DoPut sobre la lista, devolverá 400 BAD REQUEST.<br><br>
+				No esta permitido hacer Put sobre la lista, devolverá 400 - BAD REQUEST.<br><br>
 				
 				/api/v1/universitySeville/XXXX<br><br>
 				
