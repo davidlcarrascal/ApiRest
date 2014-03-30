@@ -92,7 +92,12 @@ body
 {
     font-size: 30px;
 }
-.centrar
+.centrar1
+{
+    padding-top: 45px;
+    padding-left: 100px;
+}
+.centrar2
 {
     padding-top: 45px;
     padding-left: 350px;
