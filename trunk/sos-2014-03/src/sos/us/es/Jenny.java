@@ -305,6 +305,7 @@ public class Jenny extends HttpServlet {
 			Entity en = pQuery.asSingleEntity();
 			if (en == null) {
 				resp.setStatus(404);
+				
 				out.write("{\"error\": \"Not found\"}");
 			}else{
 				Key k = en.getKey();
@@ -312,6 +313,11 @@ public class Jenny extends HttpServlet {
 			}
 		}else{
 			resp.setStatus(400);
+			out.write(url);
+			out.write(url.split("/").length);
+			out.write(url.split("/")[0]);
+			out.write(url.split("/")[1]);
+			
 			out.write("{\"error\": \"Bad request\"}");
 		}
 	}
