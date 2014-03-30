@@ -107,14 +107,13 @@ public class Jenny extends HttpServlet {
 		if (url == null || url.split("/").length == 0) {// Si pongo Seville o
 														// Seville/
 			sev = getSeville();
-			
+
 			if (sev.isEmpty()) {
-				resp.setStatus(601);
 				out.write("{\"error\": \"Empty database\"}");
-			}else{
+			} else {
 				out.println(sev);
 			}
-			
+
 		} else if (url.split("/").length == 2) {
 			String en = getCity(url);
 
@@ -174,12 +173,12 @@ public class Jenny extends HttpServlet {
 					resp.setStatus(201);
 					out.write("{\"error\": \"Created\"}");
 				} else {
-					resp.setStatus(603);
-					out.write("{\"error\": \"Year already exists\"}");
+					resp.setStatus(409);
+					out.write("{\"error\": \"Conflict\"}");
 				}
 			} catch (Exception e) {
-				resp.setStatus(300);
-				out.write("{\"error\": \"Not created\"}");
+				resp.setStatus(409);
+				out.write("{\"error\": \"Conflict\"}");
 				// System.out.println("ERROR parsing Seville: " +
 				// e.getMessage());
 				// porque el json no está bien puesto, hay mas o menos
@@ -276,26 +275,25 @@ public class Jenny extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		String url = req.getPathInfo();
-		//Para la todo lo ke tega en la base de datos, la lista
+		// Para la todo lo ke tega en la base de datos, la lista
 		if (url == null || url.split("/").length == 0) {
 			List<Key> lk = new ArrayList<Key>();
 			Query query = new Query("Seville");
 			PreparedQuery pQuery = bd.prepare(query);
 			Iterator<Entity> ite = pQuery.asIterator();
 			Entity en = null;
-			while(ite.hasNext()){
+			while (ite.hasNext()) {
 				en = ite.next();
 				lk.add(en.getKey());
 			}
-			if(lk.isEmpty()){
-				resp.setStatus(601);
+			if (lk.isEmpty()) {
 				out.write("{\"error\": \"Empty database\"}");
-			}else{
+			} else {
 				bd.delete(lk);
 				resp.setStatus(200);
 				out.write("{\"error\": \"OK\"}");// Objetos borrados
 			}
-			//para un objeto nada mas de la base de datos
+			// para un objeto nada mas de la base de datos
 		} else if (url.split("/").length == 2) {
 			Long yearUrl = new Long(url.split("/")[1]);// Tengo el año de la url
 			FilterPredicate predicate = new FilterPredicate("year",
@@ -305,19 +303,14 @@ public class Jenny extends HttpServlet {
 			Entity en = pQuery.asSingleEntity();
 			if (en == null) {
 				resp.setStatus(404);
-				
+
 				out.write("{\"error\": \"Not found\"}");
-			}else{
+			} else {
 				Key k = en.getKey();
 				bd.delete(k);
 			}
-		}else{
+		} else {
 			resp.setStatus(400);
-			out.write(url);
-			out.write(url.split("/").length);
-			out.write(url.split("/")[0]);
-			out.write(url.split("/")[1]);
-			
 			out.write("{\"error\": \"Bad request\"}");
 		}
 	}
