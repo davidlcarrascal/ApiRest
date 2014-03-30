@@ -16,34 +16,25 @@ public class David extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-
-		// Crear datos de prueba- Crear lista de 2 años
-		SpainStd stad1 = new SpainStd(1999,30000021,1500000,2,234234,55555);
-		l.add(stad1);
-		
-		//SpainStd stad2 = new SpainStd(2000,30000002,1231240,1,212100,66666);
-		//l.add(stad2);
-		
-		
 		// Serializar a JSON
 		
 		String json="";
 		Gson gson = new Gson();
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
+		if(rute.size()==4 && rute.get(3).equals("SpainStd")){
 		
 			json=gson.toJson(l);
 			resp.setContentType("text/json");
 			resp.getWriter().println(json);
 			
-		}else if(rute.size()==4 && rute.get(2).equals("SpainStd") ){ 
+		}else if(rute.size()==5 && rute.get(3).equals("SpainStd") ){ 
 			
 			Boolean contiene=false;
 			SpainStd objeto=null;
 			
 			for(SpainStd o : l){
-				if (o.getYear().equals(Integer.parseInt(rute.get(3)))){
+				if (o.getYear().equals(Integer.parseInt(rute.get(4)))){
 					contiene = true;
 					objeto =o;
 				}
@@ -96,8 +87,23 @@ public class David extends HttpServlet {
 				
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
-			l.add(spStad);
+		if(rute.size()==4 && rute.get(3).equals("SpainStd")){
+			Boolean contiene =false;
+				
+			for (SpainStd o : l){
+				
+				if (o.getYear().equals(spStad.getYear())){
+					contiene = true;
+				}
+					
+			}
+			if(!contiene){
+				l.add(spStad);
+				resp.setStatus(201);
+			}else{
+				resp.setStatus(409);
+			}
+			
 			
 		}else{
 			resp.setStatus(404);
@@ -131,7 +137,7 @@ public class David extends HttpServlet {
 		
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		if(rute.size()==4 && rute.get(2).equals("SpainStd")){
+		if(rute.size()==5 && rute.get(3).equals("SpainStd")){
 			
 			Boolean contiene =false;
 			SpainStd objeto_a_actualizar =new SpainStd();
@@ -145,7 +151,7 @@ public class David extends HttpServlet {
 					
 			}
 				
-			if(contiene){	
+			if(contiene && objeto_a_actualizar.getYear().equals(Integer.parseInt(rute.get(4)))){	
 				
 				objeto_a_actualizar.setEducationBudget(spStad.getEducationBudget());
 				objeto_a_actualizar.setEmigrants(spStad.getEmigrants());
@@ -171,18 +177,18 @@ public class David extends HttpServlet {
 		
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		
-		if(rute.size()==3 && rute.get(2).equals("SpainStd")){
+		if(rute.size()==4 && rute.get(3).equals("SpainStd")){
 			
 			l.clear();
 			
-		}else if(rute.size()==4 && rute.get(2).equals("SpainStd")){
+		}else if(rute.size()==5 && rute.get(3).equals("SpainStd")){
 		
 			Boolean contiene =false;
 			SpainStd objeto_a_borrar =new SpainStd();
 			
 			for (SpainStd o : l){
 				
-				if (o.getYear().equals(Integer.parseInt(rute.get(3)))){
+				if (o.getYear().equals(Integer.parseInt(rute.get(4)))){
 					objeto_a_borrar=o;
 					contiene = true;
 				}
