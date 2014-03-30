@@ -65,7 +65,83 @@
 
             <section>
                 <h1>Ayuda de API SpainStd</h1><br>
-                <p>Escribir Aquí</p>
+                <h3>Método GET</h3><hr><br>
+
+				<p>GET /SpainStd <br><br>
+				Devuelve la lista que contiene todos los años en nuestra base de datos.</p><br>
+
+
+				<p>GET /SainStd/xxxx<br><br>
+
+				Devuelve el objeto en JSON correspondiente al año escrito en "XXXX".<br><br>
+
+				Ejemplo:<br><br>
+
+				GET /SainStd/1999<br><br>
+
+				Objeto JSON : {"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}<br><br>
+
+				Si todo ha ido bien devolverá el código de estado 200 OK.<br>
+
+				En otro caso 404 NOT FOUND.</p><br><br>
+
+				<h3>Método POST</h3><hr><br>
+
+				Añade en la base de datos un nuevo objeto.<br><br>
+
+				POST /SpainStd<br><br>
+
+				payload: 
+
+				{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}<br><br>
+				Si todo ha ido bien, devolverá 201 CREATED.<br>
+
+				Si ya existe en la base de datos, devolverá 409 CONFLICT.<br>
+
+				A tener en cuenta los tipos de los datos:<br><br>
+
+				year: number<br>
+
+				population: number<br>
+
+				unemployed: number<br>
+
+				pib : number<br>
+
+				emigrants: number<br>
+
+				educationBudget: number<br><br>
+
+				No se permite ningun POST sobre un año en concreto /SpainStd/XXXX se devolverá 400 BAD REQUEST.<br><br><br>
+
+				<h3>Método PUT</h3><hr><br>
+
+				Actualiza un objeto de la base de datos.<br><br>
+
+				No se permite ningún PUT sobre la lista /SpainStd se devolverá 400 BAD REQUEST.<br><br>
+
+				Para actualizar un año, se introduce en la url a continuación de la lista y se introduce en el payload el objeto en JSON a actualizar. Debe haber concordancia entre el año del objeto pasado y el año escrito en la url en caso contrario se devolverá  404 NOT FOUND.<br><br>
+
+				Ejemplo:<br><br>
+
+				PUT /SpainStd/1999<br><br>
+
+				payload: 
+
+				{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}<br><br><br>
+
+				<h3>Método DELETE</h3><hr><br>
+				DELETE /SpainStd<br><br>
+
+				Se borrara toda la lista de Años. Si todo ha ido bien devolverá 204 NO CONTENT.<br><br>
+
+				En caso contrario devolverá 404 NOT FOUND.<br><br>
+
+				DELETE /SpainStd/XXXX, *Donde XXX= Año.<br><br>
+
+
+				Se borrará el objeto con ese año. Si todo ha ido bien devolverá 204 NO CONTENT.
+				En caso contrario devolverá 404 NOT FOUND.</p>
             
             </section><br>
             
