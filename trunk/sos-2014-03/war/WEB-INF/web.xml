@@ -21,7 +21,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>David</servlet-name>
-		<url-pattern>/dv/SpainStd/*</url-pattern>
+		<url-pattern>/api/v1/SpainStd/*</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>Jenny</servlet-name>
