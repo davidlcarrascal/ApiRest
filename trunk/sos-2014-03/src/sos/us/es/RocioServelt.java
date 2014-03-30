@@ -89,7 +89,7 @@ public class RocioServelt extends HttpServlet {
 			}
 		}
 		if(contiene){
-			resp.setStatus(400);
+			resp.setStatus(409);
 		}else if(ruta.length == 4){
 			 luni.add(uni);
 			 resp.setStatus(201);
