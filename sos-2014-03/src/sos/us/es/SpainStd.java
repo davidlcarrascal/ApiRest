@@ -2,18 +2,18 @@ package sos.us.es;
 
 public class SpainStd {
 	
-	Integer year;
-	Integer population;
-	Integer unemployed;
-	Integer pib;
-	Integer emigrants;
-	Integer educationBudget;  
+	Long year;
+	Long population;
+	Long unemployed;
+	Long pib;
+	Long emigrants;
+	Long educationBudget;  
 	
 	
 	public SpainStd() {
 		super();
 	}
-	public SpainStd(Integer year, Integer population, Integer unemployed, Integer pib, Integer emigrants, Integer educationBudget) {
+	public SpainStd(Long year, Long population, Long unemployed, Long pib, Long emigrants, Long educationBudget) {
 		this.year = year;
 		this.population=population;
 		this.unemployed=unemployed;
@@ -22,40 +22,40 @@ public class SpainStd {
 		this.educationBudget=educationBudget;
 	}
 	
-	public Integer getYear() {
+	public Long getYear() {
 		return year;
 	}
-	public void setYear(Integer year) {
+	public void setYear(Long year) {
 		this.year = year;
 	}
-	public Integer getPopulation() {
+	public Long getPopulation() {
 		return population;
 	}
-	public void setPopulation(Integer population) {
+	public void setPopulation(Long population) {
 		this.population = population;
 	}
-	public Integer getUnemployed() {
+	public Long getUnemployed() {
 		return unemployed;
 	}
-	public void setUnemployed(Integer unemployed) {
+	public void setUnemployed(Long unemployed) {
 		this.unemployed = unemployed;
 	}
-	public Integer getPib() {
+	public Long getPib() {
 		return pib;
 	}
-	public void setPib(Integer pib) {
+	public void setPib(Long pib) {
 		this.pib = pib;
 	}
-	public Integer getEmigrants() {
+	public Long getEmigrants() {
 		return emigrants;
 	}
-	public void setEmigrants(Integer emigrants) {
+	public void setEmigrants(Long emigrants) {
 		this.emigrants = emigrants;
 	}
-	public Integer getEducationBudget() {
+	public Long getEducationBudget() {
 		return educationBudget;
 	}
-	public void setEducationBudget(Integer educationBudget) {
+	public void setEducationBudget(Long educationBudget) {
 		this.educationBudget = educationBudget;
 	}
 	
