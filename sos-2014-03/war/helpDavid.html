@@ -67,17 +67,17 @@
                 <h1>Ayuda de API SpainStd</h1><br>
                 <h3>Método GET</h3><hr><br>
 
-				<p>GET /api/v1//SpainStd <br><br>
+				<p>GET /api/v1/SpainStd <br><br>
 				Devuelve la lista que contiene todos los años en nuestra base de datos.</p><br>
 
 
-				<p>GET /api/v1//SpainStd/xxxx<br><br>
+				<p>GET /api/v1/SpainStd/xxxx<br><br>
 
 				Devuelve el objeto en JSON correspondiente al año escrito en "XXXX".<br><br>
 
 				Ejemplo:<br><br>
 
-				GET /api/v1//SpainStd/1999<br><br>
+				GET /api/v1/SpainStd/1999<br><br>
 
 				Objeto JSON : {"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}<br><br>
 
@@ -89,7 +89,7 @@
 
 				Añade en la base de datos un nuevo objeto.<br><br>
 
-				POST /api/v1//SpainStd<br><br>
+				POST /api/v1/SpainStd<br><br>
 
 				payload: 
 
@@ -112,13 +112,13 @@
 
 				educationBudget: number<br><br>
 
-				No se permite ningun POST sobre un año en concreto /api/v1//SpainStd/XXXX se devolverá 400 BAD REQUEST.<br><br><br>
+				No se permite ningun POST sobre un año en concreto /api/v1/SpainStd/XXXX se devolverá 400 BAD REQUEST.<br><br><br>
 
 				<h3>Método PUT</h3><hr><br>
 
 				Actualiza un objeto de la base de datos.<br><br>
 
-				No se permite ningún PUT sobre la lista /api/v1//SpainStd se devolverá 400 BAD REQUEST.<br><br>
+				No se permite ningún PUT sobre la lista /api/v1/SpainStd se devolverá 400 BAD REQUEST.<br><br>
 
 				Para actualizar un año, se introduce en la url a continuación de la lista y se introduce en el payload el objeto en JSON a actualizar. Debe haber concordancia entre el año del objeto pasado y el año escrito en la url en caso contrario se devolverá  404 NOT FOUND.<br><br>
 
@@ -131,13 +131,13 @@
 				{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}<br><br><br>
 
 				<h3>Método DELETE</h3><hr><br>
-				DELETE /api/v1//SpainStd<br><br>
+				DELETE /api/v1/SpainStd<br><br>
 
 				Se borrara toda la lista de Años. Si todo ha ido bien devolverá 204 NO CONTENT.<br><br>
 
 				En caso contrario devolverá 404 NOT FOUND.<br><br>
 
-				DELETE /api/v1//SpainStd/XXXX, *Donde XXX= Año.<br><br>
+				DELETE /api/v1/SpainStd/XXXX, *Donde XXX= Año.<br><br>
 
 
 				Se borrará el objeto con ese año. Si todo ha ido bien devolverá 204 NO CONTENT.
