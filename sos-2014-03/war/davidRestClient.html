@@ -9,13 +9,13 @@
 
 <body>
 <h1> JQuery REST Client</h1>
-URL: <input	id="url" size="30" value="/dv/SpainStd"/>
+URL: <input	id="url" size="30" value="/api/v1/SpainStd"/>
 	GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
 	POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
 	PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
 	DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
 	<br/>
-	Payload : <input id="payload" size="60" value='{"name":"value"}'/>
+	Payload : <input id="payload" size="60" value='{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}'/>
 	<br/><br/>
 	<span id="button">Enviar Petición</span>
 	<br/><hr/>
