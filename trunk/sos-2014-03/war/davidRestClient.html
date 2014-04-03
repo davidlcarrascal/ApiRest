@@ -5,8 +5,18 @@
 <meta charset="ISO-8859-1">
 <title>Rest Client</title>
 <script src="/js/jquery-1.11.0.min.js"></script>
-</head>
 
+<script type="text/javascript">
+var request = $.ajax({
+	url: "/api/v1/SpainStd"
+	type: "GET"
+})
+request.done(function(data,status,jqXHR){
+	//tratamiento del texto
+	var parseData =$.parseJSON(data);
+})
+</script>
+</head>
 <body>
 <h1> JQuery REST Client</h1>
 URL: <input	id="url" size="30" value="/api/v1/SpainStd"/>
@@ -14,7 +24,7 @@ URL: <input	id="url" size="30" value="/api/v1/SpainStd"/>
 	POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
 	PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
 	DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
-	<br/>
+	<br/>S
 	Payload : <input id="payload" size="60" value='{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}'/>
 	<br/><br/>
 	<span id="button">Enviar Petición</span>
