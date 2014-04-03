@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Rest Client</title>
+<script src="/js/jquery-1.11.0.min.js"></script>
+</head>
+
+<body>
+<h1> JQuery REST Client</h1>
+URL: <input	id="url" size="30" value="/api/v1/Seville"/>
+	GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
+	POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
+	PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
+	DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
+	<br/>
+	Payload : <input id="payload" size="60" value='{"name":"value"}'/>
+	<br/><br/>
+	<span id="button">Enviar Petición</span>
+	<br/><hr/>
+	HTTP Status: <span id="status"></span>
+	<br/><hr/>
+	<span id="data"></span>
+	<br/><hr/>
+	<ul id="list"></ul>
+	<hr/>
+	Log: <span id="log"></span>
+</body>
+
+</html>
