@@ -1,57 +1,92 @@
 package sos.us.es;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
-
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-
 import javax.servlet.http.*;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.gson.Gson;
 
 
 @SuppressWarnings("serial")
 public class RocioServelt extends HttpServlet {
-	//static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	static List<universitySeville> luni = new ArrayList<universitySeville>();
 
 	
-	
+	private List<String> getUniversitySeville(){
+		Query q=new Query("UniversitySeville");
+		PreparedQuery p=datastore.prepare(q);
+		Iterable<Entity> resultados=p.asIterable();
+		List<String> todos = new ArrayList<String>();
+		Gson gson= new Gson();
+		for(Entity us : resultados){
+			Integer year=(Integer)us.getProperty("year");
+			Integer enrolled=(Integer)us.getProperty("enrolled");
+			Integer budget=(Integer)us.getProperty("budget");
+			Integer employability=(Integer)us.getProperty("employability");
+			Integer studentMigrants=(Integer)us.getProperty("studentMigrants");
+			universitySeville luis=new universitySeville(year, enrolled, budget, employability, studentMigrants);
+			todos.add(gson.toJson(luis));
+		}
+		return todos;
+	}
+	private String getUniversitySevilleBy(Integer year){
+		FilterPredicate predicate = new FilterPredicate("year",Query.FilterOperator.EQUAL, year);
+		Query q = new Query("UniversitySeville").setFilter(predicate);
+		PreparedQuery p=datastore.prepare(q);
+		Entity us=p.asSingleEntity();
+		Gson gson= new Gson();
+		universitySeville luis=new universitySeville();
+		try{
+			Integer year2=(Integer)us.getProperty("year");
+			Integer enrolled=(Integer)us.getProperty("enrolled");
+			Integer budget=(Integer)us.getProperty("budget");
+			Integer employability=(Integer)us.getProperty("employability");
+			Integer studentMigrants=(Integer)us.getProperty("studentMigrants");
+			luis=new universitySeville(year2, enrolled, budget, employability, studentMigrants);
+		}catch(NullPointerException e){
+			return null;
+			
+		}
+			return gson.toJson(luis);	
+	}
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 //		universitySeville u1 = new universitySeville(2011,2,4,5,6);
 //		luni.add(u1);
-		
-		String json="";
-		Gson gson= new Gson();
-		
-		
+
+
+		resp.setContentType("application/json");
+		PrintWriter out=resp.getWriter();
 		String ruta[]=req.getRequestURI().split("/");
 		if(ruta.length==4){
 			
-			json=gson.toJson(luni);
-			resp.setContentType("text/json");
-			resp.getWriter().println(json);	
+		List<String> todo=getUniversitySeville();
+		out.println(todo);
+		
 			
 		}else{
-			List<universitySeville> prov=new LinkedList<universitySeville>();
-			Boolean contiene = false;
-			for(universitySeville i :luni){
-				if(i.getYear().equals(Integer.parseInt(ruta[ruta.length-1]))){			
-					prov.add(i);
-				}else{
-					contiene = true;
-				}
-			}
-			if(contiene){
+			Integer year=(Integer.parseInt(ruta[ruta.length-1]));
+			String uni=getUniversitySevilleBy(year);
+			if(uni==null){
 				resp.setStatus(404);
+				out.println("{\"error\": \"404 Not Found\"}");
+			}else{
+			out.println(uni);
 			}
-			json=gson.toJson(prov);
-			resp.setContentType("text/json");
-			resp.getWriter().println(json);	
 		}
+		out.close();
 	
 	
 	}
