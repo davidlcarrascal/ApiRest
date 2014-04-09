@@ -1,14 +1,14 @@
 package sos.us.es;
 
 public class universitySeville {
-	Integer year;
-	Integer enrolled;
-	Integer budget;
-	Integer employability;
-	Integer studentMigrants;
+	Long year;
+	Long enrolled;
+	Long budget;
+	Long employability;
+	Long studentMigrants;
 	
-	public universitySeville(Integer year, Integer enrolled,Integer budget, Integer employability, Integer studentMigrants) {
-		System.out.println(year+" "+enrolled+" "+budget+" "+employability+" "+studentMigrants);
+	public universitySeville(Long year, Long enrolled,Long budget, Long employability, Long studentMigrants) {
+		
 		this.year = year;
 		this.enrolled = enrolled;
 		this.budget = budget;
@@ -21,37 +21,37 @@ public class universitySeville {
 		super();
 	}
 
-	public Integer getEnrolled() {
+	public Long getEnrolled() {
 		return enrolled;
 	}
 
-	public void setEnrolled(Integer enrolled) {
+	public void setEnrolled(Long enrolled) {
 		this.enrolled = enrolled;
 	}
 
-	public Integer getYear() {
+	public Long getYear() {
 		return year;
 	}
 
-	public void setYears(Integer year) {
+	public void setYears(Long year) {
 		this.year = year;
 	}
-	public Integer getBudget() {
+	public Long getBudget() {
 		return budget;
 	}
-	public void setBudget(Integer budget) {
+	public void setBudget(Long budget) {
 		this.budget = budget;
 	}
-	public Integer getEmployability() {
+	public Long getEmployability() {
 		return employability;
 	}
-	public void setEmployability(Integer employability) {
+	public void setEmployability(Long employability) {
 		this.employability = employability;
 	}
-	public Integer getStudentMigrants() {
+	public Long getStudentMigrants() {
 		return studentMigrants;
 	}
-	public void setStudentMigrants(Integer studentMigrants) {
+	public void setStudentMigrants(Long studentMigrants) {
 		this.studentMigrants = studentMigrants;
 	}
 	public String toString(){
