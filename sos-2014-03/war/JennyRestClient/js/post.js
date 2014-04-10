@@ -8,7 +8,7 @@ $(document).ready(function(){
 		    request.done(function(data, status, jqXHR){
 		    	
 		    	//if(data.split(',').length>1){
-		    		var payloadT = jQuery.parseJSON(data);
+		    		//var payloadT = Stringify(data);
 //		    		$.each(payloadT, function(key, value){
 //		    			$('#resultado').append("<li>" + key + ": " + value + "</li>");
 //		    		})
