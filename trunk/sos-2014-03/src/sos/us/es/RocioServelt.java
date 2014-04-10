@@ -54,8 +54,7 @@ public class RocioServelt extends HttpServlet {
 	}
 
 	private String getUniversitySevilleBy(Long year) {
-		FilterPredicate predicate = new FilterPredicate("year",
-				Query.FilterOperator.EQUAL, year);
+		FilterPredicate predicate = new FilterPredicate("year", Query.FilterOperator.EQUAL, year);
 		Query q = new Query("UniversitySeville").setFilter(predicate);
 		PreparedQuery p = datastore.prepare(q);
 		Entity us = p.asSingleEntity();
@@ -67,8 +66,7 @@ public class RocioServelt extends HttpServlet {
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			luis = new universitySeville(year2, enrolled, budget,
-					employability, studentMigrants);
+			luis = new universitySeville(year2, enrolled, budget, employability, studentMigrants);
 		} catch (NullPointerException e) {
 			return null;
 
@@ -122,17 +120,13 @@ public class RocioServelt extends HttpServlet {
 		}
 
 		jsonString = sb.toString();
-
 		try {
-
 			uni = gson.fromJson(jsonString, universitySeville.class);
 			System.out.println(uni);
-
 		} catch (Exception e) {
 			System.out.println("ERROR parsing universitySeville:"
 					+ e.getMessage());
 		}
-	
 		
 		if (ruta.length == 4) {
 
@@ -212,7 +206,7 @@ public class RocioServelt extends HttpServlet {
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
+		
 		String ruta[] = req.getRequestURI().split("/");
 		List<String> todo = getUniversitySeville();
 		List<Key> claves = new ArrayList<Key>();

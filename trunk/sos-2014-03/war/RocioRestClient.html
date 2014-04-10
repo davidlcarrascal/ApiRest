@@ -11,23 +11,30 @@
 
 <body>
 <h1> JQuery REST Client</h1>
-URL: <input	id="url" size="30" value="/api/v1/universitySeville"/>
+	URL: <input	id="url" size="30" value="/api/v1/universitySeville"/>
 	
 	<br/>
-	Payload : <input id="payload" size="60" value='{"year":2010,"enrolled":890, "budget": 890, "employability": 890 , "studentMigrants": 789 }'/>
+		Payload : <input id="payload" size="60" value= '{"year":2011,"enrolled":890,"budget":890,"employability":890,"studentMigrants":789}'>
 	<br/><br/>
+	
 	<button id="get">get</button>
 	<button id="post">post</button>
 	<button id="put">put</button>
 	<button id="delete">delete</button>
+	
 	<br/><hr/>
 	HTTP Status: <span id="status"></span>
 	<br/><hr/>
+	
 	<span id="data"></span>
 	<br/><hr/>
+	
 	<ul id="list"></ul>
+	
 	<hr/>
+	
 	Log: <span id="log"></span>
+	
 </body>
 
 </html>
