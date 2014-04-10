@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1> JQuery REST Client</h1>
+<ul>
+	<li><a href="./get.html">GET</a></li>
+	<li><a href="./post.html">POST</a></li>
+	<li><a href="./put.html">PUT</a></li>
+	<li><a href="./delete.html">DELETE</a></li>
+</ul>
+<input type="text" id="payload" size="120" value='{"year":2007,"population":50000,"unemployed":100000,"educationBudget":1000.0,"migrants":5000,"pib":0.3}' placeholder="Payload Json">
+<button id="crear">Crear</button>
+<div id="resultado"></div>
+<div id="errores"></div>
+
+<script type="text/javascript" src= "../js/jquery-1.11.0.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src= "./js/post.js"></script>
+</body>
+
+</html>
