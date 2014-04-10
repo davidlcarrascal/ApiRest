@@ -2,40 +2,50 @@
 <html>
 
 <head>
-<meta charset="ISO-8859-1">
-<title>Rest Client</title>
-<script src="/js/jquery-1.11.0.min.js"></script>
+	<meta charset="ISO-8859-1">
+	<title>Rest Client</title>
+	
+	<script src="/js/vendor/jquery-1.11.0.min.js"></script>
+	<script src="/js/davidRestClient.js"></script>
 
-<script type="text/javascript">
-var request = $.ajax({
-	url: "/api/v1/SpainStd"
-	type: "GET"
-})
-request.done(function(data,status,jqXHR){
-	//tratamiento del texto
-	var parseData =$.parseJSON(data);
-})
-</script>
-</head>
-<body>
-<h1> JQuery REST Client</h1>
-URL: <input	id="url" size="30" value="/api/v1/SpainStd"/>
-	GET <input name="method" type="radio" id="GET" checked="checked"/> &nbsp;&nbsp;
-	POST <input name="method" type="radio" id="POST" checked="checked"/> &nbsp;&nbsp;
-	PUT <input name="method" type="radio" id="PUT" checked="checked"/> &nbsp;&nbsp;
-	DELETE <input name="method" type="radio" id="DELETE" checked="checked"/> &nbsp;&nbsp;
-	<br/>S
-	Payload : <input id="payload" size="60" value='{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}'/>
-	<br/><br/>
-	<span id="button">Enviar Petición</span>
-	<br/><hr/>
-	HTTP Status: <span id="status"></span>
-	<br/><hr/>
-	<span id="data"></span>
-	<br/><hr/>
-	<ul id="list"></ul>
-	<hr/>
-	Log: <span id="log"></span>
-</body>
+
+	</head>
+	<body>
+	<h1> JQuery REST Client</h1>
+	URL: <input	id="url" size="30" value="/api/v1/SpainStd"/>
+		GET <input name="method" type="radio" id="GET" value="GET" checked="checked"/> &nbsp;&nbsp;
+		POST <input name="method" type="radio" id="POST" value="POST" /> &nbsp;&nbsp;
+		PUT <input name="method" type="radio" id="PUT" value="PUT" /> &nbsp;&nbsp;
+		DELETE <input name="method" type="radio" id="DELETE" value="DELETE" /> &nbsp;&nbsp;
+		<br/>
+		Payload : <input id="payload" size="60" value='{"year":1999,"population":30000021,"unemployed":1500000,"pib":2,"emigrants":234234,"educationBudget":55555}'/>
+		<br/><br/>
+		<button id="enviar">Enviar Peticion</button>&nbsp;&nbsp;
+		<button id="reset">Limpiar</button>&nbsp;&nbsp;
+		<br/><hr/>
+		HTTP Status: <span id="status" class="status"></span>
+		<br/><hr/>
+		<span id="data" class="data"></span>
+		<br/><hr/>
+		<ul id="list" class="list"></ul>
+		<hr/>
+		Log: <span id="log"></span><br>
+		Mi tabla: 
+		<table id="table">
+			<thead>
+		        <tr>
+		            <th>Year</th>
+		            <th>Population</th>
+		            <th>Unemployed</th>
+		            <th>Pib</th>
+		            <th>Emigrants</th>
+		            <th>Education Budget</th>
+		        </tr>
+	    	</thead>
+	    	<tbody id="tbody">
+	    	</tbody>
+
+		</table>	
+	</body>
 
 </html>

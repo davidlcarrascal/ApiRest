@@ -98,7 +98,7 @@ public class David extends HttpServlet {
 		Gson gson = new Gson();
 		List<String> rute  = Arrays.asList(req.getRequestURI().split("/"));
 		List<SpainStd> ld=listaDatastore();
-		System.out.println(listaDatastore());
+		//System.out.println(listaDatastore());
 
 		if(rute.size()==4 && rute.get(3).equals("SpainStd")){
 
