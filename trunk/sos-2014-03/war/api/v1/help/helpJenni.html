@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Help Seville</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Sofadi+One'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../../../css/bootstrap.css">
+<link rel="stylesheet" href="../../../css/main.css">
+
+<script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+	<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+	<div class="container">
+
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+						<h1 class="texto tamtex1">API Rest</h1>
+						<h5 class="texto tamtex2">Grupo 3, SOS</h5>
+					</div>
+					<div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+						<a href="http://piazza.com/us.es/spring2014/sos/"><img
+							class="pequena" src="../../../img/piazza.png"></a> <a
+							href="https://projetsii.informatica.us.es/"><img
+							class="pequena" src="../../../img/projetsii.png"></a> <a
+							href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img
+							class="pequena" src="../../../img/Opera.png"></a>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Cambiar navegación</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="../../../index.html" class="navbar-brand">Inicio</a>
+			</div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="../../../Graficos.html">Gráficos</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Documentacion <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="helpDavid.html">Api-David</a></li>
+							<li><a href="../../../api/v1/help/helpJenni.html">Api-Jenni</a></li>
+							<li><a href="../../../api/v1/help/helpRocio.html">Api-Rocio</a></li>
+						</ul></li>
+					<li><a href="../../../Acercade.html">Acerca de</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<section>
+			<h1>Ayuda de API Seville</h1>
+			<br>
+			<h3>Método GET</h3>
+			<hr>
+			<br>
+
+			<p>
+				GET /Seville o GET /Seville/ <br> <br> Devuelve una lista
+				en formato Json de todos los objetos almacenados en el DataStore.
+			</p>
+			<br>
+
+
+			<p>
+				GET /Seville/XXXX<br> <br> Devuleve el objeto en formato
+				Json del año especificado con "XXXX".<br> <br> Ejemplo:<br>
+				<br> GET /Seville/1999<br> <br> Objeto JSON :<br> <br> {<br>
+				"year": 2000,<br> "population": 500000,<br> "unemployed": 500,<br>
+				"educationBudget": 1000, <br>"migrants": 2000,<br> "pib": 0.03<br> }<br> <br>
+				Si existe un objeto en el DataStore del año especificado en la url, lo devuelve en formato Json.<br>
+				Además de devolver el objeto en formato Json, se muestra el código HTTP 200 OK.<br><br>
+
+				En el caso de que no se encuentre en el DataStore el objeto con el año especificado en la url, <br>
+				se mostrará el código de error HTTP 404 Not found. <br> 
+			</p>
+			
+			<p>
+				GET /Seville/XXXX/*<br> <br> Devuelve el código de error HTTP 400 Bad Request.<br>
+			</p>
+			<br> <br>
+
+			<h3>Método POST</h3>
+			<hr>
+			<br><p> Añade en el DataStore un nuevo objeto.<br> <br>
+			POST /Seville o POST Seville/<br> <br> Payload:<br><br> {<br>
+				"year": 2000,<br> "population": 500000,<br> "unemployed": 500,<br>
+				"educationBudget": 1000, <br>"migrants": 2000,<br> "pib": 0.03<br> }<br> <br>
+			Si el objeto se ha creado correctamente, devuelve el código HTTP 201 Created.<br>
+			En el caso de que ya exista ese objeto en el DataStore, devolverá el código de error HTTP 409 CONFLICT.<br>
+			A tener en cuenta los tipos de las propiedades de los datos:<br> <br> year: number(long)<br>
+			population: number(long)<br> unemployed: number(long)<br> educationBudget: number(double)<br>
+			migrants: number(long)<br> pib : number(double)<br> <br>
+			Si el objeto no se ha parseado correctamente o en cualquier otro caso de error,<br>
+			devolverá el código de error HTTP 409 Conflict<br>
+			</p>
+			<p>
+			Cuando la url sea de tipo: /Seville/* se
+			devolverá el código de error HTTP 400 Bad Request.<br> <br> <br>
+			</p>
+
+			<h3>Método PUT</h3>
+			<hr>
+			<br> <p>Actualiza el objeto del año especificado en el DataStore.<br> <br>
+			Cuando se quiere actualizar un año, ponemos e
+			n la url el año del objeto que se quiere actualizar.<br>
+			En el Payload ponemos el objeto en formato Json a actualizar.
+			<br> <br> Ejemplo:<br> <br>
+			PUT /Seville/2000<br> <br>
+			Payload:{<br>
+				"year": 2000,<br> "population": 500000,<br> "unemployed": 500,<br>
+				"educationBudget": 1000, <br>"migrants": 2000,<br> "pib": 0.03<br> }
+			<br> <br>Se devuelve el código HTTP 200 OK.
+			</p>
+			<p>
+			Si los años coinciden, pero no existe ningún objeto en el DataStore de ese año,<br>
+			se devolverá el código de error HTTP 404 Not Found.
+			<br>
+			</p>
+			<p>
+			Si el año que se le pasa a la url es diferente al año que aparece en el objeto en formato Json,<br>
+			devolverá el código de error HTTP 401 Not Authorized.
+			</p>
+			<p>
+			No se permite ningún PUT si la url presenta uno de los siguientes formatos:<br>
+			/Seville, /Seville/ o /Seville/XXXX/*.<br>
+			Se devolverá el código de error HTTP 400 Bad Request.<br>
+			</p>
+			<p>
+			Si el objeto no se ha parseado correctamente o en cualquier otro caso de error,<br>
+			devolverá el código de error HTTP 304 Not Modified.<br>
+			</p>
+			
+			
+			<h3>Método DELETE</h3>
+			<hr>
+			<br> <p>DELETE /Seville o /Seville/<br> <br> Se borrará todos los objetos contenidos en el DataStore.
+			<br>En el caso de que todo sea correcto, se devolverá el código HTTP 200 OK.<br> <br>
+			</p>
+			<p>
+			DELETE /Seville/XXXX, siendo XXXX el año del objeto a borrar.<br> <br>Entonces se borrará el objeto con ese año.
+			Si todo es correcto devolverá el código HTTP 200 OK.<br>
+			En caso de que no exista en el DataStore el objeto del año especificado,<br>
+			se devolverá el código de error HTTP 404 Not Found.<br>
+			</p>
+			<p>
+			Cuando la url sea de la siguiente forma: /Seville/XXXX/*,<br>
+			se devolverá el código de error HTTP 400 Bad Request.
+			</p>
+
+		</section>
+		<br>
+
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 color6 centrar2">
+					<p class="texto">Derechos reservados @2014 Grupo3-Sos</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+
+	<script>
+		window.jQuery
+				|| document
+						.write(
+								'<script src="../../../js/vendor/jquery-1.11.0.min.js"><\/script>')
+	</script>
+	<script src="../../../js/vendor/bootstrap.js"></script>
+	<script src="../../../js/plugins.js"></script>
+	<script src="../../../js/main.js"></script>
+
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+		(function(b, o, i, l, e, r) {
+							b.GoogleAnalyticsObject = l;
+							b[l] || (b[l] = function() {
+								(b[l].q = b[l].q || []).push(arguments)
+							});
+							b[l].l = +new Date;
+							e = o.createElement(i);
+							r = o.getElementsByTagName(i)[0];
+							e.src = '//www.google-analytics.com/analytics.js';
+							r.parentNode.insertBefore(e, r)
+						}(window, document, 'script', 'ga'));
+		ga('create', 'UA-XXXXX-X');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>

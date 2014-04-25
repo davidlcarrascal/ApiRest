@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Sofadi+One' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../../css/main.css">
+
+        <script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        
+        <div class="container">
+
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                            <h1 class="texto tamtex1">Api Rest</h1>
+                            <h5 class="texto tamtex2">Grupo 3, SOS</h5>
+                        </div>
+                        <div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+                            <a href="http://piazza.com/us.es/spring2014/sos/"><img class="pequena" src="../../../img/piazza.png"></a>
+                            <a href="https://projetsii.informatica.us.es/"><img class="pequena" src="../../../img/projetsii.png"></a>
+                            <a href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img class="pequena" src="../../../img/Opera.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Cambiar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="../../../index.html" class="navbar-brand">Inicio</a></div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../../../Graficos.html">Gráficos</a></li>
+                            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Documentacion <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="helpDavid.html">Api-David</a></li>
+                                    <li><a href="helpJenni.html">Api-Jenni</a></li>
+                                    <li><a href="helpRocio.html">Api-Rocio</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="../../../Acercade.html">Acerca de</a></li>
+                        </ul>
+                    </div>
+            </nav>
+
+            <section>
+                <h1>Ayuda de API UniversitySeville</h1><br>
+                <h3>Método GET - Actualizar</h3><hr><br>
+
+				<p>/api/v2/universitySeville <br><br>
+				Devuelve la lista en formato JSON con todos los datos almacenado.</p><br>
+
+
+				<p>/api/v2/universitySeville/XXXX<br>
+
+				Devuelve los datos en JSON que tenga universitySeville en el año XXXX<br><br>
+				
+				Ejemplo:<br>
+				
+				/api/v2/universitySeville/2010<br>
+				Devolverá: {"year":2010, "enrolled":189089, "budge": 19990000, "employability":2097, "studentMigrants":8900}<br><br>
+				
+				Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – NOT FOUND<br><br>
+
+
+
+				<h3>Método POST</h3><hr><br>
+
+
+				/api/v1/universitySeville<br><br>
+				
+				Añade un nuevo dato a universitySeville.<br><br>
+
+				Ejemplo:<br>
+				
+				Payload: {"year":2010,"enrolled":189089,"budget":19990000,"employability":2097,"studentMigrants":8900} <br><br>
+				
+				Si todo ha ido bien, devolverá 201 - CREATED.<br><br>
+
+				Si ya existiera ese año , devolverá 409 - CONFLICT.<br><br>
+
+				/api/v1/universitySeville/XXXX<br><br>
+
+				No se permite hacer Post sobre ningun dato en concreto, se devolverá 400 - BAD REQUEST.<br><br><br>
+
+				<h3>Método PUT</h3><hr><br>
+				
+				/api/v1/universitySeville<br><br>
+
+				No esta permitido hacer Put sobre la lista, devolverá 400 - BAD REQUEST.<br><br>
+				
+				/api/v1/universitySeville/XXXX<br><br>
+				
+				Modifica los datos de universitySeville con identificador year : XXXX , si no contiene ese identificador devuelve un error 404 - NOT FOUND <br><br>
+
+				
+				Ejemplo:<br><br>
+
+				/api/v1/universitySeville/2010<br><br>
+
+				{"year":2010,"enrolled":000000,"budget":19990000,"employability":2097,"studentMigrants":8900}<br><br><br>
+
+				<h3>Método DELETE</h3><hr><br>
+				
+				/api/v1/universitySeville<br><br>
+
+				Borra la lista completa universitySeville<br><br>
+
+
+				/api/v1/universitySeville/XXXX<br><br>
+
+				Borra de universitySeville todos los datos relacionados con year: XXXX, si el año a borrar no existe devuelve un error 404 - NOT FOUND</p>
+            
+            </section><br>
+            
+        </div>
+        <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 color6 centrar2">
+                            <p class="texto">
+                                Derechos reservados @2014 Grupo3-Sos
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+        </footer>
+
+
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
+    </body>
+</html>
