@@ -65,17 +65,18 @@
 
             <section>
                 <h1>Ayuda de API UniversitySeville</h1><br>
-                <h3>Método GET</h3><hr><br>
+                <h3>Método GET - Actualizar</h3><hr><br>
 
-				<p>/api/v1/universitySeville <br><br>
-				Devuelve la lista en formato JSON con todos los datos almacenado.</p><br>
+				<p>Devuelve una tabla con todos los datos que contiene nuestro DataStore. <br><br>
+				</p><br>
 
 
-				<p>/api/v1/universitySeville/XXXX<br><br>
+				<p>Si queremos información de un año en concreto, lo introduciremos en el campo year.<br>
 
-				Devuelve los datos en JSON que tenga universitySeville en el año "XXXX".<br><br>
+				Y nos devolverá una tabla con los datos del año solicitado<br><br>
 				Ejemplo:<br>
-				/api/v1/universitySeville/2010<br> Devolverá {"year":2010,"enrolled":189089,"budget":19990000,"employability":2097,"studentMigrants":8900}<br><br>
+				Year: 2010<br>
+				!!!!!!<br><br>
 				
 				Si el año del cual solicitamos información no se encuentra en la lista nos devolverá un error 404 – NOT FOUND<br><br>
 
