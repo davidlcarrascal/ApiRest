@@ -1,10 +1,5 @@
 $(document).ready(function(){
-/*
-	Insertar <input type= "radio" id= "insertar">
-    Modificar <input type= "radio" id = "modificar">
-    Consultar <input type= "radio" id = "consultar"> 
-    Elminar<input type= "radio" id="eliminar">
-    */
+
     $(".modify_form").hide();
     $(".getter_form").hide();
     $(".delete_form").hide();
@@ -41,7 +36,7 @@ $(document).ready(function(){
     
     
 	$(".btn-get").on('click',function(){
-		var url="/api/v1/universitySeville";
+		var url="/api/v2/universitySeville";
 		if($("#year_get").val() != null){
 			url+="/"+$("#year_get").val();
 		}
@@ -70,14 +65,42 @@ $(document).ready(function(){
 		});
 	
 	$(".btn-post").on('click',function(){
-		
+	
+		$(".input-form").css('border-color',"black");
 		var year=$("#year_post").val();
 		var budget=$("#budget_post").val();
 		var employability=$("#employability_post").val();
 		var enrolled=$("#enrolled_post").val();
 		var student=$("#student_post").val();
+		var errores=0;
+		if(year==""){
+			errores++;
+	
+			$('#year_post').css("border-color","red");
+		}
+		if(budget=="" ){
+			errores++;
+	
+			$('#budget_post').css("border-color","red");
+		}
+		if(employability==""){
+			errores++;
+
+			$('#employability_post').css("border-color","red");
+		}
+		if(enrolled==""){
+			errores++;
+
+			$('#enrolled_post').css("border-color","red");
+		}
+		if(student==""){
+			errores++;
+
+			$('#student_post').css("border-color","red");
+		}
+		if(errores==0){
 		
-		var url="/api/v1/universitySeville";
+		var url="/api/v2/universitySeville";
 		var jsoncito='{ "year" : '+year+', "enrolled" :'+enrolled+', "budget" : '+budget+', "employability" : '+employability+', "studentMigrants" : '+student+'}';    
 		
 		var request = $.ajax({
@@ -99,15 +122,47 @@ $(document).ready(function(){
 			}
 			
 		});
+		}
 		
 		});
 	$(".btn-put").on('click',function(){
+		
+		$(".input-form").css('border-color',"black");
 		var year=$("#year_put").val();
 		var budget=$("#budget_put").val();
 		var employability=$("#employability_put").val();
 		var enrolled=$("#enrolled_put").val();
 		var student=$("#student_put").val();
-		var url="/api/v1/universitySeville/"+year;
+		
+		var errores=0;
+		if(year==""){
+			errores++;
+	
+			$('#year_put').css("border-color","red");
+		}
+		if(budget=="" ){
+			errores++;
+	
+			$('#budget_put').css("border-color","red");
+		}
+		if(employability==""){
+			errores++;
+
+			$('#employability_put').css("border-color","red");
+		}
+		if(enrolled==""){
+			errores++;
+
+			$('#enrolled_put').css("border-color","red");
+		}
+		if(student==""){
+			errores++;
+
+			$('#student_put').css("border-color","red");
+		}
+		if(errores==0){
+			
+		var url="/api/v2/universitySeville/"+year;
 		var jsoncito='{ "year" : '+year+', "enrolled" :'+enrolled+', "budget" : '+budget+', "employability" : '+employability+', "studentMigrants" : '+student+'}';    
 		var request = $.ajax({
 			url: url,
@@ -124,13 +179,13 @@ $(document).ready(function(){
 			$('#data').html("No hay respuesta");
 			
 		});
-		
+		}
 		});
 	
 	
 	
 		$(".btn-delete").on('click', function(){
-		var url="/api/v1/universitySeville";
+		var url="/api/v2/universitySeville";
 		if($("#year_delete").val() != null){
 				url+="/"+$("#year_delete").val();
 		}
