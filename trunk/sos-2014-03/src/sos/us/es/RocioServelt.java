@@ -87,12 +87,14 @@ public class RocioServelt extends HttpServlet {
 
 		} else {
 			Long year = (Long.parseLong(ruta[ruta.length - 1]));
+			List<String> todo = new LinkedList<String>();
 			String uni = getUniversitySevilleBy(year);
+			todo.add(uni);
 			if (uni == null) {
 				resp.setStatus(404);
 				out.println("{\"error\": \"404 Not Found\"}");
 			} else {
-				out.println(uni);
+				out.println(todo);
 			}
 		}
 		out.close();
@@ -180,10 +182,11 @@ public class RocioServelt extends HttpServlet {
 		if (ruta.length == 5) {
 			Long year=Long.parseLong(ruta[ruta.length - 1]);
 			Entity dato=this.getEntityBy(year);
+			System.out.println(dato);
 			if(dato==null){
 				resp.setStatus(404);
 				resp.getWriter().close();
-			}
+			}else{
 
 			dato.setProperty("year", uni.getYear());
 			dato.setProperty("enrolled", uni.getEnrolled());
@@ -192,7 +195,7 @@ public class RocioServelt extends HttpServlet {
 			dato.setProperty("studentMigrants",uni.getStudentMigrants());
 			
 			datastore.put(dato);
-
+			}
 		} else {
 			resp.setStatus(400);
 		}
