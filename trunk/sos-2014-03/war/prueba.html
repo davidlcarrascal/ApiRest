@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Help Seville</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href='http://fonts.googleapis.com/css?family=Sofadi+One'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/main.css">
+<script src="/js/jquery-1.11.0.js"></script>
+<script src="/js/jquery.dataTables.js"></script>
+<script src="/js/tablaJenny.js"></script>
+<script src="/js/jquery-ui-1.10.4.custom.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables_themeroller.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui-1.10.4.custom.css">
+<link rel="stylesheet" type="text/css" href="/css/tablaJenny.css">
+</head>
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+	<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+	<div class="container">
+
+		<header>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+						<h1 class="texto tamtex1">API Rest</h1>
+						<h5 class="texto tamtex2">Grupo 3, SOS</h5>
+					</div>
+					<div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+						<a href="http://piazza.com/us.es/spring2014/sos/"><img
+							class="pequena" src="img/piazza.png"></a> <a
+							href="https://projetsii.informatica.us.es/"><img
+							class="pequena" src="img/projetsii.png"></a> <a
+							href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img
+							class="pequena" src="img/Opera.png"></a>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<nav class="navbar navbar-default">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Cambiar navegación</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="index.html" class="navbar-brand">Inicio</a>
+			</div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="Graficos.html">Gráficos</a></li>
+					<li class="dropdown"><a class="dropdown-toggle"
+						data-toggle="dropdown" href="#">Documentacion <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="helpDavid.html">Api-David</a></li>
+							<li><a href="helpJenni.html">Api-Jenni</a></li>
+							<li><a href="helpRocio.html">Api-Rocio</a></li>
+						</ul></li>
+					<li><a href="Acercade.html">Acerca de</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<section>
+<div>
+		<menu>
+			<li id="li_crear">CREAR</li>
+			<li id="li_modificar">MODIFICAR</li>
+			<li id="li_borrar">BORRAR</li>
+			<li id="li_borrarTodo">BORRAR TODO</li>
+			<li id="li_buscar">BUSCAR</li>
+		</menu>
+	</div>
+	<div id="div_tabla">
+		<span>VISUALIZACIÓN DE DATOS DE SEVILLA</span> <br>
+		<table id="tabla">
+		</table>
+	</div>
+
+	<br>
+	<div class="formulario" id="div_crear">
+		<form id="formularioCrear">
+			<fieldset>
+				<legend>Crear estadística</legend>
+				<div>
+					<label>Year</label> <input id="year" type="number"
+						required="required">
+				</div>
+
+				<div>
+					<label>Population</label> <input id="population" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>Unemployed</label> <input id="unemployed" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>Education Budget</label> <input id="educationBudget"
+						type="number" required="required">
+				</div>
+				<div>
+					<label>Migrants</label> <input id="migrants" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>PIB</label> <input id="pib" type="number"
+						required="required">
+				</div>
+				<div>
+					<button type="submit" id="crear">Crear</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="formulario" id="div_modificar">
+		<form id="formularioModificar">
+			<fieldset>
+				<legend>Modificar estadística</legend>
+				<div>
+					<label>Year</label> <input id="yearPut" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>Population</label> <input id="populationPut" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>Unemployed</label> <input id="unemployedPut" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>Education Budget</label> <input id="educationBudgetPut"
+						type="number" required="required">
+				</div>
+				<div>
+					<label>Migrants</label> <input id="migrantsPut" type="number"
+						required="required">
+				</div>
+				<div>
+					<label>PIB</label> <input id="pibPut" type="number"
+						required="required">
+				</div>
+				<div>
+					<button type="submit" id="modificar">Modificar</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="formulario" id="div_borrar">
+		<form id="formularioBorrar">
+			<fieldset>
+				<legend>Borrar estadística</legend>
+				<div>
+					<label>Year</label> <input id="yearDelete" type="number"
+						required="required">
+				</div>
+				<div>
+					<button type="submit" id="borrar">Borrar</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="formulario" id="div_borrarTodo">
+		<form id="formularioBorrarTodo">
+			<fieldset>
+			<legend>Borrar todas las estadísticas</legend>
+				<div>
+					<button type="submit" id="borrarTodo">Borrar todo</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div class="formulario" id="div_buscar">
+		<form id="formularioBuscar">
+			<fieldset>
+				<legend>Buscar estadística</legend>
+				<div>
+					<label>Year</label> <input id="yearBuscar" type="number">
+				</div>
+				<div>
+					<button type="submit" id="buscar">Buscar</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<br>
+	<div id="errores"></div>
+	<div id="resultado"></div>
+
+		</section>
+		<br>
+
+	</div>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 color6 centrar2">
+					<p class="texto">Derechos reservados @2014 Grupo3-Sos</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+
+	<script>
+		window.jQuery
+				|| document
+						.write(
+								'<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
+	</script>
+	<script src="js/vendor/bootstrap.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/main.js"></script>
+
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+		(function(b, o, i, l, e, r) {
+							b.GoogleAnalyticsObject = l;
+							b[l] || (b[l] = function() {
+								(b[l].q = b[l].q || []).push(arguments)
+							});
+							b[l].l = +new Date;
+							e = o.createElement(i);
+							r = o.getElementsByTagName(i)[0];
+							e.src = '//www.google-analytics.com/analytics.js';
+							r.parentNode.insertBefore(e, r)
+						}(window, document, 'script', 'ga'));
+		ga('create', 'UA-XXXXX-X');
+		ga('send', 'pageview');
+	</script>
+</body>
+</html>
