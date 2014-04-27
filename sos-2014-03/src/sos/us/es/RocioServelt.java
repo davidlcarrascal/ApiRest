@@ -38,9 +38,9 @@ public class RocioServelt extends HttpServlet {
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			universitySeville luis = new universitySeville(year, enrolled,
+			universitySeville univer = new universitySeville(year, enrolled,
 					budget, employability, studentMigrants);
-			todos.add(gson.toJson(luis));
+			todos.add(gson.toJson(univer));
 		}
 		return todos;
 	}
@@ -59,19 +59,19 @@ public class RocioServelt extends HttpServlet {
 		PreparedQuery p = datastore.prepare(q);
 		Entity us = p.asSingleEntity();
 		Gson gson = new Gson();
-		universitySeville luis = new universitySeville();
+		universitySeville univer = new universitySeville();
 		try {
 			Long year2 = (Long) us.getProperty("year");
 			Long enrolled = (Long) us.getProperty("enrolled");
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			luis = new universitySeville(year2, enrolled, budget, employability, studentMigrants);
+			univer = new universitySeville(year2, enrolled, budget, employability, studentMigrants);
 		} catch (NullPointerException e) {
 			return null;
 
 		}
-		return gson.toJson(luis);
+		return gson.toJson(univer);
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
