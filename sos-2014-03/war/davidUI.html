@@ -12,8 +12,12 @@
         <link href='http://fonts.googleapis.com/css?family=Sofadi+One' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/bootstrap.css">
         <link rel="stylesheet" href="css/main.css">
-
-        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <link rel="stylesheet" href="css/messi.css">
+        <script type="text/javascript" src="/js/vendor/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="/js/vendor/modernizr-2.6.2.min.js"></script>
+        <script type="text/javascript" src="/js/vendor/messi.js"></script>
+		<script type="text/javascript" src="/js/ui.js"></script>
+		
     </head>
     <body>
         <!--[if lt IE 7]>
@@ -64,41 +68,54 @@
             </nav>
 
             <section>
-                <p>Aquí estan los gráficos de nuestro trabajo.</p>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-3 col-md-6 col-lg-12">
-                                <h3>Gráfico 1</h3><hr>
-                                <p align="justify">En este trabajo vamos a analizar varios aspecto de la universidad de Sevilla, Sevilla y España.
-                                En estos casos en concretemos vamos a intenar responder a la siguientes preguntas:
-                                   1-Teniendo en cuenta el presupuesto en Educación en España, ¿Cuánto dinero llega a Sevilla y cuánto destina a la US?. Todo esto en varios años.
-								   2- ¿Cuántos alumnos de la US no están en paro fijándonos en la desempleabilidad de Sevilla y España?. Todo esto en varios años.</p>
-                            </div>
-                            <div class="hidden-xs col-sm-6 col-md-12 col-lg-12">
-                                <img src="img/SOS-03-1.jpg" class="img-responsive grande">
-                            </div>
-                            
-                        </div>  
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-12">
-                                <h3>Gráfico 2</h3><hr>
-                                <p align="justify">En este trabajo vamos a analizar varios aspecto de la universidad de Sevilla, Sevilla y España.
-                                En estos casos en concretemos vamos a intenar responder a la siguientes preguntas:
-                                  3.- Compararemos por año los emigrantes de España y Sevilla con los estudiantes que emigran de la US.</p><br><br><br><br>
-         
-                            </div>
-                            <div class="hidden-xs col-sm-6 col-md-12 col-lg-12">
-                                <img src="img/SOS-03.png" class="img-responsive grande">
-                            </div>
-                            
-                        </div>  
-                    </div>
-            
-                            
+            	<div class="panel panel-default">
+	            	<div class="panel-heading">Instrucciones</div>
+	  				<div class="panel-body">
+	    				<p class="bg-warning">Para consultar un año concreto: Pulsar <code>consultar objeto</code> y escribir en el campo año, el año de dicho objeto.<br>
+                        Para volver a la tabla desde cualquier campo pulsar <code>consultar tabla</code>, de esta forma tambien se actualiza. En ambos caso pulsar <code>Enviar</code>.</p>
+	    				<p class="bg-success">Para crear un nuevo objeto: Pulsar <code>crear</code> para poder rellenar todos los campos del objeto, a continuación pulsa <code>Enviar</code>.</p>
+	    				<p class="bg-info">Para modificar un objeto ya creado: Pulsar <code>modificar</code> para poder rellenar todos los campos del objeto a modificar (Los objetos se identifican por año), a continuación pulsa <code>Enviar</code>.</p>
+	    				<p class="bg-danger">Para borrar un objeto: Pulsar <code>borrar</code>y escribir en el campo año, el año de dicho objeto, a continuación pulsa <code>Enviar</code>.</p>
+	    				<p class="bg-primary">Para borrar toda la lista: Simplemente pulsar en <code>borrar todo</code> y a continuación en <code>Enviar</code>.</p>
+	 				</div>
+	 				
+	    				
+	 				
+	 			</div>
+                <div id="botones" class="col-xs-6 col-sm-6 col-md-4 col-lg-4 btn-group-vertical">
+                    <button id="consultarTodo" type="button" class="btn btn-default">Consultar Tabla</button>
+                	<button id="consultar" type="button" class="btn btn-default">Consultar Objeto</button>
+                	<button id="crear" type="button" class="btn btn-default">Crear</button>
+                	<button id="modificar" type="button" class="btn btn-default">Modificar</button>
+                	<button id="borrar" type="button" class="btn btn-default">Borrar</button>
+                	<button id="borrartodo" type="button" class="btn btn-default">Borrar Todo</button>
+                    <button id="send" type="button" class="btn btn-success">Enviar</button>
                 </div>
+
+                <div id="form" class="col-xs-6 col-sm-6 col-md-4 col-lg-4 form-group">
+                	<br><br><br><p>Selecciona una opción del menú de la izquierda.</p>
+                </div>
+                <div id="mi_tabla" class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                	<h1>SpainStd</h1>
+                	<table id="table" class="table table-hover">
+						<thead>
+					        <tr>
+					            <th>Year</th>
+					            <th>Population</th>
+					            <th>Unemployed</th>
+					            <th>Pib</th>
+					            <th>Emigrants</th>
+					            <th>Education Budget</th>
+					        </tr>
+				    	</thead>
+				    	<tbody id="tbody">
+				    	</tbody>
+					</table>			
+				</div> 
+					
+	
+
+            
             </section><br>
             
         </div>

@@ -69,6 +69,30 @@ body
 {
     font-size: 20px;
 }
+#botones
+{
+    margin-top:14px;   
+}
+#send
+{
+    margin-top: 2em;
+}
+#mi_tabla
+{   
+    margin-top: 1em;
+    margin-left:8em;
+    margin-bottom: 2em;
+}
+#form
+{
+    text-align: center; 
+    margin-left: 10em;
+    margin-bottom:3em;
+}
+.oculto
+{
+    display: none;
+}
 .pequena
 {
     width: 60px;
