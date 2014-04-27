@@ -59,7 +59,7 @@ $(document).ready(function(){
 			$('#data').html(mensaje);
 		});
 		request.fail(function(data,jqXHR,status){
-			$('#data').html("No hay respuesta");
+			$('#data').html("No response - Year does not exist");
 		});
 		
 		});
@@ -111,14 +111,14 @@ $(document).ready(function(){
 			});
 		request.done(function(data,status,jqXHR){
 			
-			$('#data').html('Datos anadidos');
+			$('#data').html('Data added');
 		});
 		request.fail(function(data,jqXHR,status){
 			if(data.status == "400"){
 				$('#data').html("Bad Request");
 			}
 			if(data.status == "409"){
-				$('#data').html("Conflict");
+				$('#data').html("Conflict - Year content");
 			}
 			
 		});
@@ -172,11 +172,11 @@ $(document).ready(function(){
 			});
 		request.done(function(data,status,jqXHR){
 			
-			$('#data').html('Datos modificados');
+			$('#data').html('Change data');
 		});
 		request.fail(function(data,jqXHR,status){
 			
-			$('#data').html("No hay respuesta");
+			$('#data').html("No response - Year does not exist");
 			
 		});
 		}
@@ -196,11 +196,11 @@ $(document).ready(function(){
 			dataType: "text"
 		});
 		request.done(function(data,status,jqXHR){
-			$('#data').html('Borrado');
+			$('#data').html('Delete');
 		});
 		request.fail(function(jqXHR,status){
 			
-			$('#data').html("no hay respuesta");
+			$('#data').html("No response - Year does not exist");
 			
 			
 		});
