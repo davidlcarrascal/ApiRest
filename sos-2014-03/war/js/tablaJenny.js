@@ -1,5 +1,7 @@
 $(document).ready(function() {
 	var tabla = $('#tabla').dataTable({
+		"bJQueryUI": true,
+		"sPaginationType": "full_numbers",
 		"aoColumns" : [ {
 			"sTitle" : "Year"
 		}, {
