@@ -24,6 +24,7 @@ $(document).ready(function() {
 	$("#formularioBorrar").on('submit', deleteYear);
 	$("#formularioBorrarTodo").on('submit', deleteTodo);
 	$("#formularioBuscar").on('submit', buscar);
+	$("#recargar").on('click', get);
 	
 	$("#li_crear").on('click', function(){
 		$('#div_buscar').css("display", "none");
@@ -95,6 +96,8 @@ $(document).ready(function() {
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
 		request.fail(function(jqXHR, status) {
+			tabla.fnClearTable();// borro la tabla completa
+			drawTable(data);// dibujo la tabla
 			$("#resultado").text("");
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
