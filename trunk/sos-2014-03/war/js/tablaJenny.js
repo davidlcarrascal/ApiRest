@@ -132,7 +132,7 @@ $(document).ready(function() {
 			data : json
 		});
 		request.done(function(data, status, jqXHR) {
-			setTimeout(get, 3000);
+			//setTimeout(get, 3000);
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
 
@@ -175,7 +175,7 @@ $(document).ready(function() {
 			data : json
 		});
 		request.done(function(data, status, jqXHR) {
-			setTimeout(get, 5000);
+			//setTimeout(get, 5000);
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
 
@@ -203,7 +203,7 @@ $(document).ready(function() {
 			$("#resultado").text("");
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
-			setTimeout(get, 1000);
+			//setTimeout(get, 1000);
 		return false;
 
 	}
@@ -224,7 +224,7 @@ $(document).ready(function() {
 			$("#resultado").text("");
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
-		setTimeout(get, 6000);
+		//setTimeout(get, 6000);
 		return false;
 
 	}
