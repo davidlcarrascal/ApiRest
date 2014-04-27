@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Datos acerca de Sevilla</title>
 <script src="/js/jquery-1.11.0.js"></script>
 <script src="/js/jquery.dataTables.js"></script>
 <script src="/js/tablaJenny.js"></script>
 <script src="/js/jquery-ui-1.10.4.custom.js"></script>
 
+
+<link href='http://fonts.googleapis.com/css?family=Sofadi+One'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/main.css">
+
+<script src="js/vendor/modernizr-2.6.2.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css"
 	href="/css/jquery.dataTables_themeroller.css">
@@ -16,7 +26,30 @@
 <link rel="stylesheet" type="text/css" href="/css/tablaJenny.css">
 </head>
 <body>
-	<div>
+<!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        
+        <div class="container">
+
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                            <h1 class="texto tamtex1">Api Rest</h1>
+                            <h5 class="texto tamtex2">Grupo 3, SOS</h5>
+                        </div>
+                        <div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+                            <a href="http://piazza.com/us.es/spring2014/sos/"><img class="pequena" src="img/piazza.png"></a>
+                            <a href="https://projetsii.informatica.us.es/"><img class="pequena" src="img/projetsii.png"></a>
+                            <a href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img class="pequena" src="img/Opera.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div>
+            <br>
 		<button id="li_crear"
 			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 			role="button" aria-disabled="false">
@@ -40,12 +73,19 @@
 		<button id="li_buscar"
 			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
 			role="button" aria-disabled="false">
-			<span class="ui-button-text">BUSCAR POR AÑO</span>
+			<span class="ui-button-text">BUSCAR POR AÃ‘O</span>
+		</button>
+		<button id="recargar"
+			class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+			role="button" aria-disabled="false">
+			<span class="ui-button-text">RECARGAR</span>
 		</button>
 
 	</div>
 	<div id="div_tabla">
-		<span>VISUALIZACIÓN ESTADÍSTICA DE DATOS DE SEVILLA</span> <br>
+		<br> <span id="titulo">
+			<h2>VISUALIZACIÃ“N ESTADÃSTICA DE DATOS DE SEVILLA</h2>
+		</span> <br>
 		<table id="tabla" class="ui-helper-clearfix">
 		</table>
 	</div>
@@ -54,7 +94,7 @@
 	<div class="formulario" id="div_crear">
 		<form id="formularioCrear">
 			<fieldset>
-				<legend>Crear estadística</legend>
+				<legend>Crear estadÃ­stica</legend>
 				<div>
 					<label class="label_form">Year:</label> <input id="year"
 						type="number" required="required">
@@ -91,7 +131,7 @@
 	<div class="formulario" id="div_modificar">
 		<form id="formularioModificar">
 			<fieldset>
-				<legend>Modificar estadística</legend>
+				<legend>Modificar estadÃ­stica</legend>
 				<div>
 					<label class="label_form">Year:</label> <input id="yearPut"
 						type="number" required="required">
@@ -127,7 +167,7 @@
 	<div class="formulario" id="div_borrar">
 		<form id="formularioBorrar">
 			<fieldset>
-				<legend>Borrar estadística</legend>
+				<legend>Borrar estadÃ­stica</legend>
 				<div>
 					<label class="label_form">Year:</label> <input id="yearDelete"
 						type="number" required="required">
@@ -143,7 +183,7 @@
 	<div class="formulario" id="div_borrarTodo">
 		<form id="formularioBorrarTodo">
 			<fieldset>
-				<legend>Borrar todas las estadísticas</legend>
+				<legend>Borrar todas las estadÃ­sticas</legend>
 				<div>
 					<button
 						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
@@ -155,7 +195,7 @@
 	<div class="formulario" id="div_buscar">
 		<form id="formularioBuscar">
 			<fieldset>
-				<legend>Buscar estadística</legend>
+				<legend>Buscar estadÃ­stica</legend>
 				<div>
 					<label class="label_form">Year:</label> <input id="yearBuscar"
 						type="number">
@@ -171,5 +211,34 @@
 	<br>
 	<div id="errores"></div>
 	<div id="resultado"></div>
+            </div>
+	<footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 color6 centrar2">
+                            <p class="texto">
+                                Derechos reservados @2014 Grupo3-Sos
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+        </footer>
+
+
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+        <script src="js/vendor/bootstrap.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+            e.src='//www.google-analytics.com/analytics.js';
+            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+            ga('create','UA-XXXXX-X');ga('send','pageview');
+        </script>
 </body>
 </html>
