@@ -8,14 +8,12 @@
 <script src="/js/tablaJenny.js"></script>
 <script src="/js/jquery-ui-1.10.4.custom.js"></script>
 
-<link rel="stylesheet" type="text/css"
-	href="/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css"
 	href="/css/jquery.dataTables_themeroller.css">
 <link rel="stylesheet" type="text/css"
 	href="/css/jquery-ui-1.10.4.custom.css">
-<link rel="stylesheet" type="text/css"
-	href="/css/tablaJenny.css">
+<link rel="stylesheet" type="text/css" href="/css/tablaJenny.css">
 </head>
 <body>
 	<div>
@@ -58,32 +56,34 @@
 			<fieldset>
 				<legend>Crear estadística</legend>
 				<div>
-					<label class="label_form">Year:</label> <input id="year" type="number"
-						required="required">
+					<label class="label_form">Year:</label> <input id="year"
+						type="number" required="required">
 				</div>
 
 				<div>
-					<label class="label_form">Population:</label> <input id="population" type="number"
-						required="required">
+					<label class="label_form">Population:</label> <input
+						id="population" type="number" required="required">
 				</div>
 				<div>
-					<label class="label_form">Unemployed:</label> <input id="unemployed" type="number"
-						required="required">
+					<label class="label_form">Unemployed:</label> <input
+						id="unemployed" type="number" required="required">
 				</div>
 				<div>
-					<label class="label_form">Education Budget:</label> <input id="educationBudget"
-						type="text" required="required">
+					<label class="label_form">Education Budget:</label> <input
+						id="educationBudget" type="text" required="required">
 				</div>
 				<div>
-					<label class="label_form">Migrants:</label> <input id="migrants" type="number"
-						required="required">
+					<label class="label_form">Migrants:</label> <input id="migrants"
+						type="number" required="required">
 				</div>
 				<div>
 					<label class="label_form">PIB:</label> <input id="pib" type="text"
 						required="required">
 				</div>
 				<div>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" id="crear">Crear</button>
+					<button
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						type="submit" id="crear">Crear</button>
 				</div>
 			</fieldset>
 		</form>
@@ -93,31 +93,33 @@
 			<fieldset>
 				<legend>Modificar estadística</legend>
 				<div>
-					<label class="label_form">Year:</label> <input id="yearPut" type="number"
-						required="required">
+					<label class="label_form">Year:</label> <input id="yearPut"
+						type="number" required="required">
 				</div>
 				<div>
-					<label class="label_form">Population:</label> <input id="populationPut" type="number"
-						required="required">
+					<label class="label_form">Population:</label> <input
+						id="populationPut" type="number" required="required">
 				</div>
 				<div>
-					<label class="label_form">Unemployed:</label> <input id="unemployedPut" type="number"
-						required="required">
+					<label class="label_form">Unemployed:</label> <input
+						id="unemployedPut" type="number" required="required">
 				</div>
 				<div>
-					<label class="label_form">Education Budget:</label> <input id="educationBudgetPut"
+					<label class="label_form">Education Budget:</label> <input
+						id="educationBudgetPut" type="text" required="required">
+				</div>
+				<div>
+					<label class="label_form">Migrants:</label> <input id="migrantsPut"
+						type="number" required="required">
+				</div>
+				<div>
+					<label class="label_form">PIB:</label> <input id="pibPut"
 						type="text" required="required">
 				</div>
 				<div>
-					<label class="label_form">Migrants:</label> <input id="migrantsPut" type="number"
-						required="required">
-				</div>
-				<div>
-					<label class="label_form">PIB:</label> <input id="pibPut" type="text"
-						required="required">
-				</div>
-				<div>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" id="modificar">Modificar</button>
+					<button
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						type="submit" id="modificar">Modificar</button>
 				</div>
 			</fieldset>
 		</form>
@@ -127,11 +129,13 @@
 			<fieldset>
 				<legend>Borrar estadística</legend>
 				<div>
-					<label class="label_form">Year:</label> <input id="yearDelete" type="number"
-						required="required">
+					<label class="label_form">Year:</label> <input id="yearDelete"
+						type="number" required="required">
 				</div>
 				<div>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" id="borrar">Borrar</button>
+					<button
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						type="submit" id="borrar">Borrar</button>
 				</div>
 			</fieldset>
 		</form>
@@ -141,7 +145,9 @@
 			<fieldset>
 				<legend>Borrar todas las estadísticas</legend>
 				<div>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" id="borrarTodo">Borrar todo</button>
+					<button
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						type="submit" id="borrarTodo">Borrar todo</button>
 				</div>
 			</fieldset>
 		</form>
@@ -151,10 +157,13 @@
 			<fieldset>
 				<legend>Buscar estadística</legend>
 				<div>
-					<label class="label_form">Year:</label> <input id="yearBuscar" type="number">
+					<label class="label_form">Year:</label> <input id="yearBuscar"
+						type="number">
 				</div>
 				<div>
-					<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" id="buscar">Buscar</button>
+					<button
+						class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+						type="submit" id="buscar">Buscar</button>
 				</div>
 			</fieldset>
 		</form>

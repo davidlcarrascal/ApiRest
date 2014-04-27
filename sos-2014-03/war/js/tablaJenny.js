@@ -23,6 +23,7 @@ $(document).ready(function() {
 	$("#formularioModificar").on('submit', put);
 	$("#formularioBorrar").on('submit', deleteYear);
 	$("#formularioBorrarTodo").on('submit', deleteTodo);
+	$("#formularioBuscar").on('submit', buscar);
 	
 	$("#li_crear").on('click', function(){
 		$('#div_buscar').css("display", "none");
@@ -97,6 +98,7 @@ $(document).ready(function() {
 			$("#resultado").text("");
 			$("#errores").text(jqXHR.status + " " + jqXHR.statusText);
 		});
+		return false;
 	}
 
 	function post() {
