@@ -35,34 +35,38 @@ var key = function(d){ return d.data.label; };
 var color = d3.scale.ordinal()
 	.domain(["2014", "2011", "2012", "2003"])
 	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
-var hola=1;
-function dameOnce(label){
-	
-	var url = "/api/v2/universitySeville" + "/" + label
-	var request = $.ajax({
-		url: url,
-		type: "GET",
-		dataType: "json"
-	});
-	request.done(function(data,status, jqXHR){
-		hola=data[0].budget;
-	
-	});
-	
-	
-	
-	
-	
-	
-}
+
 function databudget(){
 	var labels = color.domain();
 	return labels.map(function(label){
 		
 		if(label == "2014"){
-		dameOnce(label);	
-		return {label:label,value : hola};		
+			alert(label);
+			var valor = 0;
+			var value =0;
+			var url = "/api/v2/universitySeville" + "/" + label
+			var request = $.ajax({
+				url: url,
+				type: "GET",
+				dataType: "json"
+			});
+			request.done(function(data,status, jqXHR){
+				obj = JSON.stringify(data);
+				$.each(data,function(index, val) {
+					valor = val.budget;
+				
+					label:label;
+					
+					alert(valor);
+					
+					
+				});	
+			
+			});
+			
+			return { label: label, value: valor }
 		}
+		
 		if(label == "2011"){	
 		return { label: label, value: 2 }
 		}
@@ -134,11 +138,7 @@ function dataenrolled (){
 
 d3.select(".property").on('change',function(){
 	if(document.getElementById('ppp').value=="budget"){
-	var datos=databudget();
-	for(var i=0;i<=1000000;i++){
-		1+1;
-	}
-	change(datos);
+	change(databudget());
 	}	
 	if(document.getElementById('ppp').value=="employability"){
 	change(dataemployability());
