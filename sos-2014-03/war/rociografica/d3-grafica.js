@@ -35,21 +35,23 @@ var key = function(d){ return d.data.label; };
 var color = d3.scale.ordinal()
 	.domain(["2014", "2011", "2012", "2003"])
 	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
-var hola=1;
+
+
 function dameOnce(label){
 	
 	var url = "/api/v2/universitySeville" + "/" + label
 	var request = $.ajax({
 		url: url,
 		type: "GET",
-		dataType: "json"
+		dataType: "json",
+		async: false
 	});
 	request.done(function(data,status, jqXHR){
 		hola=data[0].budget;
-	
+		return hola;
 	});
 	
-	
+	return hola;
 	
 	
 	
@@ -60,8 +62,8 @@ function databudget(){
 	return labels.map(function(label){
 		
 		if(label == "2014"){
-		dameOnce(label);	
-		return {label:label,value : hola};		
+		a = dameOnce(label)
+		return {label:label,value : a};		
 		}
 		if(label == "2011"){	
 		return { label: label, value: 2 }
