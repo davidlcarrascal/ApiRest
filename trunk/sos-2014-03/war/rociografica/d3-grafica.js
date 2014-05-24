@@ -1,3 +1,7 @@
+var aniosBuenos;
+var dato;
+var contador =0;
+var year;
 $(document).ready(function(){
 var svg = d3.select("body")
 	.append("svg")
@@ -32,115 +36,96 @@ svg.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
 var key = function(d){ return d.data.label; };
 
-var color = d3.scale.ordinal()
-	.domain(["2014", "2011", "2012", "2003"])
-	.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b"]);
 
 
-function dameOnce(label){
-	
-	var url = "/api/v2/universitySeville" + "/" + label
-	var request = $.ajax({
-		url: url,
-		type: "GET",
-		dataType: "json",
-		async: false
-	});
-	request.done(function(data,status, jqXHR){
-		hola=data[0].budget;
-		return hola;
-	});
-	
-	return hola;
-	
-	
-	
-	
+
+year = obtenerYear();
+range=getRange(year);
+
+function getRange(year){
+	var colors=new Array();
+	for(var i=0;i<year.length;i++){
+			colors[i]='#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
+	}
+	return colors;
 }
+
+var color = d3.scale.ordinal()
+	.domain(year)
+	.range(range);
+
+
+
 function databudget(){
+	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
+			for(var i=0;i<=year.length;i++){
+				if(year[i]==label){
+					contador=i;
+					break;
+				}
+			}	
+			var r = { label: label, value: dato[contador].budget};
+		contador++;
+		return r;
 		
-		if(label == "2014"){
-		a = dameOnce(label)
-		return {label:label,value : a};		
-		}
-		if(label == "2011"){	
-		return { label: label, value: 2 }
-		}
-		if(label == "2012"){	
-		return { label: label, value: 3 }
-		}
-		if(label == "2003"){	
-		return { label: label, value: 5 }
-		}
+	});
+}
+function dataenrolled(){
+	contador=0;
+	var labels = color.domain();
+	return labels.map(function(label){
+			for(var i=0;i<=year.length;i++){
+				if(year[i]==label){
+					contador=i;
+					break;
+				}
+			}	
+			var r = { label: label, value: dato[contador].enrolled};
+		contador++;
+		return r;
+		
 	});
 }
 function dataemployability(){
+	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-		if(label == "2014"){
-
-			return { label: label, value: 1 }
-		 
-		}
-		if(label == "2001"){	
-		return { label: label, value: 2 }
-		}
-		if(label == "2002"){	
-		return { label: label, value: 5 }
-		}
-		if(label == "2003"){	
-		return { label: label, value: 3 }
-		}
+			for(var i=0;i<=year.length;i++){
+				if(year[i]==label){
+					contador=i;
+					break;
+				}
+			}	
+			var r = { label: label, value: dato[contador].employability};
+		contador++;
+		return r;
+		
 	});
 }
+
+
 function datamigrants(){
+	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-		if(label == "2014"){
-        return { label: label, value: 1 }
-		 
-		}
-		if(label == "2001"){	
-		return { label: label, value: 10 }
-		}
-		if(label == "2002"){	
-		return { label: label, value: 3 }
-		}
-		if(label == "2003"){	
-		return { label: label, value: 4 }
-		}
+			for(var i=0;i<=year.length;i++){
+				if(year[i]==label){
+					contador=i;
+					break;
+				}
+			}	
+			var r = { label: label, value: dato[contador].studentMigrants};
+		contador++;
+		return r;
+		
 	});
 }
-function dataenrolled (){
-	var labels = color.domain();
-	return labels.map(function(label){
-		if(label == "2014"){
-        return { label: label, value: 5 }
-		 
-		}
-		if(label == "2001"){	
-		return { label: label, value: 5 }
-		}
-		if(label == "2002"){	
-		return { label: label, value: 1 }
-		}
-		if(label == "2003"){	
-		return { label: label, value: 1 }
-		}
-	});
-}
-
-
 
 d3.select(".property").on('change',function(){
 	if(document.getElementById('ppp').value=="budget"){
-	var datos=databudget();
-	for(var i=0;i<=1000000;i++){
-		1+1;
-	}
-	change(datos);
+	change(databudget());
 	}	
 	if(document.getElementById('ppp').value=="employability"){
 	change(dataemployability());
@@ -245,4 +230,45 @@ function change(data) {
 	polyline.exit()
 		.remove();
 };
+
+function obtenerYear(){
+	
+	var request = $.ajax({
+		url: "/api/v2/universitySeville",
+		type: "GET",
+		dataType: "json",
+		async: false
+	});
+	
+	request.done(function(data,status, jqXHR){
+		a = data;
+		var anios= new Array();
+		for(var i=0;i<a.length;i++){
+			anios[i]=""+(a[i].year);
+		}
+		aniosBuenos = anios;
+		return aniosBuenos;
+	});
+	
+	return aniosBuenos;
+
+};
+
+
+	var url = "/api/v2/universitySeville"
+	var request = $.ajax({
+		url: url,
+		type: "GET",
+		dataType: "json",
+	   
+	});
+	
+	request.done(function(data,status, jqXHR){			
+		dato = data;
+
+	});
+	
+	
+
+
 });
