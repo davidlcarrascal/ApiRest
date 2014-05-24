@@ -40,4 +40,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Rocio</servlet-name>
 		<url-pattern>/api/v2/universitySeville/*</url-pattern>
 	</servlet-mapping>
+	
+	
+		<servlet>
+		<servlet-name>Panoramio</servlet-name>
+		<servlet-class>sos.us.es.ProxyRocio</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Panoramio</servlet-name>
+		<url-pattern>/api/v2/panoramio/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
 </web-app>

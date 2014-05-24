@@ -176,7 +176,7 @@ $(document).ready(function(){
 		});
 		request.fail(function(data,jqXHR,status){
 			
-			$('#data').html("No response - Year does not exist");
+			$('#data').html("No response");
 			
 		});
 		}

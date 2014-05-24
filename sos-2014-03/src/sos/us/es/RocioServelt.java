@@ -44,7 +44,8 @@ public class RocioServelt extends HttpServlet {
 		}
 		return todos;
 	}
-	private Entity getEntityBy(Long year){
+
+	private Entity getEntityBy(Long year) {
 		FilterPredicate predicate = new FilterPredicate("year",
 				Query.FilterOperator.EQUAL, year);
 		Query q = new Query("UniversitySeville").setFilter(predicate);
@@ -54,7 +55,8 @@ public class RocioServelt extends HttpServlet {
 	}
 
 	private String getUniversitySevilleBy(Long year) {
-		FilterPredicate predicate = new FilterPredicate("year", Query.FilterOperator.EQUAL, year);
+		FilterPredicate predicate = new FilterPredicate("year",
+				Query.FilterOperator.EQUAL, year);
 		Query q = new Query("UniversitySeville").setFilter(predicate);
 		PreparedQuery p = datastore.prepare(q);
 		Entity us = p.asSingleEntity();
@@ -66,7 +68,8 @@ public class RocioServelt extends HttpServlet {
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			univer = new universitySeville(year2, enrolled, budget, employability, studentMigrants);
+			univer = new universitySeville(year2, enrolled, budget,
+					employability, studentMigrants);
 		} catch (NullPointerException e) {
 			return null;
 
@@ -82,9 +85,14 @@ public class RocioServelt extends HttpServlet {
 		String ruta[] = req.getRequestURI().split("/");
 		if (ruta.length == 4) {
 
-			List<String> todo = getUniversitySeville();
-			out.println(todo);
-
+			try {
+				List<String> todo = getUniversitySeville();
+				out.println(todo);
+			} catch (Exception e) {
+				resp.setStatus(404);
+				resp.getWriter().close();
+			}
+			
 		} else {
 			Long year = (Long.parseLong(ruta[ruta.length - 1]));
 			List<String> todo = new LinkedList<String>();
@@ -122,27 +130,30 @@ public class RocioServelt extends HttpServlet {
 		}
 
 		jsonString = sb.toString();
+		Boolean error = false;
 		try {
 			uni = gson.fromJson(jsonString, universitySeville.class);
-			System.out.println(uni);
+			
 		} catch (Exception e) {
-			System.out.println("ERROR parsing universitySeville:"
-					+ e.getMessage());
+			resp.setStatus(404);
+			resp.getWriter().close();
+			error = true;
 		}
-		
-		if (ruta.length == 4) {
 
-			if(this.getUniversitySevilleBy(uni.year)!=null){
+		if (ruta.length == 4 && !error) {
+
+			if (this.getUniversitySevilleBy(uni.year) != null) {
 				resp.setStatus(409);
 				out.close();
-			}else if (uni != null) { 
+			} else if (uni != null) {
 				university.setProperty("year", uni.getYear());
 				university.setProperty("enrolled", uni.getEnrolled());
 				university.setProperty("budget", uni.getBudget());
 				university.setProperty("employability", uni.getEmployability());
-				university.setProperty("studentMigrants",uni.getStudentMigrants());
+				university.setProperty("studentMigrants",
+						uni.getStudentMigrants());
 				datastore.put(university);
-				
+
 				resp.setStatus(201);
 			}
 
@@ -168,76 +179,74 @@ public class RocioServelt extends HttpServlet {
 		}
 
 		jsonString = sb.toString();
-
+		Boolean error = false;
 		try {
-
 			uni = gson.fromJson(jsonString, universitySeville.class);
-
 		} catch (Exception e) {
-			System.out.println("ERROR parsing universitySeville:"
-					+ e.getMessage());
+			resp.setStatus(404);
+			resp.getWriter().close();
+			error = true;
 		}
 
 		String ruta[] = req.getRequestURI().split("/");
-		if (ruta.length == 5) {
-			Long year=Long.parseLong(ruta[ruta.length - 1]);
-			Entity dato=this.getEntityBy(year);
-			System.out.println(dato);
-			if(dato==null){
+		if (ruta.length == 5 && !error) {
+			Long year = Long.parseLong(ruta[ruta.length - 1]);
+			Entity dato = this.getEntityBy(year);
+			if (dato == null) {
 				resp.setStatus(404);
 				resp.getWriter().close();
-			}else{
+			} else {
 
-			dato.setProperty("year", uni.getYear());
-			dato.setProperty("enrolled", uni.getEnrolled());
-			dato.setProperty("budget", uni.getBudget());
-			dato.setProperty("employability", uni.getEmployability());
-			dato.setProperty("studentMigrants",uni.getStudentMigrants());
-			
-			datastore.put(dato);
+				dato.setProperty("year", uni.getYear());
+				dato.setProperty("enrolled", uni.getEnrolled());
+				dato.setProperty("budget", uni.getBudget());
+				dato.setProperty("employability", uni.getEmployability());
+				dato.setProperty("studentMigrants", uni.getStudentMigrants());
+
+				datastore.put(dato);
 			}
 		} else {
 			resp.setStatus(400);
 		}
 
 	}
-	
-	private Key toKey(Entity from){
+
+	private Key toKey(Entity from) {
 		return from.getKey();
 	}
-	
+
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("application/json");
-		
+
 		String ruta[] = req.getRequestURI().split("/");
 		List<String> todo = getUniversitySeville();
 		List<Key> claves = new ArrayList<Key>();
-		
+
+
 		
 		if (ruta.length == 4) {
 			Query q = new Query("UniversitySeville");
 			PreparedQuery p = datastore.prepare(q);
 			Iterable<Entity> entitis = p.asIterable();
-			for(Entity i: entitis){
+			for (Entity i : entitis) {
 				claves.add(toKey(i));
 			}
 			datastore.delete(claves);
 		} else {
-			Long year=Long.parseLong(ruta[ruta.length - 1]);
-			FilterPredicate predicate = new FilterPredicate("year", Query.FilterOperator.EQUAL, year);
+			Long year = Long.parseLong(ruta[ruta.length - 1]);
+			FilterPredicate predicate = new FilterPredicate("year",
+					Query.FilterOperator.EQUAL, year);
 			Query q = new Query("UniversitySeville").setFilter(predicate);
 			PreparedQuery p = datastore.prepare(q);
 			Entity entitis = p.asSingleEntity();
-			if(entitis == null){
+			if (entitis == null) {
 				resp.setStatus(404);
-			}else{
+			} else {
 				datastore.delete(toKey(entitis));
 			}
 		}
 		resp.getWriter().close();
 	}
-		
 
 }
-
