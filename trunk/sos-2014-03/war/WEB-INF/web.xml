@@ -33,6 +33,25 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ProxyJenny</servlet-name>
+		<servlet-class>sos.us.es.ProxyJenny</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProxyJenny</servlet-name>
+		<url-pattern>/api/v1/fullContact/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	
+		<servlet-name>ProxyJennygeoPlanet</servlet-name>
+		<servlet-class>sos.us.es.ProxyJennygeoPlanet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProxyJennygeoPlanet</servlet-name>
+		<url-pattern>/api/v1/geoPlanet/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>Rocio</servlet-name>
 		<servlet-class>sos.us.es.RocioServelt</servlet-class>
 	</servlet>

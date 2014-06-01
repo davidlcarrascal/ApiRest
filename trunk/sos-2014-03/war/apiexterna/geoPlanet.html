@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GeoPlanet</title>
+<script type="text/javascript" src="../js/jquery-1.11.0.js"></script>
+<script type="text/javascript"
+	src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript" src="./jquery.ui.map.js"></script>
+<script type="text/javascript" src="./geoPlanet.js"></script>
+</head>
+<body>
+	<div>
+		<form>
+			<fieldset>
+				<legend>Info lugar</legend>
+				<div id="div_BuscarLugar">
+					<label id="label_lugar">Introduzca lugar:</label> <input
+						type="text" id="lugar" required="required"></input>
+				</div>
+				<input type="button" id="enviar" value="Enviar"></input>
+			</fieldset>
+		</form>
+	</div>
+	<div id="div_lugar"></div>
+	<div id="page_id">
+		<div id="map_canvas" style="width: 100%; height: 100%"></div>
+	</div>
+	<div id="errores"></div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Google Visualization API Sample</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="//www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load('visualization', '1', {
+		packages : [ 'corechart' ]
+	});
+</script>
+<script type="text/javascript">
+	$(document)
+			.ready(
+					function() {
+						function drawVisualization() {
+							// Create and populate the data table.
+							String
+							datosTabla = [];
+							request = $.ajax({
+								url : "/api/v1/Seville/",
+								type : "GET",
+								dataType : "json",
+								contentType : "application/json"
+							});
+							request.done(function(data, status, jqXHR) {
+								var fila = [];
+								var i= 0;
+								var
+								datosTabla = [['Year', 'Population', 'Unemployed', 'Education Budget', 'Migrants', 'PIB']];
+								$.each(data, function(indice, objeto) {
+									fila = [];
+									i++;
+									datosTabla[i] = [];
+									$.each(objeto, function(nombre, valor) {
+										if (valor == "year"){
+											fila.push(valor.toString());
+										}else{
+											fila.push(valor);
+										}
+									});
+									datosTabla[i] = fila;
+									
+								});
+								//alert(datosTabla);
+								//var data = google.visualization.arrayToDataTable(datosTabla);
+								// Create and draw the visualization.
+								new google.visualization.ColumnChart(document
+										.getElementById('visualization'))
+										.draw(google.visualization.arrayToDataTable(datosTabla),
+												{
+													title : "Yearly Coffee Consumption by Country",
+													width : 1000,
+													height : 800,
+													hAxis : {
+														title : "Year"
+													}
+												});
+							});
+
+							request.fail(function(jqXHR, status) {
+								
+								$("#resultado").text("");
+								$("#errores").text(
+										jqXHR.status + " " + jqXHR.statusText);
+							});
+							
+						}
+
+						google.setOnLoadCallback(drawVisualization);
+					});
+</script>
+</head>
+<body style="font-family: Arial; border: 0 none;">
+	<div id="visualization" style="width: 1000px; height: 800px;"></div>
+</body>
+</html>
+​
