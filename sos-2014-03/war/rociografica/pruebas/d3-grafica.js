@@ -2,6 +2,8 @@ var aniosBuenos;
 var dato;
 var contador =0;
 var year;
+var obtenerYear;
+var color;
 $(document).ready(function(){
 var svg = d3.select("body")
 	.append("svg")
@@ -39,8 +41,7 @@ var key = function(d){ return d.data.label; };
 
 
 
-year = obtenerYear();
-range=getRange(year);
+
 
 function getRange(year){
 	var colors=new Array();
@@ -50,9 +51,7 @@ function getRange(year){
 	return colors;
 }
 
-var color = d3.scale.ordinal()
-	.domain(year)
-	.range(range);
+
 
 
 
@@ -60,8 +59,8 @@ function databudget(){
 	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-			for(var i=0;i<=year.length;i++){
-				if(year[i]==label){
+			for(var i=0;i<=obtenerYear.length;i++){
+				if(obtenerYear[i]==label){
 					contador=i;
 					break;
 				}
@@ -76,8 +75,8 @@ function dataenrolled(){
 	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-			for(var i=0;i<=year.length;i++){
-				if(year[i]==label){
+			for(var i=0;i<=obtenerYear.length;i++){
+				if(obtenerYear[i]==label){
 					contador=i;
 					break;
 				}
@@ -92,8 +91,8 @@ function dataemployability(){
 	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-			for(var i=0;i<=year.length;i++){
-				if(year[i]==label){
+			for(var i=0;i<=obtenerYear.length;i++){
+				if(obtenerYear[i]==label){
 					contador=i;
 					break;
 				}
@@ -110,8 +109,8 @@ function datamigrants(){
 	contador=0;
 	var labels = color.domain();
 	return labels.map(function(label){
-			for(var i=0;i<=year.length;i++){
-				if(year[i]==label){
+			for(var i=0;i<=obtenerYear.length;i++){
+				if(obtenerYear[i]==label){
 					contador=i;
 					break;
 				}
@@ -231,28 +230,7 @@ function change(data) {
 		.remove();
 };
 
-function obtenerYear(){
-	
-	var request = $.ajax({
-		url: "/api/v2/universitySeville",
-		type: "GET",
-		dataType: "json",
-		async: false
-	});
-	
-	request.done(function(data,status, jqXHR){
-		a = data;
-		var anios= new Array();
-		for(var i=0;i<a.length;i++){
-			anios[i]=""+(a[i].year);
-		}
-		aniosBuenos = anios;
-		return aniosBuenos;
-	});
-	
-	return aniosBuenos;
 
-};
 
 
 	var url = "/api/v2/universitySeville"
@@ -265,7 +243,15 @@ function obtenerYear(){
 	
 	request.done(function(data,status, jqXHR){			
 		dato = data;
-
+		var anios= new Array();
+		for(var i=0;i<data.length;i++){
+			anios[i]=""+(data[i].year);
+		}
+		obtenerYear = anios;
+		range=getRange(obtenerYear);
+		color = d3.scale.ordinal()
+		.domain(obtenerYear)
+		.range(range);
 	});
 	
 	
