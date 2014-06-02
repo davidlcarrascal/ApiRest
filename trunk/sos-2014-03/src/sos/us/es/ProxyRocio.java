@@ -34,13 +34,10 @@ public class ProxyRocio extends HttpServlet {
 			
 
 				String ciudad=ruta[ruta.length-1];
-				String direccion=ciudad+",spain";
-				String url="http://maps.googleapis.com/maps/api/geocode/json?address=";
-				String url2="&sensor=false";
-				String urlfin=url+direccion+url2;
-			
+				String direccion=ciudad;
+				String urlp="http://maps.googleapis.com/maps/api/geocode/json?address="+direccion+",+spain&sensor=false";
 
-				URL api = new URL(urlfin);
+				URL api = new URL(urlp);
 
 				BufferedReader in = new BufferedReader(new InputStreamReader(api.openStream()));
 				String inputLine;
@@ -57,8 +54,14 @@ public class ProxyRocio extends HttpServlet {
 				String nlat=null;
 				try {
 					jsonObj = new JSONObject(datos);
-					JSONArray nosequees=jsonObj.getJSONArray("results");
-					jsonObj=(JSONObject)(nosequees.get(0));
+					
+					System.out.println("datos = " + datos);
+					System.out.println("jsonObj" + jsonObj);
+					
+					JSONArray arrayresult=jsonObj.getJSONArray("results");
+					System.out.println(arrayresult);
+					
+					jsonObj=(JSONObject)(arrayresult.get(0));
 					jsonObj=(JSONObject)(jsonObj.get("geometry"));
 					jsonObj=(JSONObject)(jsonObj.get("bounds"));
 					
