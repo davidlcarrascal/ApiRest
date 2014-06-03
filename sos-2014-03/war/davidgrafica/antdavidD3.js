@@ -41,28 +41,32 @@ $(document).ready(function(){
 	var key = function(d){ return d.data.label; };
 
 	var color = d3.scale.ordinal()
-		.domain(["Emigrants Spain", "Migrants US","Students Seville"])
-		.range(["#a05d56", "#7b6888","#98abc5"]);
-		//.domain(["Year", "Emigrants Spain", "Migrants US"])
-		//.range(["#98abc5", "#a05d56", "#7b6888"]);
+		.domain(["Year", "population", "unemployed", "pib", "emigrants", "educationBudget"])
+		.range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c"]);
 
 	
 	function nextYear (){
 		var labels = color.domain();
 		return labels.map(function(label){
-
-			$("#año").html("Año: "+valor[cont][0]);
-			
-			if(label =="Emigrants Spain")
-				var r = { label: label, value: valor[cont][1] };
-			if(label =="Migrants US")
-				var r = { label: label, value: valor[cont][2] };
-			if (label =="Students Seville") 
-				var r = { label: label, value: valor[cont][3] };
+			if(label == "Year"){
+				var r = { label: label, value: valor[cont].year }; 
+				$("#año").html("Año: "+valor[cont].year);
+			}
+			if(label =="population")
+				var r = { label: label, value: valor[cont].population };
+			if(label =="unemployed")
+				var r = { label: label, value: valor[cont].unemployed };
+			if(label =="pib")
+				var r = { label: label, value: valor[cont].pib };
+			if(label =="emigrants")
+				var r = { label: label, value: valor[cont].emigrants };
+			if(label =="educationBudget")
+				var r = { label: label, value: valor[cont].educationBudget };
 			return r;
 		});
 	}
 
+	//change(nextYear());
 
 	d3.select(".change")
 		.on("click", function(){
@@ -164,57 +168,15 @@ $(document).ready(function(){
 	};
 
 	var request = $.ajax({
-	    url:    "/api/v2/SpainStd",
-	    type:   'GET',
-	    dataType: 'json' 
+    url:    "/api/v1/SpainStd",
+    type:   'GET',
+    dataType: 'json' 
     });
-
-	var request2 = $.ajax({
-	    url:    "/api/v3/universitySeville",
-	    type:   'GET',
-	    dataType: 'json' 
-	});
-
-	var request3 = $.ajax({
-	    url:    "/api/v1/proxydavid",
-	    type:   'GET',
-	    dataType: 'json' 
-    });
-
+	
     request.done(function(data,status,jqXHR) {
-		var emigrants = [];
-		$.each(data,function(index, value) {
-     		emigrants.push([value.year,value.emigrants]);
-   	 	});
-		request2.done(function(data,status,jqXHR) {
-			var migrantsUs = [];
-			
-			$.each(data,function(index, value) {
-				migrantsUs.push([value.year,value.studentMigrants])
-	   	 	});
+		valor=data; 
+		tam = valor.length;
 
-
-			request3.done(function(data,status,jqXHR) {
-		        var students =[];
-		        $.each(data,function(index, value) {
-		          students.push([value.year,value.students]);
-		        });
-
-		        var concat=[];
-		        for(var i=0; i<=emigrants.length-1; i++){
-		          for (var j=0; j<= migrantsUs.length-1; j++) {
-		            for (var z=0; z<=students.length-1; z++){
-		              if(emigrants[i][0] == migrantsUs[j][0] && students[z][0]==migrantsUs[j][0]){
-		                concat.push([emigrants[i][0],emigrants[i][1],migrantsUs[j][1],students[z][1]]);
-		              }
-		            }
-		          }
-		        }
-		        valor = concat;
-	   	 		tam = concat.length;
-				change(nextYear());	
-			
-			});//done3	
-		});//done2
-    });//done1
+		change(nextYear());
+    });
 });
