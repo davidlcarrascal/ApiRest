@@ -61,7 +61,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	
-		<servlet>
+	<servlet>
 		<servlet-name>Panoramio</servlet-name>
 		<servlet-class>sos.us.es.ProxyRocio</servlet-class>
 	</servlet>
@@ -70,6 +70,23 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/api/v2/panoramio/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Proxy David</servlet-name>
+		<servlet-class>sos.us.es.ProxyDavid</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Proxy David</servlet-name>
+		<url-pattern>/api/v1/proxydavid/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Davidv2</servlet-name>
+		<servlet-class>sos.us.es.Davidv2</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Davidv2</servlet-name>
+		<url-pattern>/api/v2/SpainStd/*</url-pattern>
+	</servlet-mapping>
 	
 	
 	
