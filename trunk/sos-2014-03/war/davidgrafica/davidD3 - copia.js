@@ -164,13 +164,13 @@ $(document).ready(function(){
 	};
 
 	var request = $.ajax({
-	    url:    "/api/v1/SpainStd",
+	    url:    "/api/v2/SpainStd",
 	    type:   'GET',
 	    dataType: 'json' 
     });
 
 	var request2 = $.ajax({
-	    url:    "/api/v2/universitySeville",
+	    url:    "/api/v3/universitySeville",
 	    type:   'GET',
 	    dataType: 'json' 
 	});

@@ -6,7 +6,7 @@ $(document).ready(function(){
           dataType: 'json' 
         });
   var request2 = $.ajax({
-      url:    "/api/v2/universitySeville",
+      url:    "/api/v3/universitySeville",
       type:   'GET',
       dataType: 'json' 
   });
