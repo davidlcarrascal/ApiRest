@@ -252,11 +252,11 @@ function change(data) {
 			anios[i]=""+(data[i].year);
 		}
 		obtenerYear = anios;
-		cambioColor=getColor(obtenerYear);
+		range=getColor(obtenerYear);
 		
 		color = d3.scale.ordinal()
 			.domain(obtenerYear)
-			.range(cambioColor);
+			.range(range);
 	});
 	
 	
