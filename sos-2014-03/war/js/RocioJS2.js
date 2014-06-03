@@ -36,7 +36,7 @@ $(document).ready(function(){
     
     
 	$(".btn-get").on('click',function(){
-		var url="/api/v2/universitySeville";
+		var url="/api/v3/universitySeville";
 		if($("#year_get").val() != null){
 			url+="/"+$("#year_get").val();
 		}
@@ -51,10 +51,15 @@ $(document).ready(function(){
 			obj = JSON.stringify(data);
 			mensaje="<table class='table table-hover'>";
 			mensaje+="<tr><td>Year</td><td>Enrolled</td><td>Budget</td><td>Employability</td><td>Student Migrants</td></tr>"
+			if(data.budget!=undefined){
+				mensaje+="<tr><td>"+data.year+"</td><td>"+data.enrolled+"</td><td>"+data.budget+"</td><td>"+data.employability+"</td><td>"+data.studentMigrants+"</td></tr>";
+
+			}else{	
 			$.each(data,function(index, value) {
 				mensaje+="<tr><td>"+value.year+"</td><td>"+value.enrolled+"</td><td>"+value.budget+"</td><td>"+value.employability+"</td><td>"+value.studentMigrants+"</td></tr>";
 				
 			});	
+			}
 			mensaje+="</table>";
 			$('#data').html(mensaje);
 		});
@@ -100,7 +105,7 @@ $(document).ready(function(){
 		}
 		if(errores==0){
 		
-		var url="/api/v2/universitySeville";
+		var url="/api/v3/universitySeville";
 		var jsoncito='{ "year" : '+year+', "enrolled" :'+enrolled+', "budget" : '+budget+', "employability" : '+employability+', "studentMigrants" : '+student+'}';    
 		
 		var request = $.ajax({
@@ -162,7 +167,7 @@ $(document).ready(function(){
 		}
 		if(errores==0){
 			
-		var url="/api/v2/universitySeville/"+year;
+		var url="/api/v3/universitySeville/"+year;
 		var jsoncito='{ "year" : '+year+', "enrolled" :'+enrolled+', "budget" : '+budget+', "employability" : '+employability+', "studentMigrants" : '+student+'}';    
 		var request = $.ajax({
 			url: url,
@@ -185,7 +190,7 @@ $(document).ready(function(){
 	
 	
 		$(".btn-delete").on('click', function(){
-		var url="/api/v2/universitySeville";
+		var url="/api/v3/universitySeville";
 		if($("#year_delete").val() != null){
 				url+="/"+$("#year_delete").val();
 		}

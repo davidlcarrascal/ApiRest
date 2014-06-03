@@ -4,7 +4,7 @@ $(document).ready(function(){
 	var dat=[['Year', 'Enrolled', 'Budget','Employability', 'StudentMigrants']];
 	
 
-		var url = "/api/v2/universitySeville" 
+		var url = "/api/v3/universitySeville" 
 		var request = $.ajax({
 			url: url,
 			type: "GET",

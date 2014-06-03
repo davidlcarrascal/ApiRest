@@ -2,10 +2,7 @@ package sos.us.es;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.*;
@@ -23,7 +20,7 @@ import com.google.gson.Gson;
 public class RocioServelt extends HttpServlet {
 	static DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
-	static List<universitySeville> luni = new ArrayList<universitySeville>();
+	static List<UniversitySeville> luni = new ArrayList<UniversitySeville>();
 
 	private List<String> getUniversitySeville() {
 		Query q = new Query("UniversitySeville");
@@ -38,7 +35,7 @@ public class RocioServelt extends HttpServlet {
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			universitySeville univer = new universitySeville(year, enrolled,
+			UniversitySeville univer = new UniversitySeville(year, enrolled,
 					budget, employability, studentMigrants);
 			todos.add(gson.toJson(univer));
 		}
@@ -53,22 +50,24 @@ public class RocioServelt extends HttpServlet {
 		Entity us = p.asSingleEntity();
 		return us;
 	}
-
+// hace un filtro por anio
+//query crea una consulta
+//prepara
+	
 	private String getUniversitySevilleBy(Long year) {
-		FilterPredicate predicate = new FilterPredicate("year",
-				Query.FilterOperator.EQUAL, year);
+		FilterPredicate predicate = new FilterPredicate("year", Query.FilterOperator.EQUAL, year);
 		Query q = new Query("UniversitySeville").setFilter(predicate);
 		PreparedQuery p = datastore.prepare(q);
 		Entity us = p.asSingleEntity();
 		Gson gson = new Gson();
-		universitySeville univer = new universitySeville();
+		UniversitySeville univer = new UniversitySeville();
 		try {
 			Long year2 = (Long) us.getProperty("year");
 			Long enrolled = (Long) us.getProperty("enrolled");
 			Long budget = (Long) us.getProperty("budget");
 			Long employability = (Long) us.getProperty("employability");
 			Long studentMigrants = (Long) us.getProperty("studentMigrants");
-			univer = new universitySeville(year2, enrolled, budget,
+			univer = new UniversitySeville(year2, enrolled, budget,
 					employability, studentMigrants);
 		} catch (NullPointerException e) {
 			return null;
@@ -77,176 +76,247 @@ public class RocioServelt extends HttpServlet {
 		return gson.toJson(univer);
 	}
 
-	public void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
+	private Integer getLongitud(HttpServletRequest req){
 		String ruta[] = req.getRequestURI().split("/");
-		if (ruta.length == 4) {
-
-			try {
-				List<String> todo = getUniversitySeville();
-				out.println(todo);
-			} catch (Exception e) {
-				resp.setStatus(404);
-				resp.getWriter().close();
-			}
-			
-		} else {
-			Long year = (Long.parseLong(ruta[ruta.length - 1]));
-			List<String> todo = new LinkedList<String>();
-			String uni = getUniversitySevilleBy(year);
-			todo.add(uni);
-			if (uni == null) {
-				resp.setStatus(404);
-				out.println("{\"error\": \"404 Not Found\"}");
-			} else {
-				out.println(todo);
-			}
-		}
-		out.close();
-
+		return ruta.length;
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-
-		resp.setContentType("application/json");
-		PrintWriter out = resp.getWriter();
-		String ruta[] = req.getRequestURI().split("/");
-
-		Entity university = new Entity("UniversitySeville");
-
-		universitySeville uni = null;
-		Gson gson = new Gson();
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-
-		String jsonString;
-
-		while ((jsonString = br.readLine()) != null) {
-			sb.append(jsonString);
-		}
-
-		jsonString = sb.toString();
-		Boolean error = false;
-		try {
-			uni = gson.fromJson(jsonString, universitySeville.class);
-			
-		} catch (Exception e) {
-			resp.setStatus(404);
-			resp.getWriter().close();
-			error = true;
-		}
-
-		if (ruta.length == 4 && !error) {
-
-			if (this.getUniversitySevilleBy(uni.year) != null) {
-				resp.setStatus(409);
-				out.close();
-			} else if (uni != null) {
-				university.setProperty("year", uni.getYear());
-				university.setProperty("enrolled", uni.getEnrolled());
-				university.setProperty("budget", uni.getBudget());
-				university.setProperty("employability", uni.getEmployability());
-				university.setProperty("studentMigrants",
-						uni.getStudentMigrants());
-				datastore.put(university);
-
-				resp.setStatus(201);
-			}
-
-		} else {
-			resp.setStatus(400);
-		}
-
-		out.close();
+	private Boolean esPeticionGenerica(HttpServletRequest req){
+		return getLongitud(req)==4;
 	}
 
-	public void doPut(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
+	private Boolean esPeticionEspecifica(HttpServletRequest req){
+		return getLongitud(req)==5;
+	}
 
-		universitySeville uni = null;
-		Gson gson = new Gson();
-		StringBuilder sb = new StringBuilder();
-		BufferedReader br = req.getReader();
-
-		String jsonString;
-
-		while ((jsonString = br.readLine()) != null) {
-			sb.append(jsonString);
+	private Boolean esMalaPeticion(HttpServletRequest req){
+		Integer longitud=getLongitud(req);
+		Boolean muyLargo = longitud>5;
+		Boolean muyCorto= longitud<4;
+		Boolean malParametro=false;
+		if(longitud==5){
+		try{
+			getAnioRuta(req);
+		}catch(Exception e){
+			malParametro=true;
 		}
-
-		jsonString = sb.toString();
-		Boolean error = false;
-		try {
-			uni = gson.fromJson(jsonString, universitySeville.class);
-		} catch (Exception e) {
-			resp.setStatus(404);
-			resp.getWriter().close();
-			error = true;
 		}
+		return malParametro || muyLargo || muyCorto;
+	}
 
+	private String getUltimoParametro(HttpServletRequest req){
 		String ruta[] = req.getRequestURI().split("/");
-		if (ruta.length == 5 && !error) {
-			Long year = Long.parseLong(ruta[ruta.length - 1]);
-			Entity dato = this.getEntityBy(year);
-			if (dato == null) {
-				resp.setStatus(404);
-				resp.getWriter().close();
-			} else {
+		return ruta[ruta.length-1];
+	}
 
-				dato.setProperty("year", uni.getYear());
-				dato.setProperty("enrolled", uni.getEnrolled());
-				dato.setProperty("budget", uni.getBudget());
-				dato.setProperty("employability", uni.getEmployability());
-				dato.setProperty("studentMigrants", uni.getStudentMigrants());
+	private Long getAnioRuta(HttpServletRequest req){
+		return Long.parseLong(getUltimoParametro(req));
+	}
 
-				datastore.put(dato);
-			}
-		} else {
-			resp.setStatus(400);
-		}
+	private void send(HttpServletResponse resp, Object o) throws IOException{
+		resp.setContentType("application/json");
+		resp.getWriter().println(o);
+	}
+	private void close(HttpServletResponse resp) throws IOException{
+		resp.getWriter().close();
+	}
 
+	private void send404(HttpServletResponse resp) throws IOException{
+		resp.setStatus(404);
+		String mensaje="{\"error\": \"404 Not Found\"}";
+		send(resp,mensaje);
+	}
+
+	private void send400(HttpServletResponse resp) throws IOException{
+		resp.setStatus(400);
+		String mensaje="{\"error\": \"400 Bad Request\"}";
+		send(resp,mensaje);
+	}
+	
+	private void send409(HttpServletResponse resp) throws IOException{
+		resp.setStatus(409);
+		String mensaje="{\"error\": \"409 Conflict\"}";
+		send(resp,mensaje);
+	}
+	
+	private void send201(HttpServletResponse resp) throws IOException{
+		resp.setStatus(201);
+		String mensaje="{\"status\": \"201 Created\"}";
+		send(resp,mensaje);
+	}
+	private void send200(HttpServletResponse resp) throws IOException{
+		resp.setStatus(200);
+		String mensaje="{\"status\": \"20O OK\"}";
+		send(resp,mensaje);
+	}
+
+	private Boolean yaExiste(UniversitySeville uni){
+		return this.getUniversitySevilleBy(uni.year) != null;
+	}
+
+	private Entity build(UniversitySeville uni){
+		Entity empty = new Entity("UniversitySeville");
+		empty.setProperty("year", uni.getYear());
+		empty.setProperty("enrolled", uni.getEnrolled());
+		empty.setProperty("budget", uni.getBudget());
+		empty.setProperty("employability", uni.getEmployability());
+		empty.setProperty("studentMigrants",uni.getStudentMigrants());
+		return empty;
+	}
+	private void modify(UniversitySeville uni){
+		Entity dato = this.getEntityBy(uni.getYear());
+		dato.setProperty("year", uni.getYear());
+		dato.setProperty("enrolled", uni.getEnrolled());
+		dato.setProperty("budget", uni.getBudget());
+		dato.setProperty("employability", uni.getEmployability());
+		dato.setProperty("studentMigrants", uni.getStudentMigrants());
+		datastore.put(dato);
+		
 	}
 
 	private Key toKey(Entity from) {
 		return from.getKey();
 	}
 
-	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
-			throws IOException {
-		resp.setContentType("application/json");
-
-		String ruta[] = req.getRequestURI().split("/");
-		List<String> todo = getUniversitySeville();
+	private void deleteAll(){
+		Query q = new Query("UniversitySeville");
+		PreparedQuery p = datastore.prepare(q);
+		Iterable<Entity> entitis = p.asIterable();
 		List<Key> claves = new ArrayList<Key>();
-
-
-		
-		if (ruta.length == 4) {
-			Query q = new Query("UniversitySeville");
-			PreparedQuery p = datastore.prepare(q);
-			Iterable<Entity> entitis = p.asIterable();
-			for (Entity i : entitis) {
-				claves.add(toKey(i));
-			}
-			datastore.delete(claves);
-		} else {
-			Long year = Long.parseLong(ruta[ruta.length - 1]);
+		for (Entity i : entitis) {
+			claves.add(toKey(i));
+		}
+		datastore.delete(claves);
+	}
+	
+	private void deleteOne(HttpServletRequest req) {
+			Long year = getAnioRuta(req);
 			FilterPredicate predicate = new FilterPredicate("year",
 					Query.FilterOperator.EQUAL, year);
 			Query q = new Query("UniversitySeville").setFilter(predicate);
 			PreparedQuery p = datastore.prepare(q);
 			Entity entitis = p.asSingleEntity();
-			if (entitis == null) {
-				resp.setStatus(404);
+			datastore.delete(toKey(entitis));
+
+
+	}
+	//coge el json que le pasas y lo tranforma a un universitysevilla
+	private UniversitySeville getUniversityFromRequest(HttpServletRequest req){
+		try{
+			UniversitySeville uni=null;
+			Gson gson = new Gson();
+			StringBuilder sb = new StringBuilder();
+			BufferedReader br = req.getReader();
+			String jsonString;
+			while ((jsonString = br.readLine()) != null) {
+				sb.append(jsonString);
+		}
+			jsonString = sb.toString();			
+			uni = gson.fromJson(jsonString, UniversitySeville.class);
+			return uni;
+		}catch(Exception e){
+			return null;
+		}
+	}
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		if(esMalaPeticion(req)){
+			send400(resp);
+		}
+		else if (esPeticionGenerica(req)) {
+			
+			List<String> todo = getUniversitySeville();
+			send(resp,todo);			
+		}
+		else if(esPeticionEspecifica(req)){
+			Long year = getAnioRuta(req);
+			String uni = getUniversitySevilleBy(year);
+			if (uni == null) {
+				send404(resp);
 			} else {
-				datastore.delete(toKey(entitis));
+				
+				send(resp,uni);
 			}
 		}
-		resp.getWriter().close();
+		close(resp);
+
+	}
+
+
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		if(esMalaPeticion(req)){
+			send400(resp);
+		
+		}
+		else if (esPeticionGenerica(req)) {
+			UniversitySeville uni = getUniversityFromRequest(req);
+			if(uni == null){
+				send400(resp);
+			}else if(yaExiste(uni)){
+				send409(resp);
+			}else{
+				Entity university=build(uni);
+				datastore.put(university);
+				send201(resp);
+			}
+		}
+		else if(esPeticionEspecifica(req)){
+			send400(resp);
+		}
+
+		close(resp);
+	}
+
+	public void doPut(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		
+		if(esMalaPeticion(req)){
+			send400(resp);
+		
+		}
+		else if (esPeticionGenerica(req)) {
+			send400(resp);
+		}
+		else if(esPeticionEspecifica(req)){
+			UniversitySeville uni = getUniversityFromRequest(req);
+			
+			if(uni==null){
+				send400(resp);
+			}else if(!yaExiste(uni)){
+				send404(resp);
+			}else{
+				modify(uni);
+				send200(resp);
+			}
+		}
+		close(resp);
+
+	}
+
+	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
+
+		if(esMalaPeticion(req)){
+			send400(resp);
+		}
+		else if (esPeticionGenerica(req)) {
+			deleteAll();		
+		}
+		else if(esPeticionEspecifica(req)){
+			String uni = getUniversitySevilleBy(getAnioRuta(req));
+			if(uni == null) {
+				send404(resp);
+			}else{
+			    deleteOne(req);
+			}
+		
+		}
+	close(resp);
 	}
 
 }
