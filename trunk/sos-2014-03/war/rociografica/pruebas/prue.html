@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='http://fonts.googleapis.com/css?family=Sofadi+One' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../../../css/bootstrap.css">
+        <link rel="stylesheet" href="../../../css/main.css">
+
+		<script src="../../../js/jquery-1.11.0.js"></script>
+        <script src="https://www.google.com/jsapi"></script>
+       	<script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
+		<script src="d3-grafica.js"></script> 
+	    <script src="http://d3js.org/d3.v3.min.js"></script>
+   		
+   		
+    <style>
+    input{margin-bottom:10px;
+    	margin-left:5px;
+    	border-radius:2px;
+    	border:solid 1px
+    }
+    input:hover{
+    	border:solid 1px;
+    	border-color:blue;}
+    body {
+  		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  		width: 960px;
+  		height: 500px;
+  		position: relative;
+	}
+
+	path.slice{
+		stroke-width:2px;
+	}
+
+	polyline{
+		opacity: .3;
+		stroke: black;
+		stroke-width: 2px;
+		fill: none;
+	}
+    
+    </style>
+    
+    </head>
+    <body>
+        
+        <div class="container">
+
+            <header>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+                            <h1 class="texto tamtex1">Análisis, usando d3</h1>
+                            <h5 class="texto tamtex2">Grupo 3, SOS</h5>
+                        </div>
+                        <div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+                            <a href="http://piazza.com/us.es/spring2014/sos/"><img class="pequena" src="../../../img/piazza.png"></a>
+                            <a href="https://projetsii.informatica.us.es/"><img class="pequena" src="../../../img/projetsii.png"></a>
+                            <a href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img class="pequena" src="../../../img/Opera.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <nav class="navbar navbar-default">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Cambiar navegación</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="../../../index.html" class="navbar-brand">Inicio</a></div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../../../Graficos.html"></a></li>
+                            
+                            <li><a href="Acercade.html"></a></li>
+                        </ul>
+                    </div>
+            </nav>
+
+            <section>
+            <h1> Analisis de los diferentes atributos de la tabla</h1><br>
+			<select class='property' id='ppp'>
+				<option><button class="randomize">Seleccione una propiedad</button></option>
+				<option><button class="budget">budget</button></option>
+				<option><button class="employability">employability</button></option>
+				<option><button class="migrant">migrant</button></option>
+				<option><button class="enrolled">enrolled</button></option>
+			</select>	
+	
+            </section><br>
+            
+        </div>
+        
+        
+    
+
+
+       
+   		<script src="/../js/vendor/bootstrap.js"></script>    
+        <script src="/../js/plugins.js"></script>
+
+
+        
+    </body>
+</html>
+
+
+
