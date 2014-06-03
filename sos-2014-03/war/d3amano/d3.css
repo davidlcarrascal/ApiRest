@@ -1,0 +1,16 @@
+#started{
+	float: left;
+	margin-left: 2em;
+	margin-top: 10em;
+}
+#selection{
+	margin-top: 5em;
+	margin-left:2em;
+	position: absolute;
+}
+#start{
+	margin-left: 5em;
+}
+#select{
+	margin-left: 2em;
+}
