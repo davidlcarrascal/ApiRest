@@ -2,12 +2,12 @@ $(document).ready(function(){
 
 
 		var requestUS = $.ajax({
-			url: "/api/v2/universitySeville",
+			url: "/api/v3/universitySeville",
 			type: "GET",
 			dataType: "json"
 		});
 		var request = $.ajax({
-			url: "/api/v1/SpainStd/",
+			url: "/api/v2/SpainStd/",
 			type: "GET",
 			dataType: "json"
 		    
@@ -38,9 +38,14 @@ $(document).ready(function(){
 					}
 				}
 				
-				
+				if(dat.length==1){
+					$('#error').append("NO HAY AÑOS COMUNES - NO SE PUEDE REALIZAR LA GRAFICA - CONSULTE API");
+				}else{
+					$('#grafica_valida').append("<p>Esta gráfica analiza el presupuesto"+
+					"que tiene destinado la universidad de sevilla"+
+					"y el presupuesto que da España a la educación en los años comunes en ambas api.</p>");	
 				google.setOnLoadCallback(drawVisualization(dat));
-			
+				}
 			});
 		
 		});

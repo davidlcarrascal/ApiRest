@@ -1,13 +1,13 @@
 package sos.us.es;
 
-public class universitySeville {
+public class UniversitySeville {
 	Long year;
 	Long enrolled;
 	Long budget;
 	Long employability;
 	Long studentMigrants;
 	
-	public universitySeville(Long year, Long enrolled,Long budget, Long employability, Long studentMigrants) {
+	public UniversitySeville(Long year, Long enrolled,Long budget, Long employability, Long studentMigrants) {
 		
 		this.year = year;
 		this.enrolled = enrolled;
@@ -17,7 +17,7 @@ public class universitySeville {
 
 	}
 
-	public universitySeville(){
+	public UniversitySeville(){
 		super();
 	}
 
