@@ -17,65 +17,64 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	});
 </script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						function drawVisualization() {
-							// Create and populate the data table.
-							String
-							datosTabla = [];
-							request = $.ajax({
-								url : "/api/v1/Seville/",
-								type : "GET",
-								dataType : "json",
-								contentType : "application/json"
-							});
-							request.done(function(data, status, jqXHR) {
-								var fila = [];
-								var i= 0;
-								var
-								datosTabla = [['Year', 'Population', 'Unemployed', 'Education Budget', 'Migrants', 'PIB']];
-								$.each(data, function(indice, objeto) {
-									fila = [];
-									i++;
-									datosTabla[i] = [];
-									$.each(objeto, function(nombre, valor) {
-										if (valor == "year"){
-											fila.push(valor.toString());
-										}else{
-											fila.push(valor);
-										}
-									});
-									datosTabla[i] = fila;
-									
-								});
-								//alert(datosTabla);
-								//var data = google.visualization.arrayToDataTable(datosTabla);
-								// Create and draw the visualization.
-								new google.visualization.ColumnChart(document
-										.getElementById('visualization'))
-										.draw(google.visualization.arrayToDataTable(datosTabla),
-												{
-													title : "Yearly Coffee Consumption by Country",
-													width : 1000,
-													height : 800,
-													hAxis : {
-														title : "Year"
-													}
-												});
-							});
-
-							request.fail(function(jqXHR, status) {
-								
-								$("#resultado").text("");
-								$("#errores").text(
-										jqXHR.status + " " + jqXHR.statusText);
-							});
-							
-						}
-
-						google.setOnLoadCallback(drawVisualization);
+	$(document).ready(function() {//Cuando el html esté listo para funcionar
+				function drawVisualization() {
+					// Create and populate the data table.
+					String datosTabla = [];//Inicializo a vacío datosTabla
+					request = $.ajax({//Hago una petición ajax
+						url : "/api/v1/Seville/",//Accedo a mi api, ke es de donde voy a coger los datos
+						type : "GET", //Le indico ke es una peticion get
+						dataType : "json", //Los datos son en formato json
+						contentType : "application/json"
 					});
+					request.done(function(data, status, jqXHR) {//Cuando la petición ha sido satisfactoria
+						var fila = [];//Me creo una variable fila a vacío
+						var i = 0; //Una variable i a 0
+						var datosTabla = [ [ 'Year', 'Population',
+								'Unemployed', 'Education Budget', 'Migrants',
+								'PIB' ] ];// y datosTabla con los valores de las propiedades ke irán almacenadas en mi gráfica
+						$.each(data, function(indice, objeto) {//Me recorro data, ke es donde tengo almacenados todos los datos
+							fila = [];//vacio la fila para cuando entre de nuevo esté borrada la anterior, es decir, me va machacando el valor
+							i++;
+							datosTabla[i] = [];
+							$.each(objeto, function(nombre, valor) {//Me recorro el objeto, donde miro el nombre y el valor
+								if (valor == "year") {
+									fila.push(valor.toString());//????????????????????????????????????????????????????????????????
+								} else {
+									fila.push(valor);//???????????????????????????????????????????????????????????????????????????
+								}
+							});
+							datosTabla[i] = fila;//en la posicion i de datos tabla carga la fila ke tenga.
+
+						});
+						//alert(datosTabla);
+						//var data = google.visualization.arrayToDataTable(datosTabla);
+						// Create and draw the visualization.
+						new google.visualization.ColumnChart(document.getElementById('visualization')).draw(google.visualization
+								.arrayToDataTable(datosTabla), { //permite seleccionar un elemento del documento por medio del valor
+																//del atributo id que se le haya asignado, en este casdo id: visualization
+																//Luego le aplico a eso la funcion dibujar donde le paso datosTabla
+																//ke es donde tengo toda la información ya almacenada
+									title : "Seville statistics",//titulo estadisticas de sevilla
+									width : 1000,//ancho
+									height : 800,//alto
+									hAxis : {//en el eje x, título años.
+										title : "Year"
+									}
+								});
+					});
+
+					request.fail(function(jqXHR, status) {//En caso de ke la petición no haya sido satisfactoria
+
+						$("#resultado").text("");
+						$("#errores").text(
+								jqXHR.status + " " + jqXHR.statusText);
+					});
+
+				}
+
+				google.setOnLoadCallback(drawVisualization);//ke significa?????????????????????????????
+			});
 </script>
 </head>
 <body style="font-family: Arial; border: 0 none;">
