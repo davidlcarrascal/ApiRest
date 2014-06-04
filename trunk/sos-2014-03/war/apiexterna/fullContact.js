@@ -1,18 +1,17 @@
 $(document).ready(function() { //Cuando el html este listo para furular, entonces
 	$("#enviar").on('click', function() { //cuando haga click en el botón con id enviar, realizaré la siguiente función
 		var correo = $("#email").val().toString();//Ahora me creo la variable correo, dónde almacenaré el correo que he puesto en el input
-
 		var request = $.ajax({//Hago una petición ajax
 			url : "/api/v1/fullContact/" + correo,//accedo al servlet de la api externa. Yo he exo en el servlet ke cuando 
 			//le paso el correo en la url me lo meta en la url de la api externa: email=correo
 			type : "GET", //Le indico que es una petición get
-			dataType: "json", //los datos la api externa me los proporciona en formato json
+			dataType: "json", //los datos la api externa los quiero en formato json
 			contentType : "application/json"
 		});
 		request.done(function(data, status, jqXHR) {//Cuando la petición ha sido satisfactoria
 			$("#photos").html("");//Vacío los divs para que cuando haga otra petición, me vacíe los divs.
 			$("#socialProfiles").html("");//Vacío los divs para que cuando haga otra petición, me vacíe los divs.
-			var photos = data.photos;//El json ke me devuelve me kedo con la propiedad photo, ke es un array de arrays, 
+			var photos = data.photos;//El json ke me devuelve me kedo con la propiedad photo, ke es un array de elementos json, 
 			//donde en cada array tengo una photo con la red social...
 			var socialNetworks = data.socialProfiles;   //El json ke me devuelve me kedo con la propiedad social profile, 
 			//donde en cada array tengo las propiedades del usuario, como por ejemplo la foto del perfil... 

@@ -3,9 +3,8 @@ var stats,svg;
 $( document ).ready(function() {
 	
 $.ajax({
-	
-	  url: "/api/v1/Seville",
-	  context: document.body
+	 url: "/api/v1/Seville",
+	 context: document.body
 	  
 	}).done(function(data) {
 	  stats = data;
