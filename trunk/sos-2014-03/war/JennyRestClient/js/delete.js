@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#borrar").on("click", function(){
 			    request=$.ajax({
-                url: "../api/v1/Seville/" + $("#ano").val(),
+                url: "../api/v2/Seville/" + $("#ano").val(),
                 type: "DELETE",
                 contentType: "application/json"
             	});

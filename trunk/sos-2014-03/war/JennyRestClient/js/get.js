@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	$("#enviar").on("click", function(){
 		request=$.ajax({
-            url: "../api/v1/Seville/" + $("#ano").val(),
+            url: "../api/v2/Seville/" + $("#ano").val(),
             type: "GET",
             contentType: "application/json"
 		});
