@@ -43,7 +43,7 @@ $(document).ready(function(){
 				}else{
 					$('#grafica_valida').append("<p>Esta gráfica analiza el presupuesto"+
 					"que tiene destinado la universidad de sevilla"+
-					"y el presupuesto que da España a la educación en los años comunes en ambas api.</p>");	
+					" y el presupuesto que da España a la educación en los años comunes en ambas api.</p>");	
 				google.setOnLoadCallback(drawVisualization(dat));
 				}
 			});
@@ -52,27 +52,6 @@ $(document).ready(function(){
 		
 		
 
-	
-	
-	
-
-		
-
-				
-//if (year.length == 0){
-//			
-//			$('#error').append("NO HAY AÑOS COMUNES - NO SE PUEDE REALIZAR LA GRAFICA - CONSULTE API");
-//			var data=[['Year', 'Budget US', 'Budget Spain'],["-",0,0]];
-//			
-//			var char=google.visualization.arrayToDataTable(data);
-//			
-
-	
-	
-	
-	
-	
-	
 	
 	
 	function drawVisualization(data) {

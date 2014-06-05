@@ -37,6 +37,7 @@ $(document).ready(function(){
     
 	$(".btn-get").on('click',function(){
 		var url="/api/v3/universitySeville";
+		
 		if($("#year_get").val() != null){
 			url+="/"+$("#year_get").val();
 		}
