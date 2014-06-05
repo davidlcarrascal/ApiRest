@@ -12,7 +12,7 @@ $(document).ready(function(){
   });
 
   var request3 = $.ajax({
-      url:    "/api/v1/Seville",
+      url:    "/api/v2/Seville",
       type:   'GET',
       dataType: 'json' 
   });
