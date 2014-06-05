@@ -50,9 +50,8 @@ public class RocioServelt extends HttpServlet {
 		Entity us = p.asSingleEntity();
 		return us;
 	}
-// hace un filtro por anio
-//query crea una consulta
-//prepara
+
+
 	
 	private String getUniversitySevilleBy(Long year) {
 		FilterPredicate predicate = new FilterPredicate("year", Query.FilterOperator.EQUAL, year);
@@ -121,35 +120,6 @@ public class RocioServelt extends HttpServlet {
 		resp.getWriter().close();
 	}
 
-	private void send404(HttpServletResponse resp) throws IOException{
-		resp.setStatus(404);
-		String mensaje="{\"error\": \"404 Not Found\"}";
-		send(resp,mensaje);
-	}
-
-	private void send400(HttpServletResponse resp) throws IOException{
-		resp.setStatus(400);
-		String mensaje="{\"error\": \"400 Bad Request\"}";
-		send(resp,mensaje);
-	}
-	
-	private void send409(HttpServletResponse resp) throws IOException{
-		resp.setStatus(409);
-		String mensaje="{\"error\": \"409 Conflict\"}";
-		send(resp,mensaje);
-	}
-	
-	private void send201(HttpServletResponse resp) throws IOException{
-		resp.setStatus(201);
-		String mensaje="{\"status\": \"201 Created\"}";
-		send(resp,mensaje);
-	}
-	private void send200(HttpServletResponse resp) throws IOException{
-		resp.setStatus(200);
-		String mensaje="{\"status\": \"20O OK\"}";
-		send(resp,mensaje);
-	}
-
 	private Boolean yaExiste(UniversitySeville uni){
 		return this.getUniversitySevilleBy(uni.year) != null;
 	}
@@ -200,7 +170,6 @@ public class RocioServelt extends HttpServlet {
 
 
 	}
-	//coge el json que le pasas y lo tranforma a un universitysevilla
 	private UniversitySeville getUniversityFromRequest(HttpServletRequest req){
 		try{
 			UniversitySeville uni=null;
@@ -223,7 +192,7 @@ public class RocioServelt extends HttpServlet {
 			throws IOException {
 
 		if(esMalaPeticion(req)){
-			send400(resp);
+			resp.setStatus(400);
 		}
 		else if (esPeticionGenerica(req)) {
 			
@@ -234,9 +203,8 @@ public class RocioServelt extends HttpServlet {
 			Long year = getAnioRuta(req);
 			String uni = getUniversitySevilleBy(year);
 			if (uni == null) {
-				send404(resp);
+				resp.setStatus(404);
 			} else {
-				
 				send(resp,uni);
 			}
 		}
@@ -249,23 +217,23 @@ public class RocioServelt extends HttpServlet {
 			throws IOException {
 
 		if(esMalaPeticion(req)){
-			send400(resp);
+			resp.setStatus(400);
 		
 		}
 		else if (esPeticionGenerica(req)) {
 			UniversitySeville uni = getUniversityFromRequest(req);
 			if(uni == null){
-				send400(resp);
+				resp.setStatus(400);
 			}else if(yaExiste(uni)){
-				send409(resp);
+				resp.setStatus(409);
 			}else{
 				Entity university=build(uni);
 				datastore.put(university);
-				send201(resp);
+				resp.setStatus(201);
 			}
 		}
 		else if(esPeticionEspecifica(req)){
-			send400(resp);
+			resp.setStatus(400);
 		}
 
 		close(resp);
@@ -276,22 +244,21 @@ public class RocioServelt extends HttpServlet {
 
 		
 		if(esMalaPeticion(req)){
-			send400(resp);
-		
+			resp.setStatus(400);
 		}
 		else if (esPeticionGenerica(req)) {
-			send400(resp);
+			resp.setStatus(400);
 		}
 		else if(esPeticionEspecifica(req)){
 			UniversitySeville uni = getUniversityFromRequest(req);
 			
 			if(uni==null){
-				send400(resp);
+				resp.setStatus(400);
 			}else if(!yaExiste(uni)){
-				send404(resp);
+				resp.setStatus(404);
 			}else{
 				modify(uni);
-				send200(resp);
+				resp.setStatus(200);
 			}
 		}
 		close(resp);
@@ -302,7 +269,7 @@ public class RocioServelt extends HttpServlet {
 			throws IOException {
 
 		if(esMalaPeticion(req)){
-			send400(resp);
+			resp.setStatus(400);
 		}
 		else if (esPeticionGenerica(req)) {
 			deleteAll();		
@@ -310,7 +277,7 @@ public class RocioServelt extends HttpServlet {
 		else if(esPeticionEspecifica(req)){
 			String uni = getUniversitySevilleBy(getAnioRuta(req));
 			if(uni == null) {
-				send404(resp);
+				resp.setStatus(404);
 			}else{
 			    deleteOne(req);
 			}

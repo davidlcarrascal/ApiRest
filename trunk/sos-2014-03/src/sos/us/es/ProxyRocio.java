@@ -54,13 +54,10 @@ public class ProxyRocio extends HttpServlet {
 				String nlat=null;
 				try {
 					jsonObj = new JSONObject(datos);
-					
-					System.out.println("datos = " + datos);
-					System.out.println("jsonObj" + jsonObj);
+				
 					
 					JSONArray arrayresult=jsonObj.getJSONArray("results");
-					System.out.println(arrayresult);
-					
+
 					jsonObj=(JSONObject)(arrayresult.get(0));
 					jsonObj=(JSONObject)(jsonObj.get("geometry"));
 					jsonObj=(JSONObject)(jsonObj.get("bounds"));

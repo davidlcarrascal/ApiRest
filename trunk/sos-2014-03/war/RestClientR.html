@@ -14,11 +14,14 @@
         <link rel="stylesheet" href="../../../css/main.css">
 
 		<script src="../../../js/jquery-1.11.0.js"></script>
-        <script src="https://www.google.com/jsapi"></script>
-       	<script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
+		<script src="../../../js/RocioJS2.js"></script> 
+       <script src="https://www.google.com/jsapi"></script>
 
-   		<script src="apipano.js"></script>
-   		
+      
+
+       <script src="../../../js/vendor/modernizr-2.6.2.min.js"></script>
+
+    
     <style>
     input{margin-bottom:10px;
     margin-left:5px;
@@ -39,7 +42,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-                            <h1 class="texto tamtex1">Api Externa Panoramio</h1>
+                            <h1 class="texto tamtex1">Api Rest</h1>
                             <h5 class="texto tamtex2">Grupo 3, SOS</h5>
                         </div>
                         <div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
@@ -60,22 +63,75 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="../../../index.html" class="navbar-brand">Inicio</a></div>
-                    
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="../../../Graficos.html"></a></li>
+                            
+                            <li><a href="Acercade.html"></a></li>
+                        </ul>
+                    </div>
             </nav>
 
             <section>
-            <h1> Fotos panoramio - API externa</h1><br>
-			<br>
-			Intruduzca una provincia: <input id='city' type='text'><br>
-			<button class='enviarCity'>Enviar</button>  <br><br>
-			
-			
-			
-			<span id="fotos"></span>
-	
+            <form>
+                Insertar <input name="radio" checked='selected' type= "radio" id= "insertar">
+                Modificar <input name="radio" type="radio" id = "modificar">
+                Consultar <input name="radio" type= "radio" id = "consultar"> 
+                Elminar<input name="radio" type= "radio" id="eliminar">
+           </form>     
+                <div class='insert_form'>
+                Year<input class="input-form" id='year_post'  type='number' ><br>
+                Enrolled<input class="input-form" id='enrolled_post'  type='number' ><br>
+                Budget<input class="input-form" id='budget_post' type='number' ><br>
+                Employability<input class="input-form" id='employability_post' type='number' ><br>
+                Students migrants<input class="input-form" id='student_post' type='number'><br>
+                <button class='btn-post btn btn-success'>Aceptar</button>                                
+                
+                </div>
+                <div class='modify_form'>
+                Year<input class="input-form" id='year_put' type='number'><br>
+                Enrolled<input class="input-form" id='enrolled_put' type='number'><br>
+                Budget<input class="input-form" id='budget_put' type='number'><br>
+                Employability<input class="input-form" id='employability_put' type='number'><br>
+                Students migrants<input class="input-form" id='student_put' type='number'><br>
+                <button class='btn-put btn btn-warning'>Aceptar</button>                        
+                </div>
+                <div class='getter_form'>
+                (Fechas no válidas serán interpretadas como peticiones genéricas)<br>
+                Year<input id='year_get' type='number'><br> 
+                <button class='btn-get btn btn-primary'>Aceptar</button> 
+                <br><a href="../../../rociografica/d3rocio.html">Acceder a la representación gráfica</a>
+                </div>
+                <div class='delete_form'>
+                (Fechas no válidas serán interpretadas como peticiones genéricas)<br>
+                Year<input id='year_delete' type='number'><br> 
+                <button class='btn-delete btn btn-danger'>Aceptar</button> 
+                </div>
+                
+                
+            <div id="data">
+            </div>    
+            
+            
+            <div id="graficagoogle">
+            </div>
             </section><br>
             
         </div>
+        
+       
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         <footer>
@@ -95,14 +151,8 @@
         <script>window.jQuery || document.write('<script src="../../../js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
    <script src="../../../js/vendor/bootstrap.js"></script>    
         <script src="../../../js/plugins.js"></script>
-
+  <!--     <script src="../../../js/main.js"></script> -->  
 
         
     </body>
 </html>
-
-
-
-
-
-
