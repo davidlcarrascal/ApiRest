@@ -48,19 +48,17 @@ $(document).ready(function(){
 				}
 			});
 		
-		});
-		
-		
-
-	
-	
+		});				
+//if (year.length == 0){
+//			
+//			$('#error').append("NO HAY AÑOS COMUNES - NO SE PUEDE REALIZAR LA GRAFICA - CONSULTE API");
+//			var data=[['Year', 'Budget US', 'Budget Spain'],["-",0,0]];
+//			
+//			var char=google.visualization.arrayToDataTable(data);
+//
 	function drawVisualization(data) {
 
 		var char=google.visualization.arrayToDataTable(data);
-		
-		
-		
-
       
         // Create and draw the visualization.
     new google.visualization.BarChart(document.getElementById('visualization')).
