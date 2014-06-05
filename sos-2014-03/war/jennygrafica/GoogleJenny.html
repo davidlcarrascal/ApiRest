@@ -43,11 +43,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 							i++;
 							datosTabla[i] = [];
 							$.each(objeto, function(nombre, valor) {
-								if (valor == "year") {
-									fila.push(valor.toString());
-								} else {
-									fila.push(valor);
-								}
+								fila.push(valor);
 							});
 							datosTabla[i] = fila;
 
@@ -85,34 +81,34 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 	<div class="container">
 
 		<header>
-		<div class="container">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
-					<h1 class="texto tamtex1">Visualizacion Google Jenny</h1>
-					<h5 class="texto tamtex2">Grupo 3, SOS</h5>
-				</div>
-				<div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
-					<a href="http://piazza.com/us.es/spring2014/sos/"><img
-						class="pequena" src="../../../img/piazza.png"></a> <a
-						href="https://projetsii.informatica.us.es/"><img
-						class="pequena" src="../../../img/projetsii.png"></a> <a
-						href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img
-						class="pequena" src="../../../img/Opera.png"></a>
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">
+						<h1 class="texto tamtex1">Visualizacion Google Jenny</h1>
+						<h5 class="texto tamtex2">Grupo 3, SOS</h5>
+					</div>
+					<div class="hidden-xs col-sm-6 col-md-4 col-lg-4 centrar1">
+						<a href="http://piazza.com/us.es/spring2014/sos/"><img
+							class="pequena" src="../../../img/piazza.png"></a> <a
+							href="https://projetsii.informatica.us.es/"><img
+							class="pequena" src="../../../img/projetsii.png"></a> <a
+							href="https://opera-portal.us.es/sos/public/default/grupo/ver/id/26"><img
+							class="pequena" src="../../../img/Opera.png"></a>
+					</div>
 				</div>
 			</div>
-		</div>
 		</header>
 
 		<nav class="navbar navbar-default">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-ex1-collapse">
-				<span class="sr-only">Cambiar navegación</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a href="../../../index.html" class="navbar-brand">Inicio</a>
-		</div>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Cambiar navegación</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a href="../../../index.html" class="navbar-brand">Inicio</a>
+			</div>
 
 		</nav>
 		<div id="visualization" style="width: 50ex;"></div>
@@ -125,7 +121,7 @@ Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
 
 				</div>
 			</div>
-			</footer>
+		</footer>
 	</div>
 </body>
 </html>
